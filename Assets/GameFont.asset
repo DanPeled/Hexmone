@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: GameFont
   m_EditorClassIdentifier: 
-  hashCode: -13591420
+  hashCode: -1040856035
   material: {fileID: 6482038550029903878}
-  materialHashCode: 750987428
+  materialHashCode: -1797523555
   m_Version: 1.1.0
   m_SourceFontFileGUID: 5d5ca8c360c4c3440a287b9b44579b83
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 5d5ca8c360c4c3440a287b9b44579b83, type: 3}
@@ -2627,7 +2627,7 @@ Material:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
+    - _GlowColor: {r: 0, g: 0, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}

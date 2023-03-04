@@ -41,6 +41,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (active)
+        {
+            TV();
+        }
         this.roomSys.levelLoader = GameObject
             .FindGameObjectWithTag("LevelLoader")
             .GetComponent<LevelLoader>();
@@ -103,6 +107,7 @@ public class Player : MonoBehaviour
         }
         body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
     }
+    bool active = false;
 
     #region Collision
     void OnCollisionStay2D(Collision2D other)
@@ -119,23 +124,28 @@ public class Player : MonoBehaviour
                 }
                 break;
             case "TV":
-                if (lastRoutine != null)
+                if (Input.GetButton("Action") || active)
                 {
-                    StopCoroutine(lastRoutine);
-                }
-                if (Input.GetButton("Action"))
-                {
-                    string timeOnly = DateTime.Now.ToString("h:mm:ss tt");
-                    lastRoutine = StartCoroutine(notify($"{timeOnly}"));
+                    TV();
                 }
                 break;
         }
     }
-
+    public void TV()
+    {
+        active = true;
+        if (lastRoutine != null)
+        {
+            StopCoroutine(lastRoutine);
+        }
+        string timeOnly = DateTime.Now.ToString("h:mm:ss tt");
+        lastRoutine = StartCoroutine(notify($"{timeOnly}"));
+    }
     void OnCollisionExit2D(Collision2D other)
     {
         if (lastRoutine != null)
             StopCoroutine(lastRoutine);
+        active = false;
         lastRoutine = StartCoroutine(removeNotification());
     }
 
@@ -172,6 +182,15 @@ public class Player : MonoBehaviour
                 other.gameObject.tag == "LongGrass" && (horizontal != 0 || vertical != 0)
             )
         );
+        switch (other.gameObject.tag)
+        {
+            case "TV":
+                if (Input.GetButton("Action") || active)
+                {
+                    TV();
+                }
+                break;
+        }
     }
 
     public IEnumerator CheckForEncounters(bool touchingLongGrass)
