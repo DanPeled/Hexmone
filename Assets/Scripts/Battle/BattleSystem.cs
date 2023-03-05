@@ -97,8 +97,9 @@ public class BattleSystem : MonoBehaviour
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
     {
         move.PP--;
+        string usedText = sourceUnit.isPlayerUnit ? "" : "Enemy";
         yield return dialogBox.TypeDialog(
-            $"{sourceUnit.creature._base.creatureName} Used {move.base_.moveName}",
+            $"{usedText} {sourceUnit.creature._base.creatureName} Used {move.base_.moveName}",
             dialogBox.dialogText
         );
         sourceUnit.PlayAttackAnimation();
@@ -309,7 +310,7 @@ public class BattleSystem : MonoBehaviour
             dialogBox.ToggleDialogText(true);
             dialogBox.ToggleActionSelector(true);
             battleState = BattleState.PlayerAction;
-            PlayerAction();
+            StartCoroutine(PlayerAction());
         }
     }
 

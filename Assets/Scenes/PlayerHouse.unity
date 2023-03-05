@@ -2636,7 +2636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2847b83da24c4f042b1fc53860611fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 912127071}
+  health: {fileID: 0}
 --- !u!114 &146289221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13624,7 +13624,7 @@ MonoBehaviour:
   creatures:
   - _base: {fileID: 11400000, guid: 6defed5cf0ce79b4d8521edd3d2195fe, type: 2}
     level: 1
-    HP: 7
+    HP: 100
   - _base: {fileID: 11400000, guid: 6defed5cf0ce79b4d8521edd3d2195fe, type: 2}
     level: 2
     HP: 7
@@ -14364,7 +14364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2847b83da24c4f042b1fc53860611fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 471006150}
+  health: {fileID: 0}
 --- !u!1 &1507532350
 GameObject:
   m_ObjectHideFlags: 0

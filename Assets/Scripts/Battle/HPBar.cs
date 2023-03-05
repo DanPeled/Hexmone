@@ -7,12 +7,14 @@ public class HPBar : MonoBehaviour
 
     public void SetHP(float hp)
     {
+        hp = CalculateHPRatio(hp);
         this.health = transform.GetChild(1).gameObject;
         health.transform.localScale = new Vector3(hp, 1f);
     }
 
     public IEnumerator SetHPSmooth(float newHP)
     {
+        newHP = CalculateHPRatio(newHP);
         this.health = transform.GetChild(1).gameObject;
         float curHP = health.transform.localScale.x;
         float maxHP = 220f; // maximum HP value
@@ -30,5 +32,9 @@ public class HPBar : MonoBehaviour
             yield return null;
         }
         health.transform.localScale = new Vector3(newHP, 1f);
+    }
+    public float CalculateHPRatio(float hp)
+    {
+        return Mathf.Clamp((hp / 100) / 0.06f, 0, 1);
     }
 }

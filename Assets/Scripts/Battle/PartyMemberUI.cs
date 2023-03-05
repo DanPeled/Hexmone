@@ -16,8 +16,8 @@ public class PartyMemberUI : MonoBehaviour
         nameText.text = creature._base.creatureName;
         lvlText.text = $"Lvl {creature.level}";
 
-        hPBar.SetHP((float)creature.HP / creature.maxHealth);
-        StartCoroutine(hPBar.SetHPSmooth((float)_creature.HP / _creature.maxHealth));
+        hPBar.SetHP((float)creature.HP);
+        StartCoroutine(hPBar.SetHPSmooth((float)_creature.HP));
     }
 
     public void SetSelected(bool selected)

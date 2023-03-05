@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 518a5f20f0acf054194f0c22ef17edc5, type: 3}
-  m_Name: Tackle 1
+  m_Name: Star Platinum
   m_EditorClassIdentifier: 
   moveName: Star Platinum
   description: "\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7"

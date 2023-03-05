@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureName: Blurb
   description: 
-  maxHealth: 7
+  maxHealth: 100
   type1: 1
   type2: 1
   damage: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
   speed: 0
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
-    level: 0
+    level: 2
   - moveBase: {fileID: 11400000, guid: a8e4d86b39f75c049b21265c6066625f, type: 2}
     level: 0
   - moveBase: {fileID: 11400000, guid: 4753bc776d4affb4b85f46b4f4b66f9f, type: 2}

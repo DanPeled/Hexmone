@@ -15,12 +15,12 @@ public class BattleHud : MonoBehaviour
         nameText.text = creature._base.creatureName;
         lvlText.text = $"Lvl {creature.level}";
 
-        hPBar.SetHP((float)creature.HP / creature.maxHealth);
+        hPBar.SetHP((float)creature.HP);
         StartCoroutine(UpdateHP());
     }
 
     public IEnumerator UpdateHP()
     {
-        yield return hPBar.SetHPSmooth((float)_creature.HP / _creature.maxHealth);
+        yield return hPBar.SetHPSmooth((float)_creature.HP);
     }
 }
