@@ -43,7 +43,7 @@ public class Creature
         stats.Add(Stat.SpDefense, Mathf.FloorToInt((this._base.spDefense * level) / 100f) + 5);
         stats.Add(Stat.Speed, Mathf.FloorToInt((this._base.speed * level) / 100f) + 5);
 
-        this.maxHealth = Mathf.FloorToInt((this._base.maxHealth * level) / 100f + 5);
+        this.maxHealth = Mathf.FloorToInt((this._base.maxHealth * level) / 100f + 10);
     }
     void ResetStatBoost()
     {
@@ -148,7 +148,8 @@ public class Creature
     {
         return moves[Random.Range(0, moves.Count)];
     }
-    public void OnBattleOver(){
+    public void OnBattleOver()
+    {
         ResetStatBoost();
     }
 }
