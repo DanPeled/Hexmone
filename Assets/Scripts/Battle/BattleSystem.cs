@@ -49,12 +49,25 @@ public class BattleSystem : MonoBehaviour
             dialogBox.dialogText
         );
 
-        StartCoroutine(PlayerAction());
+        ChooseFirstTurn();
+
+    }
+    void ChooseFirstTurn()
+    {
+        if (playerUnit.creature.Speed >= enemyUnit.creature.Speed)
+        {
+            StartCoroutine(PlayerAction());
+        }
+        else
+        {
+            StartCoroutine(PerformEnemyMove());
+        }
     }
 
     void BattleOver(bool won)
     {
         battleState = BattleState.BattleOver;
+        playerParty.creatures.ForEach(p => p.OnBattleOver());
         StartCoroutine(OnBattleOver(won));
     }
 
@@ -91,7 +104,10 @@ public class BattleSystem : MonoBehaviour
         yield return RunMove(playerUnit, enemyUnit, move);
 
         // If the battle stat was not changed by RunMove, then go to next step
-        StartCoroutine(PerformEnemyMove());
+        if (battleState != BattleState.BattleOver)
+        {
+            StartCoroutine(PerformEnemyMove());
+        }
     }
 
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
@@ -108,17 +124,7 @@ public class BattleSystem : MonoBehaviour
 
         if (move.base_.category == MoveCategory.Status)
         {
-            if (move.base_.effects.boosts != null)
-            {
-                if (move.base_.target == MoveTarget.Self)
-                {
-                    sourceUnit.creature.ApplyBoosts(move.base_.effects.boosts);
-                }
-                else
-                {
-                    targetUnit.creature.ApplyBoosts(move.base_.effects.boosts);
-                }
-            }
+            yield return RunMoveEffects(move, sourceUnit.creature, targetUnit.creature);
         }
         else
         {
@@ -149,19 +155,44 @@ public class BattleSystem : MonoBehaviour
             CheckForBattleOver(targetUnit);
         }
     }
+    IEnumerator RunMoveEffects(Move move, Creature source, Creature target)
+    {
+        if (move.base_.effects.boosts != null)
+        {
+            if (move.base_.target == MoveTarget.Self)
+            {
+                source.ApplyBoosts(move.base_.effects.boosts);
+            }
+            else
+            {
+                target.ApplyBoosts(move.base_.effects.boosts);
+            }
+        }
+        yield return ShowStatusChanges(source);
+        yield return ShowStatusChanges(target);
+    }
+    IEnumerator ShowStatusChanges(Creature creature)
+    {
+        while (creature.statusChanges.Count > 0)
+        {
+            var message = creature.statusChanges.Dequeue();
+            yield return dialogBox.TypeDialog(message, dialogBox.dialogText);
+        }
+    }
 
     IEnumerator OnBattleOver(bool won)
     {
         if (won)
         {
-            dialogBox.dialogText.text = "You Have Won The Battle!";
+            yield return dialogBox.TypeDialog("You Have Won The Battle!", dialogBox.dialogText);
         }
         else
         {
-            dialogBox.dialogText.text = "You Have Lost The Battle!";
+            yield return dialogBox.TypeDialog("You Have Lost The Battle!", dialogBox.dialogText);
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1f);
         GameObject.FindObjectOfType<Player>().playerActive = true;
+        GameObject.FindObjectOfType<Player>().SwitchCamera(0);
         StopCoroutine(SetupBattle());
         gameObject.SetActive(false);
     }
@@ -376,8 +407,10 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SwitchCreature(Creature newCreature)
     {
+        bool currentCreatureFainted = true;
         if (playerUnit.creature.HP > 0)
         {
+            currentCreatureFainted = false;
             yield return dialogBox.TypeDialog(
                 $"Come back {playerUnit.creature._base.creatureName}",
                 dialogBox.dialogText
@@ -385,16 +418,22 @@ public class BattleSystem : MonoBehaviour
             playerUnit.PlayFaintAnimation();
             yield return new WaitForSeconds(2f);
         }
+
         playerUnit.Setup(newCreature);
 
         dialogBox.SetMoveNames(newCreature.moves);
-
         yield return dialogBox.TypeDialog(
             $"Go {newCreature._base.creatureName}!",
             dialogBox.dialogText
         );
         playerUnit.image.color = playerUnit.originalColor;
-
-        StartCoroutine(PerformEnemyMove());
+        if (currentCreatureFainted)
+        {
+            ChooseFirstTurn();
+        }
+        else
+        {
+            StartCoroutine(PerformEnemyMove());
+        }
     }
 }

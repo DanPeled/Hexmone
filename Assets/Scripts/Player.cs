@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using System.Linq.Expressions;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class Player : MonoBehaviour
 {
     Rigidbody2D body;
     public Camera mainCam;
-    public Camera[] cameras;
+    public List<Camera> cameras;
     float horizontal;
     float vertical;
     float moveLimiter = 0.7f;
@@ -207,8 +208,19 @@ public class Player : MonoBehaviour
                 yield return new WaitForSeconds(1);
                 playerActive = false;
                 battleSystem.SetActive(true);
+                SwitchCamera(cameras[1]);
                 gameController.StartBattle();
             }
         }
+    }
+    public void SwitchCamera(Camera targetCam)
+    {
+        cameras.ForEach(c => c.gameObject.SetActive(false));
+        targetCam.gameObject.SetActive(true);
+    }
+    public void SwitchCamera(int camIndex)
+    {
+        cameras.ForEach(c => c.gameObject.SetActive(false));
+        cameras[camIndex].gameObject.SetActive(true);
     }
 }

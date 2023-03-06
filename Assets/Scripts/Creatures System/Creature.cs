@@ -11,6 +11,7 @@ public class Creature
     public List<Move> moves = new List<Move>();
     public Dictionary<Stat, int> stats;
     public Dictionary<Stat, int> statBoosts;
+    public Queue<string> statusChanges = new Queue<string>();
 
     public void Init()
     {
@@ -28,14 +29,9 @@ public class Creature
         }
         CalculateStats();
         this.HP = this.maxHealth;
-        this.statBoosts = new Dictionary<Stat, int>()
-        {
-            { Stat.Attack, 0 },
-            { Stat.Defense, 0 },
-            { Stat.SpAttack, 0 },
-            { Stat.SpDefense, 0 },
-            { Stat.Speed, 0 }
-        };
+
+        ResetStatBoost();
+
     }
 
     public void CalculateStats()
@@ -49,7 +45,17 @@ public class Creature
 
         this.maxHealth = Mathf.FloorToInt((this._base.maxHealth * level) / 100f + 5);
     }
-
+    void ResetStatBoost()
+    {
+        this.statBoosts = new Dictionary<Stat, int>()
+        {
+            { Stat.Attack, 0 },
+            { Stat.Defense, 0 },
+            { Stat.SpAttack, 0 },
+            { Stat.SpDefense, 0 },
+            { Stat.Speed, 0 }
+        };
+    }
     public int GetStat(Stat stat)
     {
         int statVal = stats[stat];
@@ -78,6 +84,9 @@ public class Creature
             var boost = statBoost.boost;
 
             this.statBoosts[stat] = Mathf.Clamp(this.statBoosts[stat] + boost, -6, 6);
+            string change = boost > 0 ? "rose" : "fell";
+
+            statusChanges.Enqueue($"{_base.creatureName}'s {stat} {change}!");
 
             Debug.Log($"{stat} Has been boosted to {this.statBoosts[stat]}");
         }
@@ -138,6 +147,9 @@ public class Creature
     public Move GetRandomMove()
     {
         return moves[Random.Range(0, moves.Count)];
+    }
+    public void OnBattleOver(){
+        ResetStatBoost();
     }
 }
 
