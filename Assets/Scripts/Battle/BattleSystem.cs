@@ -28,6 +28,7 @@ public class BattleSystem : MonoBehaviour
     bool actionPossible = false;
     CreaturesParty playerParty;
     Creature wildCreature;
+    Toggle up = new Toggle(), down = new Toggle(), left = new Toggle(), right = new Toggle();
 
     public void StartBattle(CreaturesParty creaturesParty, Creature wildCreature)
     {
@@ -112,6 +113,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
     {
+        int hp = targetUnit.creature.HP;
         move.PP--;
         string usedText = sourceUnit.isPlayerUnit ? "" : "Enemy";
         yield return dialogBox.TypeDialog(
@@ -129,8 +131,13 @@ public class BattleSystem : MonoBehaviour
         else
         {
             var damageDetails = targetUnit.creature.TakeDamage(move, sourceUnit.creature);
-            yield return targetUnit.hud.UpdateHP();
             yield return ShowDamageDetails(damageDetails);
+            StartCoroutine(targetUnit.hud.UpdateHP());
+            playerUnit.hud.UpdateHP();
+        }
+        if (hp == targetUnit.creature.HP)
+        {
+            yield return dialogBox.TypeDialog("But missed!", dialogBox.dialogText);
         }
         if (targetUnit.creature.HP <= 0)
         {
@@ -257,6 +264,10 @@ public class BattleSystem : MonoBehaviour
                 HandlePartySelection();
                 break;
         }
+        up.update(Input.GetAxis("Vertical") == 1);
+        down.update(Input.GetAxis("Vertical") == -1f);
+        left.update(Input.GetAxis("Horizontal") == -1f);
+        right.update(Input.GetAxis("Horizontal") == 1f);
     }
 
     public void HandleActionSelection()
@@ -264,19 +275,19 @@ public class BattleSystem : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (right.isClicked())
         {
             currentAction++;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (left.isClicked())
         {
             currentAction--;
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (down.isClicked())
         {
             currentAction += 2;
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (up.isClicked())
         {
             currentAction -= 2;
         }
@@ -310,19 +321,19 @@ public class BattleSystem : MonoBehaviour
 
     void HandleMoveSelection()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (right.isClicked())
         {
             currentMove++;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (left.isClicked())
         {
             currentMove--;
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (down.isClicked())
         {
             currentMove += 2;
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (up.isClicked())
         {
             currentMove -= 2;
         }
@@ -357,19 +368,19 @@ public class BattleSystem : MonoBehaviour
     public void HandlePartySelection()
     {
         dialogBox.ToggleActionSelector(false);
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (right.isClicked())
         {
             currentMember++;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (left.isClicked())
         {
             currentMember--;
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (down.isClicked())
         {
             currentMember += 2;
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (up.isClicked())
         {
             currentMember -= 2;
         }

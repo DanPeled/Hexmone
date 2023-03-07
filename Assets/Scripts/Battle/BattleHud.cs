@@ -11,6 +11,7 @@ public class BattleHud : MonoBehaviour
 
     public void SetData(Creature creature)
     {
+
         this._creature = creature;
         nameText.text = creature._base.creatureName;
         lvlText.text = $"Lvl {creature.level}";

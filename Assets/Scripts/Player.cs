@@ -39,7 +39,6 @@ public class Player : MonoBehaviour
             .FindGameObjectWithTag("LevelLoader")
             .GetComponent<LevelLoader>();
     }
-
     void Update()
     {
         if (active)
