@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     public GameObject notificationBar,
         battleSystem;
     string notification;
+    bool colldingDoor;
+    Door doorObject;
     Coroutine lastRoutine = null;
     public bool playerActive = true;
     public GameController gameController;
@@ -41,6 +43,10 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        if (colldingDoor && Input.GetButton("Action"))
+        {
+            Door(doorObject.gameObject);
+        }
         if (active)
         {
             TV();
@@ -114,15 +120,6 @@ public class Player : MonoBehaviour
     {
         switch (other.gameObject.tag)
         {
-            case "Door":
-                if (Input.GetButtonDown("Action"))
-                {
-                    roomSys.ChangeRoom(
-                        other.gameObject.GetComponent<Door>().targetRoom,
-                        this.gameObject
-                    );
-                }
-                break;
             case "TV":
                 if (Input.GetButton("Action") || active)
                 {
@@ -130,6 +127,13 @@ public class Player : MonoBehaviour
                 }
                 break;
         }
+    }
+    public void Door(GameObject other)
+    {
+        roomSys.ChangeRoom(
+            other.GetComponent<Door>().targetRoom,
+            this.gameObject
+        );
     }
     public void TV()
     {
@@ -174,7 +178,21 @@ public class Player : MonoBehaviour
     {
         battleSystem.SetActive(true);
     }
-
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Door")
+        {
+            this.colldingDoor = true;
+            this.doorObject = other.GetComponent<Door>();
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Door")
+        {
+            this.colldingDoor = false;
+        }
+    }
     public void OnTriggerStay2D(Collider2D other)
     {
         StartCoroutine(
@@ -184,6 +202,12 @@ public class Player : MonoBehaviour
         );
         switch (other.gameObject.tag)
         {
+            case "Door":
+                if (Input.GetButtonDown("Action"))
+                {
+                    Door(other.gameObject);
+                }
+                break;
             case "TV":
                 if (Input.GetButton("Action") || active)
                 {
