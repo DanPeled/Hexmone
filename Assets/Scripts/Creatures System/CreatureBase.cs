@@ -41,6 +41,8 @@ public enum CreatureType
     Bug,
     Grass,
     Dragon,
+    Electric,
+    Poison,
     Diffrent
 }
 

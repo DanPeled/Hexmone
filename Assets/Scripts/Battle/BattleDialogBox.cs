@@ -21,6 +21,7 @@ public class BattleDialogBox : MonoBehaviour
 
     public void SetDialog(string dialog)
     {
+        dialogText.text = "";
         dialogText.text = dialog;
     }
 

@@ -22,6 +22,10 @@ public class BattleHud : MonoBehaviour
 
     public IEnumerator UpdateHP()
     {
-        yield return hPBar.SetHPSmooth((float)_creature.HP);
+        if (_creature.HPChanged)
+        {
+            yield return hPBar.SetHPSmooth((float)_creature.HP);
+            _creature.HPChanged = false;
+        }
     }
 }

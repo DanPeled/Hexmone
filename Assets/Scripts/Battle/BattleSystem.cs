@@ -75,10 +75,10 @@ public class BattleSystem : MonoBehaviour
     IEnumerator PlayerAction()
     {
         battleState = BattleState.PlayerAction;
-        StartCoroutine(dialogBox.TypeDialog("Choose An Action", dialogBox.dialogText));
-        yield return new WaitForSeconds(0.53f);
+        dialogBox.SetDialog("Choose An Action");
         this.actionPossible = true;
         dialogBox.ToggleActionSelector(true);
+        yield return null;
     }
 
     public void OpenPartyScreen()
@@ -113,6 +113,14 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
     {
+        bool canRunMove = sourceUnit.creature.OnBeforeMove();
+        if (!canRunMove)
+        {
+            yield return ShowStatusChanges(sourceUnit.creature);
+            yield break;
+        }
+        yield return ShowStatusChanges(sourceUnit.creature);
+
         int hp = targetUnit.creature.HP;
         move.PP--;
         string usedText = sourceUnit.isPlayerUnit ? "" : "Enemy";
@@ -134,10 +142,6 @@ public class BattleSystem : MonoBehaviour
             yield return ShowDamageDetails(damageDetails);
             yield return targetUnit.hud.UpdateHP();
             yield return playerUnit.hud.UpdateHP();
-        }
-        if (hp == targetUnit.creature.HP)
-        {
-            yield return dialogBox.TypeDialog("But missed!", dialogBox.dialogText);
         }
         if (targetUnit.creature.HP <= 0)
         {
@@ -161,19 +165,52 @@ public class BattleSystem : MonoBehaviour
 
             CheckForBattleOver(targetUnit);
         }
-    }
-    IEnumerator RunMoveEffects(Move move, Creature source, Creature target)
-    {
-        if (move.base_.effects.boosts != null)
+        // Statuses like brn or psn will hurt the creature aftr the turn
+        sourceUnit.creature.OnAfterTurn();
+        yield return ShowStatusChanges(sourceUnit.creature);
+        yield return sourceUnit.hud.UpdateHP();
+        if (sourceUnit.creature.HP <= 0)
         {
-            if (move.base_.target == MoveTarget.Self)
+            sourceUnit.creature.HP = 0;
+            if (!sourceUnit.isPlayerUnit)
             {
-                source.ApplyBoosts(move.base_.effects.boosts);
+                yield return dialogBox.TypeDialog(
+                    $"The Enemy {sourceUnit.creature._base.creatureName} Fainted",
+                    dialogBox.dialogText
+                );
             }
             else
             {
-                target.ApplyBoosts(move.base_.effects.boosts);
+                yield return dialogBox.TypeDialog(
+                    $"Your {sourceUnit.creature._base.creatureName} Fainted",
+                    dialogBox.dialogText
+                );
             }
+            targetUnit.PlayFaintAnimation();
+            yield return new WaitForSeconds(0.5f);
+
+            CheckForBattleOver(sourceUnit);
+        }
+    }
+    IEnumerator RunMoveEffects(Move move, Creature source, Creature target)
+    {
+        var effects = move.base_.effects;
+        // Stat Boosting
+        if (effects.boosts != null)
+        {
+            if (move.base_.target == MoveTarget.Self)
+            {
+                source.ApplyBoosts(effects.boosts);
+            }
+            else
+            {
+                target.ApplyBoosts(effects.boosts);
+            }
+        }
+        // Stat Condition
+        if (effects.status != ConditionID.none)
+        {
+            target.SetStatus(effects.status);
         }
         yield return ShowStatusChanges(source);
         yield return ShowStatusChanges(target);

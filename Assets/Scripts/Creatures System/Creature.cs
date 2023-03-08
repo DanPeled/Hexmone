@@ -7,11 +7,14 @@ public class Creature
 {
     public CreatureBase _base;
     public int level;
-    public int HP;
+    public int HP, statusTime;
+    public bool HPChanged { get; set; }
     public List<Move> moves = new List<Move>();
     public Dictionary<Stat, int> stats;
     public Dictionary<Stat, int> statBoosts;
+    public Condition status;
     public Queue<string> statusChanges = new Queue<string>();
+
 
     public void Init()
     {
@@ -91,7 +94,16 @@ public class Creature
             Debug.Log($"{stat} Has been boosted to {this.statBoosts[stat]}");
         }
     }
-
+    public void SetStatus(ConditionID conditionID)
+    {
+        status = ConditionDB.conditions[conditionID];
+        status?.onStart?.Invoke(this);
+        statusChanges.Enqueue($"{_base.creatureName} {status.startMessage}");
+    }
+    public void CureStatus()
+    {
+        status = null;
+    }
     public int Attack
     {
         get { return GetStat(Stat.Attack); }
@@ -138,15 +150,30 @@ public class Creature
         float d = a * move.base_.power * ((float)attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        HP -= damage;
-        if (HP <= 0)
-            damageDetails.Fainted = true;
+        UpdateHP(damage);
         return damageDetails;
     }
 
     public Move GetRandomMove()
     {
         return moves[Random.Range(0, moves.Count)];
+    }
+    public void OnAfterTurn()
+    {
+        status?.onAfterTurn?.Invoke(this);
+    }
+    public bool OnBeforeMove()
+    {
+        if (status?.onBeforeMove != null)
+        {
+            return status.onBeforeMove(this);
+        }
+        return true;
+    }
+    public void UpdateHP(int damage)
+    {
+        HP = Mathf.Clamp(HP - damage, 0, maxHealth);
+        HPChanged = true;
     }
     public void OnBattleOver()
     {
