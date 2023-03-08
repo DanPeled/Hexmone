@@ -132,8 +132,8 @@ public class BattleSystem : MonoBehaviour
         {
             var damageDetails = targetUnit.creature.TakeDamage(move, sourceUnit.creature);
             yield return ShowDamageDetails(damageDetails);
-            StartCoroutine(targetUnit.hud.UpdateHP());
-            playerUnit.hud.UpdateHP();
+            yield return targetUnit.hud.UpdateHP();
+            yield return playerUnit.hud.UpdateHP();
         }
         if (hp == targetUnit.creature.HP)
         {
@@ -264,10 +264,10 @@ public class BattleSystem : MonoBehaviour
                 HandlePartySelection();
                 break;
         }
-        up.update(Input.GetAxis("Vertical") == 1);
-        down.update(Input.GetAxis("Vertical") == -1f);
-        left.update(Input.GetAxis("Horizontal") == -1f);
-        right.update(Input.GetAxis("Horizontal") == 1f);
+        up.update(Input.GetButton("Vertical") && Input.GetAxisRaw("Vertical") > 0);
+        down.update(Input.GetButton("Vertical") && Input.GetAxisRaw("Vertical") < 0);
+        left.update(Input.GetButton("Horizontal") && Input.GetAxisRaw("Horizontal") < 0);
+        right.update(Input.GetButton("Horizontal") && Input.GetAxisRaw("Horizontal") > 0);
     }
 
     public void HandleActionSelection()

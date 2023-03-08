@@ -169,8 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2847b83da24c4f042b1fc53860611fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarTransform: {fileID: 5411748799650360728}
-  originalScale: {x: 0, y: 0, z: 0}
+  health: {fileID: 8347045903402304749}
 --- !u!1 &5551283551622578869
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 2322888735942448916}
   lvlText: {fileID: 1834436311337814028}
-  hPBar: {fileID: 5589298304098289968}
+  hpBar: {fileID: 5589298304098289968}
   highlightedColor: {r: 0.31830555, g: 0.29622638, b: 1, a: 1}
 --- !u!1 &8347045903402304749
 GameObject:

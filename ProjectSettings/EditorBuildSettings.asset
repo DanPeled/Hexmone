@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/PlayerHouse.unity
+    path: Assets/Scenes/World.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/Transition.unity
     guid: 64bfec9e0307f5a41b1bf4178335cc29
+  - enabled: 1
+    path: Assets/Scenes/ControllerTesting.unity
+    guid: ddaa358affa684847b0070fe1f164811
   m_configObjects: {}

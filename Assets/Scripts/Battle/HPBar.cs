@@ -4,9 +4,10 @@ using System.Collections;
 public class HPBar : MonoBehaviour
 {
     public GameObject health;
-
-    public void SetHP(float hp)
+    public float maxHP;
+    public void SetHP(float hp, float maxHP)
     {
+        this.maxHP = maxHP;
         hp = CalculateHPRatio(hp);
         this.health = transform.GetChild(1).gameObject;
         health.transform.localScale = new Vector3(hp, 1f);
@@ -17,7 +18,6 @@ public class HPBar : MonoBehaviour
         newHP = CalculateHPRatio(newHP);
         this.health = transform.GetChild(1).gameObject;
         float curHP = health.transform.localScale.x;
-        float maxHP = 220f; // maximum HP value
         newHP = Mathf.Clamp(newHP, 0f, maxHP); // clamp newHP to valid range
         float changeAmt = curHP - newHP;
         float minHP = 0f; // minimum HP value
@@ -35,6 +35,6 @@ public class HPBar : MonoBehaviour
     }
     public float CalculateHPRatio(float hp)
     {
-        return Mathf.Clamp((hp / 100) / 0.06f, 0, 1);
+        return Mathf.Clamp((hp / 100) / (maxHP / 100f), 0, 1);
     }
 }

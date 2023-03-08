@@ -16,7 +16,7 @@ public class BattleHud : MonoBehaviour
         nameText.text = creature._base.creatureName;
         lvlText.text = $"Lvl {creature.level}";
 
-        hPBar.SetHP((float)creature.HP);
+        hPBar.SetHP((float)creature.HP, _creature.maxHealth);
         StartCoroutine(UpdateHP());
     }
 

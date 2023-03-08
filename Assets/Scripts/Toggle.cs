@@ -13,7 +13,7 @@ public class Toggle
             if (pressed) state = !state; // The toggle changes only when it's pressed and not when it's released
             lastInput = input;
         }
-        
+
         else
         {
             changed = false; // otherwise it didn't
