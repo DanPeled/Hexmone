@@ -14497,7 +14497,7 @@ MonoBehaviour:
     level: 2
     HP: 7
     statusTime: 0
-  - _base: {fileID: 11400000, guid: 6defed5cf0ce79b4d8521edd3d2195fe, type: 2}
+  - _base: {fileID: 11400000, guid: 5da4fec6fae929c4dbf84acad1ae7974, type: 2}
     level: 3
     HP: 7
     statusTime: 0
@@ -18149,7 +18149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4351720977421509982, guid: a816e2a61cda2b44184a9581452bcf68, type: 3}
       propertyPath: transitionTime
-      value: 1
+      value: 1.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
