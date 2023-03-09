@@ -35,6 +35,6 @@ public class HPBar : MonoBehaviour
     }
     public float CalculateHPRatio(float hp)
     {
-        return Mathf.Clamp((hp / 100) / (maxHP / 100f), 0, 1);
+        return Mathf.Clamp(hp / maxHP, 0, 1);
     }
 }
