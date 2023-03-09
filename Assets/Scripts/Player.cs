@@ -76,29 +76,29 @@ public class Player : MonoBehaviour
             3 => right
             4 => left
         */
-        if (vertical == 1)
+        if (vertical > 0)
         {
             anim.enabled = true;
             anim.SetInteger("state", 2); // forward
         }
-        else if (vertical == -1)
+        else if (vertical < 0)
         {
             anim.enabled = true;
             anim.SetInteger("state", 1); // back
         }
-        else if (horizontal == 1)
+        else if (horizontal > 0)
         {
             anim.enabled = true;
             anim.SetInteger("state", 3); // right
         }
-        else if (horizontal == -1)
+        else if (horizontal < 0)
         {
             anim.enabled = true;
             anim.SetInteger("state", 4); // left
         }
         else
         {
-            anim.enabled = false;
+            anim.enabled = false; // default
         }
         #endregion
     }

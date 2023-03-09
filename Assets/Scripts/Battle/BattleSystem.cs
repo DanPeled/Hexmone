@@ -226,6 +226,8 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator OnBattleOver(bool won)
     {
+        dialogBox.ToggleActionSelector(false);
+        dialogBox.ToggleMoveSelector(false);
         if (won)
         {
             yield return dialogBox.TypeDialog("You Have Won The Battle!", dialogBox.dialogText);
@@ -301,10 +303,10 @@ public class BattleSystem : MonoBehaviour
                 HandlePartySelection();
                 break;
         }
-        up.update(Input.GetButton("Vertical") && Input.GetAxisRaw("Vertical") > 0);
-        down.update(Input.GetButton("Vertical") && Input.GetAxisRaw("Vertical") < 0);
-        left.update(Input.GetButton("Horizontal") && Input.GetAxisRaw("Horizontal") < 0);
-        right.update(Input.GetButton("Horizontal") && Input.GetAxisRaw("Horizontal") > 0);
+        up.update(Input.GetAxisRaw("Vertical") != 0 && Input.GetAxisRaw("Vertical") > 0);
+        down.update(Input.GetAxisRaw("Vertical") != 0 && Input.GetAxisRaw("Vertical") < 0);
+        left.update(Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Horizontal") < 0);
+        right.update(Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Horizontal") > 0);
     }
 
     public void HandleActionSelection()
