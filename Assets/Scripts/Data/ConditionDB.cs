@@ -93,7 +93,7 @@ public class ConditionDB
             ConditionID.confusion,
             new Condition(){
                 name = "Confusion",
-                startMessage = "has fallen confused",
+                startMessage = "has been confused",
                 onStart = (Creature creature) =>{
                     // sleep for 1 - 4 turnes
                     creature.volatileStatusTime = UnityEngine.Random.Range(1,5);
