@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         this.player = GameObject.FindObjectOfType<Player>();
+        ConditionDB.Init();
     }
 
     public void StartBattle()

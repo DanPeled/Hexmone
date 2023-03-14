@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.ExceptionServices;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,9 @@ public class Creature
     public Dictionary<Stat, int> statBoosts;
     public Condition status;
     public Queue<string> statusChanges = new Queue<string>();
-
+    public Action OnStatusChanged;
+    public Condition volatileStatus;
+    public int volatileStatusTime;
 
     public void Init()
     {
@@ -34,7 +37,8 @@ public class Creature
         this.HP = this.maxHealth;
 
         ResetStatBoost();
-
+        status = null;
+        volatileStatus = null;
     }
 
     public void CalculateStats()
@@ -56,7 +60,9 @@ public class Creature
             { Stat.Defense, 0 },
             { Stat.SpAttack, 0 },
             { Stat.SpDefense, 0 },
-            { Stat.Speed, 0 }
+            { Stat.Speed, 0 },
+            {Stat.Accuracy, 0},
+            {Stat.Evasion, 0},
         };
     }
     public int GetStat(Stat stat)
@@ -96,13 +102,30 @@ public class Creature
     }
     public void SetStatus(ConditionID conditionID)
     {
+        if (status != null) return;
+
         status = ConditionDB.conditions[conditionID];
         status?.onStart?.Invoke(this);
         statusChanges.Enqueue($"{_base.creatureName} {status.startMessage}");
+
+        OnStatusChanged?.Invoke();
     }
     public void CureStatus()
     {
         status = null;
+        OnStatusChanged?.Invoke();
+    }
+    public void SetVolatileStatus(ConditionID conditionID)
+    {
+        if (volatileStatus != null) return;
+
+        volatileStatus = ConditionDB.conditions[conditionID];
+        volatileStatus?.onStart?.Invoke(this);
+        statusChanges.Enqueue($"{_base.creatureName} {volatileStatus.startMessage}");
+    }
+    public void CureVolatileStatus()
+    {
+        volatileStatus = null;
     }
     public int Attack
     {
@@ -129,7 +152,7 @@ public class Creature
     public DamageDetails TakeDamage(Move move, Creature attacker)
     {
         float critical = 1f;
-        if (Random.value * 100f <= 6.25f)
+        if (UnityEngine.Random.value * 100f <= 6.25f)
         {
             critical = 2f;
         }
@@ -145,7 +168,7 @@ public class Creature
         float attack =
             (move.base_.category == MoveCategory.Special) ? attacker.SpAttack : attacker.Attack;
         float defense = (move.base_.category == MoveCategory.Special) ? SpDefense : Defense;
-        float modifiers = Random.Range(0.85f, 1f) * type * critical;
+        float modifiers = UnityEngine.Random.Range(0.85f, 1f) * type * critical;
         float a = (2 * attacker.level + 10) / 250f;
         float d = a * move.base_.power * ((float)attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
@@ -156,19 +179,31 @@ public class Creature
 
     public Move GetRandomMove()
     {
-        return moves[Random.Range(0, moves.Count)];
+        return moves[UnityEngine.Random.Range(0, moves.Count)];
     }
     public void OnAfterTurn()
     {
         status?.onAfterTurn?.Invoke(this);
+        volatileStatus?.onAfterTurn?.Invoke(this);
     }
     public bool OnBeforeMove()
     {
+        bool canPreformMove = true;
         if (status?.onBeforeMove != null)
         {
-            return status.onBeforeMove(this);
+            if (!status.onBeforeMove(this))
+            {
+                canPreformMove = false;
+            }
         }
-        return true;
+        if (volatileStatus?.onBeforeMove != null)
+        {
+            if (!volatileStatus.onBeforeMove(this))
+            {
+                canPreformMove = false;
+            }
+        }
+        return canPreformMove;
     }
     public void UpdateHP(int damage)
     {
@@ -177,6 +212,7 @@ public class Creature
     }
     public void OnBattleOver()
     {
+        volatileStatus = null;
         ResetStatBoost();
     }
 }

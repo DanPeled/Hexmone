@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using TMPro;
@@ -5,9 +6,11 @@ using TMPro;
 public class BattleHud : MonoBehaviour
 {
     public TextMeshProUGUI nameText,
-        lvlText;
+        lvlText, statusText;
     public HPBar hPBar;
     Creature _creature;
+    public Color psnColor, brnColor, slpColor, parColor, frzColor;
+    Dictionary<ConditionID, Color> statusColors;
 
     public void SetData(Creature creature)
     {
@@ -18,6 +21,16 @@ public class BattleHud : MonoBehaviour
 
         hPBar.SetHP((float)creature.HP, _creature.maxHealth);
         StartCoroutine(UpdateHP());
+        statusColors = new Dictionary<ConditionID, Color>(){
+            {ConditionID.psn, psnColor},
+            {ConditionID.brn, brnColor},
+            {ConditionID.slp , slpColor},
+            {ConditionID.par, parColor},
+            {ConditionID.frz, frzColor}
+        };
+        SetStatusText();
+
+        creature.OnStatusChanged += SetStatusText;
     }
 
     public IEnumerator UpdateHP()
@@ -26,6 +39,18 @@ public class BattleHud : MonoBehaviour
         {
             yield return hPBar.SetHPSmooth((float)_creature.HP);
             _creature.HPChanged = false;
+        }
+    }
+    public void SetStatusText()
+    {
+        if (_creature.status == null)
+        {
+            statusText.text = "";
+        }
+        else
+        {
+            statusText.text = _creature.status.iD.ToString().ToUpper();
+            statusText.color = statusColors[_creature.status.iD];
         }
     }
 }

@@ -117,6 +117,7 @@ public class BattleSystem : MonoBehaviour
         if (!canRunMove)
         {
             yield return ShowStatusChanges(sourceUnit.creature);
+            yield return sourceUnit.hud.UpdateHP();
             yield break;
         }
         yield return ShowStatusChanges(sourceUnit.creature);
@@ -128,42 +129,65 @@ public class BattleSystem : MonoBehaviour
             $"{usedText} {sourceUnit.creature._base.creatureName} Used {move.base_.moveName}",
             dialogBox.dialogText
         );
-        sourceUnit.PlayAttackAnimation();
-        yield return new WaitForSeconds(1f);
-        targetUnit.PlayHitAnimation();
 
-        if (move.base_.category == MoveCategory.Status)
+        if (CheckIfMoveHits(move, sourceUnit.creature, targetUnit.creature))
         {
-            yield return RunMoveEffects(move, sourceUnit.creature, targetUnit.creature);
-        }
-        else
-        {
-            var damageDetails = targetUnit.creature.TakeDamage(move, sourceUnit.creature);
-            yield return ShowDamageDetails(damageDetails);
-            yield return targetUnit.hud.UpdateHP();
-            yield return playerUnit.hud.UpdateHP();
-        }
-        if (targetUnit.creature.HP <= 0)
-        {
-            targetUnit.creature.HP = 0;
-            if (!targetUnit.isPlayerUnit)
+
+
+            sourceUnit.PlayAttackAnimation();
+            yield return new WaitForSeconds(1f);
+            targetUnit.PlayHitAnimation();
+
+            if (move.base_.category == MoveCategory.Status)
             {
-                yield return dialogBox.TypeDialog(
-                    $"The Enemy {targetUnit.creature._base.creatureName} Fainted",
-                    dialogBox.dialogText
-                );
+                yield return RunMoveEffects(move.base_.effects, sourceUnit.creature, targetUnit.creature, move.base_.target);
             }
             else
             {
-                yield return dialogBox.TypeDialog(
-                    $"Your {targetUnit.creature._base.creatureName} Fainted",
-                    dialogBox.dialogText
-                );
+                var damageDetails = targetUnit.creature.TakeDamage(move, sourceUnit.creature);
+                yield return ShowDamageDetails(damageDetails);
+                yield return targetUnit.hud.UpdateHP();
+                yield return playerUnit.hud.UpdateHP();
             }
-            targetUnit.PlayFaintAnimation();
-            yield return new WaitForSeconds(0.5f);
+            if (move.base_.secondaryEffects != null && move.base_.secondaryEffects.Count > 0 &&
+             targetUnit.creature.HP > 0)
+            {
+                foreach (var secondary in move.base_.secondaryEffects)
+                {
+                    var rnd = UnityEngine.Random.Range(1, 101);
 
-            CheckForBattleOver(targetUnit);
+                    if (rnd <= secondary.chance)
+                    {
+                        yield return RunMoveEffects(secondary, sourceUnit.creature, targetUnit.creature, secondary.target);
+                    }
+                }
+            }
+            if (targetUnit.creature.HP <= 0)
+            {
+                targetUnit.creature.HP = 0;
+                if (!targetUnit.isPlayerUnit)
+                {
+                    yield return dialogBox.TypeDialog(
+                        $"The Enemy {targetUnit.creature._base.creatureName} Fainted",
+                        dialogBox.dialogText
+                    );
+                }
+                else
+                {
+                    yield return dialogBox.TypeDialog(
+                        $"Your {targetUnit.creature._base.creatureName} Fainted",
+                        dialogBox.dialogText
+                    );
+                }
+                targetUnit.PlayFaintAnimation();
+                yield return new WaitForSeconds(0.5f);
+
+                CheckForBattleOver(targetUnit);
+            }
+        }
+        else
+        {
+            yield return dialogBox.TypeDialog($"{sourceUnit.creature._base.creatureName}'s attack missed", dialogBox.dialogText);
         }
         // Statuses like brn or psn will hurt the creature aftr the turn
         sourceUnit.creature.OnAfterTurn();
@@ -192,13 +216,12 @@ public class BattleSystem : MonoBehaviour
             CheckForBattleOver(sourceUnit);
         }
     }
-    IEnumerator RunMoveEffects(Move move, Creature source, Creature target)
+    IEnumerator RunMoveEffects(MoveEffects effects, Creature source, Creature target, MoveTarget moveTarget)
     {
-        var effects = move.base_.effects;
         // Stat Boosting
         if (effects.boosts != null)
         {
-            if (move.base_.target == MoveTarget.Self)
+            if (moveTarget == MoveTarget.Self)
             {
                 source.ApplyBoosts(effects.boosts);
             }
@@ -212,8 +235,44 @@ public class BattleSystem : MonoBehaviour
         {
             target.SetStatus(effects.status);
         }
+        // Volatile Stat Condition
+        if (effects.volatileStatus != ConditionID.none)
+        {
+            target.SetVolatileStatus(effects.volatileStatus);
+        }
         yield return ShowStatusChanges(source);
         yield return ShowStatusChanges(target);
+    }
+    public bool CheckIfMoveHits(Move move, Creature source, Creature target)
+    {
+        if (move.base_.alwaysHits)
+        {
+            return true;
+        }
+        float moveAcc = move.base_.accuracy;
+        int accuracy = source.statBoosts[Stat.Accuracy];
+        int evasion = target.statBoosts[Stat.Evasion];
+
+        var boostValues = new float[] { 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f };
+
+        if (accuracy > 0)
+        {
+            moveAcc *= boostValues[accuracy];
+        }
+        else
+        {
+            moveAcc /= boostValues[-accuracy];
+        }
+        if (evasion > 0)
+        {
+            moveAcc /= boostValues[evasion];
+        }
+        else
+        {
+            moveAcc *= boostValues[-evasion];
+        }
+
+        return UnityEngine.Random.Range(1, 101) <= moveAcc;
     }
     IEnumerator ShowStatusChanges(Creature creature)
     {
@@ -291,6 +350,7 @@ public class BattleSystem : MonoBehaviour
 
     void Update()
     {
+        GameObject.FindObjectOfType<Player>().playerActive = false;
         switch (battleState)
         {
             case BattleState.PlayerAction:

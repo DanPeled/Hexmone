@@ -10,8 +10,10 @@ public class MoveBase : ScriptableObject
     public int power,
         accuracy,
         pp;
+    public bool alwaysHits;
     public MoveCategory category;
     public MoveEffects effects;
+    public List<SecondaryEffects> secondaryEffects;
     public MoveTarget target;
 }
 
@@ -20,6 +22,13 @@ public class MoveEffects
 {
     public List<StatBoost> boosts;
     public ConditionID status;
+    public ConditionID volatileStatus;
+}
+[System.Serializable]
+public class SecondaryEffects : MoveEffects
+{
+    public int chance;
+    public MoveTarget target;
 }
 
 [System.Serializable]

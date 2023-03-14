@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ConditionDB
 {
+    public static void Init()
+    {
+        foreach (var kvp in conditions)
+        {
+            var conditionID = kvp.Key;
+            var condition = kvp.Value;
+
+            condition.iD = conditionID;
+        }
+    }
     public static Dictionary<ConditionID, Condition> conditions { get; set; } = new Dictionary<ConditionID, Condition>(){
         {
+
             ConditionID.psn,
             new Condition(){
                 name = "Poison",
@@ -76,10 +87,40 @@ public class ConditionDB
                     return false;
                 }
             }
+        },
+        // Volatile Status Conditions
+        {
+            ConditionID.confusion,
+            new Condition(){
+                name = "Confusion",
+                startMessage = "has fallen confused",
+                onStart = (Creature creature) =>{
+                    // sleep for 1 - 4 turnes
+                    creature.volatileStatusTime = UnityEngine.Random.Range(1,5);
+                    Debug.Log($"Will be confused for {creature.volatileStatusTime} moves");
+                },
+                onBeforeMove = (Creature creature) => {
+                    if (creature.volatileStatusTime <= 0){
+                        creature.CureVolatileStatus();
+                        creature.statusChanges.Enqueue($"{creature._base.creatureName} kicked out of confusion!");
+                        return true;
+                    }
+                    creature.volatileStatusTime--;
+                    // 50% To perform move
+                    if (UnityEngine.Random.Range(1,3)== 1){
+                        return true;
+                    }
+                    // Hurt By Confusion
+                    creature.statusChanges.Enqueue($"{creature._base.creatureName} is confused");
+                    creature.UpdateHP(creature.maxHealth / 8);
+                    creature.statusChanges.Enqueue($"It hurt itself due to confusion");
+                    return false;
+                }
+            }
         }
     };
 }
 public enum ConditionID
 {
-    none, psn, brn, slp, par, frz
+    none, psn, brn, slp, par, frz, confusion
 }
