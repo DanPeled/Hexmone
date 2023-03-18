@@ -13,7 +13,14 @@ public enum BattleState
     PartyScreen,
     BattleOver
 }
-public enum BattleAction { Move, SwitchCreature, UseItem, Run }
+
+public enum BattleAction
+{
+    Move,
+    SwitchCreature,
+    UseItem,
+    Run
+}
 
 public class BattleSystem : MonoBehaviour
 {
@@ -22,14 +29,18 @@ public class BattleSystem : MonoBehaviour
 
     public BattleDialogBox dialogBox;
     public PartyScreen partyScreen;
-    public BattleState? battleState, prevState;
+    public BattleState? battleState,
+        prevState;
     public int currentAction,
         currentMove,
         currentMember;
     bool actionPossible = false;
     CreaturesParty playerParty;
     Creature wildCreature;
-    Toggle up = new Toggle(), down = new Toggle(), left = new Toggle(), right = new Toggle();
+    Toggle up = new Toggle(),
+        down = new Toggle(),
+        left = new Toggle(),
+        right = new Toggle();
 
     public void StartBattle(CreaturesParty creaturesParty, Creature wildCreature)
     {
@@ -86,6 +97,7 @@ public class BattleSystem : MonoBehaviour
         dialogBox.ToggleDialogText(false);
         dialogBox.ToggleMoveSelector(true);
     }
+
     IEnumerator RunTurns(BattleAction playerAction)
     {
         battleState = BattleState.RunningTurn;
@@ -113,8 +125,6 @@ public class BattleSystem : MonoBehaviour
 
             if (secondCreature.HP > 0)
             {
-
-
                 //Second Turn
                 yield return RunMove(secondUnit, firstUnit, secondUnit.creature.currentMove);
                 yield return RunAfterTurn(secondUnit);
@@ -123,7 +133,6 @@ public class BattleSystem : MonoBehaviour
                     yield break;
                 }
             }
-
         }
         else
         {
@@ -138,14 +147,15 @@ public class BattleSystem : MonoBehaviour
             var enemyMove = enemyUnit.creature.GetRandomMove();
             yield return RunMove(enemyUnit, playerUnit, enemyMove);
             yield return RunAfterTurn(enemyUnit);
-            if (battleState == BattleState.BattleOver) yield break;
-
+            if (battleState == BattleState.BattleOver)
+                yield break;
         }
         if (battleState != BattleState.BattleOver)
         {
             StartCoroutine(PlayerAction());
         }
     }
+
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
     {
         bool canRunMove = sourceUnit.creature.OnBeforeMove();
@@ -167,15 +177,18 @@ public class BattleSystem : MonoBehaviour
 
         if (CheckIfMoveHits(move, sourceUnit.creature, targetUnit.creature))
         {
-
-
             sourceUnit.PlayAttackAnimation();
             yield return new WaitForSeconds(1f);
             targetUnit.PlayHitAnimation();
 
             if (move.base_.category == MoveCategory.Status)
             {
-                yield return RunMoveEffects(move.base_.effects, sourceUnit.creature, targetUnit.creature, move.base_.target);
+                yield return RunMoveEffects(
+                    move.base_.effects,
+                    sourceUnit.creature,
+                    targetUnit.creature,
+                    move.base_.target
+                );
             }
             else
             {
@@ -184,8 +197,11 @@ public class BattleSystem : MonoBehaviour
                 yield return targetUnit.hud.UpdateHP();
                 yield return playerUnit.hud.UpdateHP();
             }
-            if (move.base_.secondaryEffects != null && move.base_.secondaryEffects.Count > 0 &&
-             targetUnit.creature.HP > 0)
+            if (
+                move.base_.secondaryEffects != null
+                && move.base_.secondaryEffects.Count > 0
+                && targetUnit.creature.HP > 0
+            )
             {
                 foreach (var secondary in move.base_.secondaryEffects)
                 {
@@ -193,7 +209,12 @@ public class BattleSystem : MonoBehaviour
 
                     if (rnd <= secondary.chance)
                     {
-                        yield return RunMoveEffects(secondary, sourceUnit.creature, targetUnit.creature, secondary.target);
+                        yield return RunMoveEffects(
+                            secondary,
+                            sourceUnit.creature,
+                            targetUnit.creature,
+                            secondary.target
+                        );
                     }
                 }
             }
@@ -222,10 +243,13 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            yield return dialogBox.TypeDialog($"{sourceUnit.creature._base.creatureName}'s attack missed", dialogBox.dialogText);
+            yield return dialogBox.TypeDialog(
+                $"{sourceUnit.creature._base.creatureName}'s attack missed",
+                dialogBox.dialogText
+            );
         }
-
     }
+
     IEnumerator RunAfterTurn(BattleUnit sourceUnit)
     {
         if (battleState == BattleState.BattleOver)
@@ -260,7 +284,13 @@ public class BattleSystem : MonoBehaviour
             CheckForBattleOver(sourceUnit);
         }
     }
-    IEnumerator RunMoveEffects(MoveEffects effects, Creature source, Creature target, MoveTarget moveTarget)
+
+    IEnumerator RunMoveEffects(
+        MoveEffects effects,
+        Creature source,
+        Creature target,
+        MoveTarget moveTarget
+    )
     {
         // Stat Boosting
         if (effects.boosts != null)
@@ -287,6 +317,7 @@ public class BattleSystem : MonoBehaviour
         yield return ShowStatusChanges(source);
         yield return ShowStatusChanges(target);
     }
+
     public bool CheckIfMoveHits(Move move, Creature source, Creature target)
     {
         if (move.base_.alwaysHits)
@@ -318,6 +349,7 @@ public class BattleSystem : MonoBehaviour
 
         return UnityEngine.Random.Range(1, 101) <= moveAcc;
     }
+
     IEnumerator ShowStatusChanges(Creature creature)
     {
         while (creature.statusChanges.Count > 0)

@@ -1,4 +1,5 @@
 using System;
+
 public class Condition
 {
     public ConditionID iD { get; set; }

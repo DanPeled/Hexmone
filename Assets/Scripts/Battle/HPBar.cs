@@ -5,6 +5,7 @@ public class HPBar : MonoBehaviour
 {
     public GameObject health;
     public float maxHP;
+
     public void SetHP(float hp, float maxHP)
     {
         this.maxHP = maxHP;
@@ -33,6 +34,7 @@ public class HPBar : MonoBehaviour
         }
         health.transform.localScale = new Vector3(newHP, 1f);
     }
+
     public float CalculateHPRatio(float hp)
     {
         return Mathf.Clamp(hp / maxHP, 0, 1);
