@@ -43,6 +43,7 @@ public enum CreatureType
     Dragon,
     Electric,
     Poison,
+    Fighting,
     Diffrent
 }
 

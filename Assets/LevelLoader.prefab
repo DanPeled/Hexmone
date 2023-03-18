@@ -107,7 +107,7 @@ Transform:
   m_Children:
   - {fileID: 757747125166181693}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4351720977421509982
 MonoBehaviour:
@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transition: {fileID: 757747125166181665}
   transitionTime: 1.3
+  loadingScreen: {fileID: 0}
 --- !u!1 &757747125166181692
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +185,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &757747125166181695
 MonoBehaviour:

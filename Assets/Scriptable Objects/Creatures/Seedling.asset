@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e79a054c7486ef40a083eda26e6127f, type: 3}
+  m_Name: Seedling
+  m_EditorClassIdentifier: 
+  creatureName: Seedling
+  description: 
+  maxHealth: 60
+  type1: 6
+  type2: 0
+  damage: 30
+  frontSprite: {fileID: 0}
+  backSprite: {fileID: 0}
+  defense: 45
+  spAttack: 75
+  spDefense: 50
+  speed: 50
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
+    level: 3

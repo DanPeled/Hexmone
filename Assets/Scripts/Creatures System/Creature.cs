@@ -11,6 +11,7 @@ public class Creature
     public int HP, statusTime;
     public bool HPChanged { get; set; }
     public List<Move> moves = new List<Move>();
+    public Move currentMove;
     public Dictionary<Stat, int> stats;
     public Dictionary<Stat, int> statBoosts;
     public Condition status;

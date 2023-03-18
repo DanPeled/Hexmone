@@ -10,6 +10,7 @@ public class RoomSystem
     public RoomSystem(Room startingRoom)
     {
         this.startingRoom = startingRoom;
+        this.currentRoom = startingRoom;
     }
 
     public void ChangeRoom(Room targetRoom, GameObject player)

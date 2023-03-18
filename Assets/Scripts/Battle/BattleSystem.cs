@@ -6,13 +6,14 @@ using TMPro;
 public enum BattleState
 {
     Start,
-    PlayerAction,
-    PlayerMove,
-    EnemyMove,
+    ActionSelection,
+    MoveSelection,
+    RunningTurn,
     Busy,
     PartyScreen,
     BattleOver
 }
+public enum BattleAction { Move, SwitchCreature, UseItem, Run }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class BattleSystem : MonoBehaviour
 
     public BattleDialogBox dialogBox;
     public PartyScreen partyScreen;
-    public BattleState battleState;
+    public BattleState? battleState, prevState;
     public int currentAction,
         currentMove,
         currentMember;
@@ -50,19 +51,7 @@ public class BattleSystem : MonoBehaviour
             dialogBox.dialogText
         );
 
-        ChooseFirstTurn();
-
-    }
-    void ChooseFirstTurn()
-    {
-        if (playerUnit.creature.Speed >= enemyUnit.creature.Speed)
-        {
-            StartCoroutine(PlayerAction());
-        }
-        else
-        {
-            StartCoroutine(PerformEnemyMove());
-        }
+        StartCoroutine(PlayerAction());
     }
 
     void BattleOver(bool won)
@@ -74,7 +63,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAction()
     {
-        battleState = BattleState.PlayerAction;
+        battleState = BattleState.ActionSelection;
         dialogBox.SetDialog("Choose An Action");
         this.actionPossible = true;
         dialogBox.ToggleActionSelector(true);
@@ -92,25 +81,71 @@ public class BattleSystem : MonoBehaviour
 
     void MoveSelection()
     {
-        battleState = BattleState.PlayerMove;
+        battleState = BattleState.MoveSelection;
         dialogBox.ToggleActionSelector(false);
         dialogBox.ToggleDialogText(false);
         dialogBox.ToggleMoveSelector(true);
     }
-
-    IEnumerator PerformPlayerMove()
+    IEnumerator RunTurns(BattleAction playerAction)
     {
-        battleState = BattleState.Busy;
-        var move = playerUnit.creature.moves[currentMove];
-        yield return RunMove(playerUnit, enemyUnit, move);
+        battleState = BattleState.RunningTurn;
 
-        // If the battle stat was not changed by RunMove, then go to next step
+        if (playerAction == BattleAction.Move)
+        {
+            playerUnit.creature.currentMove = playerUnit.creature.moves[currentMove];
+            enemyUnit.creature.currentMove = enemyUnit.creature.GetRandomMove();
+
+            // Check who goes first
+            bool playerGoesFirst = playerUnit.creature.Speed >= enemyUnit.creature.Speed;
+
+            var firstUnit = (playerGoesFirst) ? playerUnit : enemyUnit;
+            var secondUnit = (playerGoesFirst) ? enemyUnit : playerUnit;
+
+            var secondCreature = secondUnit.creature;
+
+            //First Turn
+            yield return RunMove(firstUnit, secondUnit, firstUnit.creature.currentMove);
+            yield return RunAfterTurn(firstUnit);
+            if (battleState == BattleState.BattleOver)
+            {
+                yield break;
+            }
+
+            if (secondCreature.HP > 0)
+            {
+
+
+                //Second Turn
+                yield return RunMove(secondUnit, firstUnit, secondUnit.creature.currentMove);
+                yield return RunAfterTurn(secondUnit);
+                if (battleState == BattleState.BattleOver)
+                {
+                    yield break;
+                }
+            }
+
+        }
+        else
+        {
+            if (playerAction == BattleAction.SwitchCreature)
+            {
+                var selectedCreature = playerParty.creatures[currentMember];
+                battleState = BattleState.Busy;
+                yield return SwitchCreature(selectedCreature);
+            }
+
+            // Enemy Turn
+            var enemyMove = enemyUnit.creature.GetRandomMove();
+            yield return RunMove(enemyUnit, playerUnit, enemyMove);
+            yield return RunAfterTurn(enemyUnit);
+            if (battleState == BattleState.BattleOver) yield break;
+
+        }
         if (battleState != BattleState.BattleOver)
         {
-            StartCoroutine(PerformEnemyMove());
+            StartCoroutine(PlayerAction());
         }
     }
-
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
     {
         bool canRunMove = sourceUnit.creature.OnBeforeMove();
@@ -189,6 +224,15 @@ public class BattleSystem : MonoBehaviour
         {
             yield return dialogBox.TypeDialog($"{sourceUnit.creature._base.creatureName}'s attack missed", dialogBox.dialogText);
         }
+
+    }
+    IEnumerator RunAfterTurn(BattleUnit sourceUnit)
+    {
+        if (battleState == BattleState.BattleOver)
+        {
+            yield break;
+        }
+        yield return new WaitUntil(() => battleState == BattleState.RunningTurn);
         // Statuses like brn or psn will hurt the creature aftr the turn
         sourceUnit.creature.OnAfterTurn();
         yield return ShowStatusChanges(sourceUnit.creature);
@@ -210,7 +254,7 @@ public class BattleSystem : MonoBehaviour
                     dialogBox.dialogText
                 );
             }
-            targetUnit.PlayFaintAnimation();
+            sourceUnit.PlayFaintAnimation();
             yield return new WaitForSeconds(0.5f);
 
             CheckForBattleOver(sourceUnit);
@@ -325,7 +369,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PerformEnemyMove()
     {
-        battleState = BattleState.EnemyMove;
+        battleState = BattleState.RunningTurn;
         var move = enemyUnit.creature.GetRandomMove();
         yield return RunMove(enemyUnit, playerUnit, move);
         if (battleState != BattleState.PartyScreen)
@@ -353,10 +397,10 @@ public class BattleSystem : MonoBehaviour
         GameObject.FindObjectOfType<Player>().playerActive = false;
         switch (battleState)
         {
-            case BattleState.PlayerAction:
+            case BattleState.ActionSelection:
                 HandleActionSelection();
                 break;
-            case BattleState.PlayerMove:
+            case BattleState.MoveSelection:
                 HandleMoveSelection();
                 break;
             case BattleState.PartyScreen:
@@ -408,8 +452,8 @@ public class BattleSystem : MonoBehaviour
             else if (currentAction == 2)
             {
                 // Creature
+                prevState = battleState;
                 OpenPartyScreen();
-                battleState = BattleState.PartyScreen;
             }
             else if (currentAction == 3)
             {
@@ -443,14 +487,14 @@ public class BattleSystem : MonoBehaviour
         {
             dialogBox.ToggleMoveSelector(false);
             dialogBox.ToggleDialogText(true);
-            StartCoroutine(PerformPlayerMove());
+            StartCoroutine(RunTurns(BattleAction.Move));
         }
         else if (Input.GetButtonDown("Back"))
         {
             dialogBox.ToggleMoveSelector(false);
             dialogBox.ToggleDialogText(true);
             dialogBox.ToggleActionSelector(true);
-            battleState = BattleState.PlayerAction;
+            battleState = BattleState.ActionSelection;
             StartCoroutine(PlayerAction());
         }
     }
@@ -502,10 +546,18 @@ public class BattleSystem : MonoBehaviour
                 partyScreen.SetMessageText("You can't switch with the same creature");
                 return;
             }
-
             partyScreen.gameObject.SetActive(false);
-            battleState = BattleState.Busy;
-            StartCoroutine(SwitchCreature(selectedMember));
+
+            if (prevState == BattleState.ActionSelection)
+            {
+                prevState = null;
+                StartCoroutine(RunTurns(BattleAction.SwitchCreature));
+            }
+            else
+            {
+                battleState = BattleState.Busy;
+                StartCoroutine(SwitchCreature(selectedMember));
+            }
         }
         else if (Input.GetButtonDown("Back"))
         {
@@ -517,10 +569,8 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SwitchCreature(Creature newCreature)
     {
-        bool currentCreatureFainted = true;
         if (playerUnit.creature.HP > 0)
         {
-            currentCreatureFainted = false;
             yield return dialogBox.TypeDialog(
                 $"Come back {playerUnit.creature._base.creatureName}",
                 dialogBox.dialogText
@@ -537,13 +587,6 @@ public class BattleSystem : MonoBehaviour
             dialogBox.dialogText
         );
         playerUnit.image.color = playerUnit.originalColor;
-        if (currentCreatureFainted)
-        {
-            ChooseFirstTurn();
-        }
-        else
-        {
-            StartCoroutine(PerformEnemyMove());
-        }
+        battleState = BattleState.RunningTurn;
     }
 }
