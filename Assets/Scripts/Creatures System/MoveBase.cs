@@ -9,7 +9,7 @@ public class MoveBase : ScriptableObject
     public CreatureType type;
     public int power,
         accuracy,
-        pp;
+        pp, priority;
     public bool alwaysHits;
     public MoveCategory category;
     public MoveEffects effects;

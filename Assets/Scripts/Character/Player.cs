@@ -8,6 +8,13 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public enum FacingDir{
+        forward,
+        backward,
+        left,
+        right
+    };
+    FacingDir facingDir;
     Rigidbody2D body;
     public Camera mainCam;
     public List<Camera> cameras;
@@ -20,8 +27,9 @@ public class Player : MonoBehaviour
     public GameObject notificationBar,
         battleSystem;
     string notification;
-    bool colldingDoor;
+    bool colldingDoor, collidingInteractable;
     Door doorObject;
+    GameObject interactObject;
     Coroutine lastRoutine = null;
     public bool playerActive = true;
     public GameController gameController;
@@ -80,29 +88,42 @@ public class Player : MonoBehaviour
         {
             anim.enabled = true;
             anim.SetInteger("state", 2); // forward
+            this.facingDir = FacingDir.forward;
         }
         else if (vertical < 0)
         {
             anim.enabled = true;
             anim.SetInteger("state", 1); // back
+            this.facingDir = FacingDir.backward;
         }
         else if (horizontal > 0)
         {
             anim.enabled = true;
             anim.SetInteger("state", 3); // right
+            this.facingDir = FacingDir.right;
         }
         else if (horizontal < 0)
         {
             anim.enabled = true;
             anim.SetInteger("state", 4); // left
+            this.facingDir = FacingDir.left;
         }
         else
         {
             anim.enabled = false; // default
         }
         #endregion
-    }
 
+        if(Input.GetButtonDown("Action")){
+            lastRoutine = StartCoroutine(notify());
+            Interact(interactObject);
+        }
+    }
+    void Interact(GameObject obj){
+        if (collidingInteractable){
+            obj.GetComponent<Interactable>()?.Interact();
+        }
+    }
     void FixedUpdate()
     {
         if (horizontal != 0 && vertical != 0) // Check for diagonal movement
@@ -164,6 +185,14 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
     }
+    public IEnumerator notify()
+    {
+        while (notificationBar.transform.localPosition.y < -400)
+        {
+            this.notificationBar.transform.localPosition += new Vector3(0, 50, 0);
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
 
     public IEnumerator removeNotification()
     {
@@ -185,12 +214,20 @@ public class Player : MonoBehaviour
             this.colldingDoor = true;
             this.doorObject = other.GetComponent<Door>();
         }
+        if (other.gameObject.GetComponent<NPCController>() != null){
+            this.collidingInteractable = true;
+            this.interactObject = other.gameObject;
+        }
     }
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "Door")
         {
             this.colldingDoor = false;
+        }
+        if (other.gameObject.GetComponent<Interactable>() != null){
+            this.collidingInteractable = false;
+            lastRoutine = StartCoroutine(removeNotification());
         }
     }
     public void OnTriggerStay2D(Collider2D other)

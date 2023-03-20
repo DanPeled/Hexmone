@@ -11,8 +11,19 @@ public class GameController : MonoBehaviour
         this.player = GameObject.FindObjectOfType<Player>();
         ConditionDB.Init();
     }
+    void Start()
+    {
+        DialogManager.instance.OnShowDialog += () => {
+            state = GameState.Dialog;
+        };
 
-    public void StartBattle()
+       DialogManager.instance.OnCloseDialog += () => {
+           if (state == GameState.Dialog){
+            state = GameState.FreeRoam;
+           }
+        };
+    }
+public void StartBattle()
     {
         state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
@@ -23,10 +34,17 @@ public class GameController : MonoBehaviour
             .GetRandomWildCreature();
         battleSystem.StartBattle(playerParty, wildCreature);
     }
+    void Update()
+    {
+        if (state == GameState.Dialog){
+            DialogManager.instance.HandleUpdate();
+        }
+    }
 }
 
 public enum GameState
 {
     Battle,
-    FreeRoam
+    FreeRoam,
+    Dialog
 }

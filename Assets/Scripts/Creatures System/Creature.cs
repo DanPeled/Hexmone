@@ -2,7 +2,7 @@ using System;
 using System.Runtime.ExceptionServices;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 [System.Serializable]
 public class Creature
 {
@@ -180,7 +180,8 @@ public class Creature
 
     public Move GetRandomMove()
     {
-        return moves[UnityEngine.Random.Range(0, moves.Count)];
+        var movesWithPP = moves.Where(x => x.PP > 0).ToList();
+        return movesWithPP[UnityEngine.Random.Range(0, movesWithPP.Count)];
     }
     public void OnAfterTurn()
     {
