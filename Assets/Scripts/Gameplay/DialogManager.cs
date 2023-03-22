@@ -12,13 +12,13 @@ public class DialogManager : MonoBehaviour
     public TextMeshProUGUI dialogText;
     public int lettersPerSecond;
     public static DialogManager instance;
-    Coroutine lastRoutine;
+    public Coroutine lastRoutine = null;
+    [SerializeField] public int currentLine;
     void Awake()
     {
         instance = this;
     }
     Dialog dialog;
-    int currentLine = 0;
     bool isTyping;
     public IEnumerator ShowDialog(Dialog dialog)
     {
@@ -32,22 +32,15 @@ public class DialogManager : MonoBehaviour
     public IEnumerator TypeDialog(string line)
     {
         yield return new WaitForEndOfFrame();
-        dialogText.text = "";
+        dialogText.text = " ";
         isTyping = true;
-        yield return new WaitForSeconds(0.01f);
         foreach (var letter in line.ToCharArray())
         {
-            if (isTyping)
-            {
-                dialogText.text += letter;
-                yield return new WaitForSeconds(1f / lettersPerSecond);
-            }
-            else {
-                dialogText.text = "";
-                break;
-            }
+            dialogText.text += letter;
+            yield return new WaitForSeconds(1f / lettersPerSecond);
         }
         isTyping = false;
+        dialogText.text = line;
     }
     public void HandleUpdate()
     {
@@ -56,9 +49,9 @@ public class DialogManager : MonoBehaviour
             currentLine++;
             if (currentLine < dialog.lines.Count)
             {
-                isTyping = false;
-                StopCoroutine(lastRoutine);
+                dialogText.text = "";
                 lastRoutine = StartCoroutine(TypeDialog(dialog.lines[currentLine]));
+                return;
             }
             else
             {

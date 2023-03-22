@@ -1,9 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCController : MonoBehaviour, Interactable
 {
     public Dialog dialog;
+    public List<Sprite> sprites;
+    public List<Vector2> movementPattern;
+    public float timeBetweenPatterns;
+    NPCState state;
+    float idleTimer = 0f;
+    public Character character;
+
+    SpriteAnimator spriteAnimator;
+    void Start()
+    {
+        spriteAnimator = new SpriteAnimator(sprites, GetComponentInChildren<SpriteRenderer>());
+        character = GetComponent<Character>();
+        spriteAnimator.Start();
+    }
+    void Update()
+    {
+        if (state == NPCState.Idle){
+            idleTimer += Time.deltaTime;
+            if (idleTimer > 2f){
+                idleTimer = 0f;
+                if(movementPattern.Count > 0){
+                    spriteAnimator.HandleUpdate();
+                    var pattern = movementPattern[Random.Range(0, movementPattern.Count)];
+                    state = NPCState.Walking;
+                    character.Move(pattern.x, pattern.y, 0.7f, 6);
+                }
+            }
+        }
+
+    }
     public void Interact(){
         StartCoroutine(DialogManager.instance.ShowDialog(dialog));
     }
+}
+public enum NPCState{
+    Idle, Walking
 }

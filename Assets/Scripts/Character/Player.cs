@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public enum FacingDir{
+    public enum FacingDir
+    {
         forward,
         backward,
         left,
@@ -20,9 +21,10 @@ public class Player : MonoBehaviour
     public List<Camera> cameras;
     float horizontal;
     float vertical;
+    public bool isMoving;
     float moveLimiter = 0.7f;
     public RoomSystem roomSys;
-    private Animator anim;
+    private CharacterAnimator anim;
     public float runSpeed = 20.0f;
     public GameObject notificationBar,
         battleSystem;
@@ -36,7 +38,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponent<CharacterAnimator>();
     }
 
     void Start()
@@ -77,50 +79,52 @@ public class Player : MonoBehaviour
         }
         mainCam.transform.position = new Vector3(transform.position.x, transform.position.y, -0.4f);
         #region animation states
-        /*
-            0 => idle
-            1 => backwards
-            2 => forward
-            3 => right
-            4 => left
-        */
         if (vertical > 0)
         {
-            anim.enabled = true;
-            anim.SetInteger("state", 2); // forward
+            isMoving = true;
+
+            anim.moveY = 1; // forward
+            anim.moveX = 0;
             this.facingDir = FacingDir.forward;
         }
         else if (vertical < 0)
         {
-            anim.enabled = true;
-            anim.SetInteger("state", 1); // back
+            isMoving = true;
+            anim.moveX = 0;
+            anim.moveY = -1;// back
             this.facingDir = FacingDir.backward;
         }
         else if (horizontal > 0)
         {
-            anim.enabled = true;
-            anim.SetInteger("state", 3); // right
+            isMoving = true;
+            anim.moveY = 0;
+            anim.moveX = -1;// right
             this.facingDir = FacingDir.right;
         }
         else if (horizontal < 0)
         {
-            anim.enabled = true;
-            anim.SetInteger("state", 4); // left
+            isMoving = true;
+
+            anim.moveX = 1;// left
+            anim.moveY = 0;
             this.facingDir = FacingDir.left;
         }
         else
         {
-            anim.enabled = false; // default
+            isMoving = false;
         }
         #endregion
-
-        if(Input.GetButtonDown("Action")){
-            lastRoutine = StartCoroutine(notify());
+        anim.isMoving = isMoving;
+        if (Input.GetButtonDown("Action"))
+        {
+            ShowDialog();
             Interact(interactObject);
         }
     }
-    void Interact(GameObject obj){
-        if (collidingInteractable){
+    void Interact(GameObject obj)
+    {
+        if (collidingInteractable)
+        {
             obj.GetComponent<Interactable>()?.Interact();
         }
     }
@@ -193,6 +197,10 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
     }
+    public void ShowDialog()
+    {
+        notificationBar.transform.localPosition = new Vector3(notificationBar.transform.localPosition.x, -400, 0);
+    }
 
     public IEnumerator removeNotification()
     {
@@ -214,7 +222,8 @@ public class Player : MonoBehaviour
             this.colldingDoor = true;
             this.doorObject = other.GetComponent<Door>();
         }
-        if (other.gameObject.GetComponent<NPCController>() != null){
+        if (other.gameObject.GetComponent<NPCController>() != null)
+        {
             this.collidingInteractable = true;
             this.interactObject = other.gameObject;
         }
@@ -225,7 +234,8 @@ public class Player : MonoBehaviour
         {
             this.colldingDoor = false;
         }
-        if (other.gameObject.GetComponent<Interactable>() != null){
+        if (other.gameObject.GetComponent<Interactable>() != null)
+        {
             this.collidingInteractable = false;
             lastRoutine = StartCoroutine(removeNotification());
         }
@@ -267,6 +277,7 @@ public class Player : MonoBehaviour
 
                 yield return new WaitForSeconds(1);
                 playerActive = false;
+                isMoving = false;
                 battleSystem.SetActive(true);
                 SwitchCamera(cameras[1]);
                 gameController.StartBattle();

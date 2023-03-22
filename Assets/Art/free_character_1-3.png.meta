@@ -103,6 +103,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -154,11 +166,11 @@ TextureImporter:
         serializedVersion: 2
         x: 33
         y: 140
-        width: 111
+        width: 15
         height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 96, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -616,7 +628,7 @@ TextureImporter:
         serializedVersion: 2
         x: 48
         y: 80
-        width: 96
+        width: 16
         height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -627,6 +639,111 @@ TextureImporter:
       bones: []
       spriteID: b6611006476604e46ad763fe31d2a526
       internalID: 793187126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free_character_1-3_25
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 80
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0715fe348749b914ab0939abcb3c56ad
+      internalID: 562240982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free_character_1-3_26
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 80
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96acda7852d2fbb4eb26594592ab0282
+      internalID: -1867476705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free_character_1-3_27
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 140
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17c82168d28df1b40a351151e6c0b30a
+      internalID: -1795762722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free_character_1-3_28
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 140
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85b1a9271524f0445a70fead60ce5d67
+      internalID: 1772333430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free_character_1-3_29
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 140
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62f258aa1cdd88a498b738ec79ed1882
+      internalID: 634136053
       vertices: []
       indices: 
       edges: []
@@ -646,6 +763,7 @@ TextureImporter:
       free_character_1-3_22: 585592620
       free_character_1-3_5: 1457615434
       free_character_1-3_14: 818438318
+      free_character_1-3_25: 562240982
       free_character_1-3_17: 256105297
       free_character_1-3_12: -220948330
       free_character_1-3_2: -1667902513
@@ -655,14 +773,18 @@ TextureImporter:
       free_character_1-3_7: -1052402311
       free_character_1-3_11: 600689056
       free_character_1-3_19: -1079590348
+      free_character_1-3_26: -1867476705
       free_character_1-3_21: -1889227183
       free_character_1-3_0: -1621182880
+      free_character_1-3_27: -1795762722
+      free_character_1-3_28: 1772333430
       free_character_1-3_16: -1129786674
       free_character_1-3_15: -348736284
       free_character_1-3_18: -1701976631
       free_character_1-3_23: -122535400
       free_character_1-3_20: 1284416100
       free_character_1-3_10: -1025269402
+      free_character_1-3_29: 634136053
       free_character_1-3_1: -1696338428
       free_character_1-3_8: -1914473035
       free_character_1-3_13: 1506510557
