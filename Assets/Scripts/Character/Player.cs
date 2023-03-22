@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     public GameObject notificationBar,
         battleSystem;
     string notification;
-    bool colldingDoor, collidingInteractable;
+    public bool colldingDoor, collidingInteractable;
     Door doorObject;
     GameObject interactObject;
     Coroutine lastRoutine = null;
@@ -217,12 +217,13 @@ public class Player : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
+        print(other.gameObject.name);
         if (other.gameObject.tag == "Door")
         {
             this.colldingDoor = true;
             this.doorObject = other.GetComponent<Door>();
         }
-        if (other.gameObject.GetComponent<NPCController>() != null)
+        if (other.gameObject.GetComponent<Interactable>() != null)
         {
             this.collidingInteractable = true;
             this.interactObject = other.gameObject;

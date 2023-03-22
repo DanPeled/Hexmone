@@ -31,21 +31,25 @@ public class CharacterAnimator : MonoBehaviour
     void Update()
     {
         var prevAnim = currentAnim;
-        if (moveX == 1)
+        if (moveX > 0)
         {
             currentAnim = walkRightAnim;
+            moveY = 0;
         }
-        else if (moveX == -1)
+        else if (moveX < 0)
         {
             currentAnim = walkLeftAnim;
+            moveY = 0;
         }
-        else if (moveY == 1)
+        else if (moveY > 0)
         {
             currentAnim = walkUpAnim;
+            moveX = 0;
         }
-        else if (moveY == -1)
+        else if (moveY < 0)
         {
             currentAnim = walkDownAnim;
+            moveX = 0;
         }
         if (currentAnim != prevAnim)
         {

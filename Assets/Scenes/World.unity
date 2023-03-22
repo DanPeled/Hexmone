@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 5540513}
   - component: {fileID: 5540512}
   - component: {fileID: 5540511}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,6 +666,26 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 19
       m_TileSpriteIndex: 26
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 58, y: -35, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 19
+      m_TileSpriteIndex: 26
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 61, y: -35, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 21
+      m_TileSpriteIndex: 27
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1891,11 +1911,11 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 6e73a79a344034b4097bfc3f102b161f, type: 2}
   - m_RefCount: 20
     m_Data: {fileID: 11400000, guid: ab2faf6e0f3cac649b49bb8985b78897, type: 2}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 73984b65b09976a4da9a7bab301e46b2, type: 2}
   - m_RefCount: 20
     m_Data: {fileID: 11400000, guid: 3b4ccf81b94dd55419ddc8cf507700d2, type: 2}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 46abff6b0d1a313439022da863763a80, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -1962,12 +1982,12 @@ Tilemap:
     m_Data: {fileID: -1841325713, guid: 0236463a01392e742b81c52a9157e096, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1966845109, guid: 0236463a01392e742b81c52a9157e096, type: 3}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 1735918622, guid: 0236463a01392e742b81c52a9157e096, type: 3}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 504337218, guid: 0236463a01392e742b81c52a9157e096, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 160
+  - m_RefCount: 162
     m_Data:
       e00: 1
       e01: 0
@@ -1986,7 +2006,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 160
+  - m_RefCount: 162
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -2024,7 +2044,7 @@ GameObject:
   - component: {fileID: 105108714}
   - component: {fileID: 105108713}
   - component: {fileID: 105108715}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Furniture
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -2515,7 +2535,7 @@ GameObject:
   - component: {fileID: 260265865}
   - component: {fileID: 260265867}
   - component: {fileID: 260265866}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -2607,7 +2627,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 261644439}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: City
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -2641,7 +2661,7 @@ GameObject:
   - component: {fileID: 325394480}
   - component: {fileID: 325394482}
   - component: {fileID: 325394483}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HomePlayerDoor
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -3320,7 +3340,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: 1772333430, guid: f654a1d3042d42a4abd1d4f02c0cd9ab, type: 3}
+  m_Sprite: {fileID: -1052402311, guid: f654a1d3042d42a4abd1d4f02c0cd9ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3342,7 +3362,7 @@ GameObject:
   - component: {fileID: 606890543}
   - component: {fileID: 606890545}
   - component: {fileID: 606890544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11232,9 +11252,9 @@ GameObject:
   - component: {fileID: 687302394}
   - component: {fileID: 687302392}
   - component: {fileID: 687302391}
-  - component: {fileID: 687302390}
   - component: {fileID: 687302389}
   - component: {fileID: 687302395}
+  - component: {fileID: 687302396}
   m_Layer: 7
   m_Name: NPC (1)
   m_TagString: Untagged
@@ -11274,7 +11294,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.08246422, y: -0.10957146}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -11285,35 +11305,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.511692, y: 1.5118141}
   m_EdgeRadius: 0
---- !u!114 &687302390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687302388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73efb09dac4c2404d854b4188f3f86f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialog:
-    lines:
-    - hi
-    - jhon cena
-  sprites:
-  - {fileID: -1795762722, guid: f654a1d3042d42a4abd1d4f02c0cd9ab, type: 3}
-  - {fileID: 1772333430, guid: f654a1d3042d42a4abd1d4f02c0cd9ab, type: 3}
-  - {fileID: 634136053, guid: f654a1d3042d42a4abd1d4f02c0cd9ab, type: 3}
-  movementPattern:
-  - {x: 1, y: 0}
-  - {x: -1, y: 0}
-  - {x: 0, y: 1}
-  - {x: 0, y: -1}
-  timeBetweenPatterns: 0
-  character: {fileID: 687302395}
 --- !u!61 &687302391
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11346,7 +11339,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0020523071, y: -0.045146942}
+  m_Offset: {x: -0.00989151, y: 0.043701172}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -11357,7 +11350,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8727646, y: 1.0902939}
+  m_Size: {x: 0.64803314, y: 0.91259766}
   m_EdgeRadius: 0
 --- !u!50 &687302392
 Rigidbody2D:
@@ -11371,10 +11364,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 1000
+  m_LinearDrag: 1.5
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -11385,7 +11378,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!4 &687302394
 Transform:
   m_ObjectHideFlags: 0
@@ -11394,7 +11387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687302388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 48.3, y: -41.6, z: 0}
+  m_LocalPosition: {x: 48.69, y: -41.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11403,6 +11396,29 @@ Transform:
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &687302395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687302388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73efb09dac4c2404d854b4188f3f86f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog:
+    lines:
+    - hehe
+    - have you tried entering long grass before?
+  sprites:
+  - {fileID: -1052402311, guid: f654a1d3042d42a4abd1d4f02c0cd9ab, type: 3}
+  movementPattern:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  timeBetweenPatterns: 0
+  character: {fileID: 687302396}
+--- !u!114 &687302396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11669,7 +11685,7 @@ GameObject:
   - component: {fileID: 766918731}
   - component: {fileID: 766918730}
   - component: {fileID: 766918733}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TV
   m_TagString: TV
   m_Icon: {fileID: 0}
@@ -12564,7 +12580,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1055182299}
   - component: {fileID: 1055182298}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: World
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -12753,7 +12769,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1165732193}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HousePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12846,7 +12862,7 @@ GameObject:
   - component: {fileID: 1253744811}
   - component: {fileID: 1253744810}
   - component: {fileID: 1253744812}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LongGrass
   m_TagString: LongGrass
   m_Icon: {fileID: 0}
@@ -13884,6 +13900,8 @@ MonoBehaviour:
   runSpeed: 6
   notificationBar: {fileID: 976794061}
   battleSystem: {fileID: 1217344143}
+  colldingDoor: 0
+  collidingInteractable: 0
   playerActive: 1
   gameController: {fileID: 1039887112}
 --- !u!4 &1283706797
@@ -14599,7 +14617,7 @@ GameObject:
   - component: {fileID: 1507532354}
   - component: {fileID: 1507532353}
   - component: {fileID: 1507532352}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Solid Furniture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14718,8 +14736,8 @@ Tilemap:
   - first: {x: 57, y: -35, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 18
-      m_TileSpriteIndex: 17
+      m_TileIndex: 17
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -14728,8 +14746,8 @@ Tilemap:
   - first: {x: 58, y: -35, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 17
-      m_TileSpriteIndex: 15
+      m_TileIndex: 18
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -14738,8 +14756,8 @@ Tilemap:
   - first: {x: 61, y: -35, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 18
-      m_TileSpriteIndex: 17
+      m_TileIndex: 17
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -14748,8 +14766,8 @@ Tilemap:
   - first: {x: 62, y: -35, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 17
-      m_TileSpriteIndex: 15
+      m_TileIndex: 18
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -14942,9 +14960,9 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: bd20b87d151a1de40ae39d059af8cc0d, type: 2}
   - m_RefCount: 2
-    m_Data: {fileID: 11400000, guid: 73984b65b09976a4da9a7bab301e46b2, type: 2}
-  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 46abff6b0d1a313439022da863763a80, type: 2}
+  - m_RefCount: 2
+    m_Data: {fileID: 11400000, guid: 73984b65b09976a4da9a7bab301e46b2, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -14977,11 +14995,11 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 4288008938419600481, guid: 498d6c33c89360e43b56b0934609c613, type: 3}
   - m_RefCount: 2
-    m_Data: {fileID: 1735918622, guid: 0236463a01392e742b81c52a9157e096, type: 3}
+    m_Data: {fileID: 504337218, guid: 0236463a01392e742b81c52a9157e096, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1979528252196088013, guid: 498d6c33c89360e43b56b0934609c613, type: 3}
   - m_RefCount: 2
-    m_Data: {fileID: 504337218, guid: 0236463a01392e742b81c52a9157e096, type: 3}
+    m_Data: {fileID: 1735918622, guid: 0236463a01392e742b81c52a9157e096, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -7546697382171443010, guid: 498d6c33c89360e43b56b0934609c613, type: 3}
   m_TileMatrixArray:
@@ -16174,7 +16192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1899878378}
   - component: {fileID: 1899878377}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Door
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -16478,7 +16496,7 @@ GameObject:
   - component: {fileID: 2137906065}
   - component: {fileID: 2137906067}
   - component: {fileID: 2137906066}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Furniture
   m_TagString: Untagged
   m_Icon: {fileID: 0}

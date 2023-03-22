@@ -12,7 +12,6 @@ public class DialogManager : MonoBehaviour
     public TextMeshProUGUI dialogText;
     public int lettersPerSecond;
     public static DialogManager instance;
-    public Coroutine lastRoutine = null;
     [SerializeField] public int currentLine;
     void Awake()
     {
@@ -27,31 +26,34 @@ public class DialogManager : MonoBehaviour
         this.dialog = dialog;
 
         dialogBox.SetActive(true);
-        lastRoutine = StartCoroutine(TypeDialog(dialog.lines[0]));
+        SetDialog(dialog.lines[0]);
     }
-    public IEnumerator TypeDialog(string line)
-    {
-        yield return new WaitForEndOfFrame();
-        dialogText.text = " ";
+    // public IEnumerator TypeDialog(string line)
+    // {
+    //     yield return new WaitForEndOfFrame();
+    //     dialogText.text = " ";
+    //     isTyping = true;
+    //     foreach (var letter in line.ToCharArray())
+    //     {
+    //         dialogText.text += letter;
+    //         yield return new WaitForSeconds(1f / lettersPerSecond);
+    //     }
+    //     isTyping = false;
+    //     dialogText.text = line;
+    // }
+    public void SetDialog(string line){
         isTyping = true;
-        foreach (var letter in line.ToCharArray())
-        {
-            dialogText.text += letter;
-            yield return new WaitForSeconds(1f / lettersPerSecond);
-        }
+        this.dialogText.text = line;
         isTyping = false;
-        dialogText.text = line;
     }
     public void HandleUpdate()
     {
-        if (Input.GetButtonDown("Action") && !(isTyping))
+        if (Input.GetButtonDown("Action"))
         {
             currentLine++;
             if (currentLine < dialog.lines.Count)
             {
-                dialogText.text = "";
-                lastRoutine = StartCoroutine(TypeDialog(dialog.lines[currentLine]));
-                return;
+                SetDialog(dialog.lines[currentLine]);
             }
             else
             {
@@ -60,5 +62,10 @@ public class DialogManager : MonoBehaviour
                 OnCloseDialog?.Invoke();
             }
         }
+    }
+    void Update()
+    {
+        if (dialog != null)
+        SetDialog(dialog.lines[currentLine]);
     }
 }
