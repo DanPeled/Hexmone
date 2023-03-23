@@ -37,6 +37,11 @@ public class BattleDialogBox : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
     }
+    public IEnumerator TypeDialog(string dialog)
+    {
+        yield return TypeDialog(dialog, this.dialogText);
+    }
+
 
     public void ToggleDialogText(bool state)
     {

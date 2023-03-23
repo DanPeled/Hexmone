@@ -13,14 +13,16 @@ public class DialogManager : MonoBehaviour
     public int lettersPerSecond;
     public static DialogManager instance;
     [SerializeField] public int currentLine;
+    Action onEnd;
     void Awake()
     {
         instance = this;
     }
     Dialog dialog;
     bool isTyping;
-    public IEnumerator ShowDialog(Dialog dialog)
+    public IEnumerator ShowDialog(Dialog dialog, Action? onEnd)
     {
+        this.onEnd = onEnd;
         yield return new WaitForEndOfFrame();
         OnShowDialog?.Invoke();
         this.dialog = dialog;
@@ -60,6 +62,7 @@ public class DialogManager : MonoBehaviour
                 currentLine = 0;
                 dialogBox.SetActive(false);
                 OnCloseDialog?.Invoke();
+                onEnd?.Invoke();
             }
         }
     }

@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public Sprite sprite;
+    public string playerName;
     public enum FacingDir
     {
         forward,
@@ -16,6 +18,7 @@ public class Player : MonoBehaviour
         right
     };
     FacingDir facingDir;
+    public static Player instance;
     Rigidbody2D body;
     public Camera mainCam;
     public List<Camera> cameras;
@@ -53,6 +56,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        instance = this;
         if (colldingDoor && Input.GetButton("Action"))
         {
             Door(doorObject.gameObject);
@@ -176,6 +180,10 @@ public class Player : MonoBehaviour
             StopCoroutine(lastRoutine);
         active = false;
         lastRoutine = StartCoroutine(removeNotification());
+        if (other.gameObject.GetComponent<TrainerController>() != null)
+        {
+            other.gameObject.GetComponent<TrainerController>().fov.gameObject.SetActive(true);
+        }
     }
 
     #endregion
@@ -217,7 +225,6 @@ public class Player : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        print(other.gameObject.name);
         if (other.gameObject.tag == "Door")
         {
             this.colldingDoor = true;
@@ -243,11 +250,7 @@ public class Player : MonoBehaviour
     }
     public void OnTriggerStay2D(Collider2D other)
     {
-        StartCoroutine(
-            CheckForEncounters(
-                other.gameObject.tag == "LongGrass" && (horizontal != 0 || vertical != 0)
-            )
-        );
+        OnMoveOver(other.gameObject);
         switch (other.gameObject.tag)
         {
             case "Door":
@@ -264,7 +267,15 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-
+    public void OnMoveOver(GameObject other)
+    {
+        StartCoroutine(
+            CheckForEncounters(
+                other.tag == "LongGrass" && (horizontal != 0 || vertical != 0)
+            )
+        );
+        StartCoroutine(CheckIfInTrainersView(other.gameObject.GetComponentInParent<TrainerController>(), other.tag.Equals("FOV")));
+    }
     public IEnumerator CheckForEncounters(bool touchingLongGrass)
     {
         int rnd = UnityEngine.Random.Range(1, 1000);
@@ -283,6 +294,14 @@ public class Player : MonoBehaviour
                 SwitchCamera(cameras[1]);
                 gameController.StartBattle();
             }
+        }
+    }
+    public IEnumerator CheckIfInTrainersView(TrainerController trainer, bool inView)
+    {
+        if (inView && trainer != null)
+        {
+            yield return trainer.TriggerTrainerBattle(this);
+            trainer.gameObject.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
     public void SwitchCamera(Camera targetCam)

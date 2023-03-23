@@ -8,6 +8,7 @@ TagManager:
   - TV
   - LevelLoader
   - LongGrass
+  - FOV
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Interactable
   - World
   - Obstacle
-  - 
+  - FOV
   - 
   - 
   - 

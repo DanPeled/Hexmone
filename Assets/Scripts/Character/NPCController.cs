@@ -27,14 +27,13 @@ public class NPCController : MonoBehaviour, Interactable
                     spriteAnimator.HandleUpdate();
                     var pattern = movementPattern[Random.Range(0, movementPattern.Count)];
                     state = NPCState.Walking;
-                    character.Move(pattern.x, pattern.y, 0.7f, 6);
                 }
             }
         }
 
     }
     public void Interact(){
-        StartCoroutine(DialogManager.instance.ShowDialog(dialog));
+        StartCoroutine(DialogManager.instance.ShowDialog(dialog, null));
     }
 }
 public enum NPCState{

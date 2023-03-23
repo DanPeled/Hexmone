@@ -28,12 +28,13 @@ public class BattleUnit : MonoBehaviour
         {
             image.sprite = creature._base.frontSprite;
         }
+        hud.gameObject.SetActive(true);
         hud.SetData(creature);
         image.color = originalColor;
         PlayEnterAnimation();
         this.creature = creature;
     }
-
+#region Animations
     public void PlayEnterAnimation()
     {
         image.color = originalColor;
@@ -47,7 +48,6 @@ public class BattleUnit : MonoBehaviour
         }
         image.transform.DOLocalMoveX(originalPos.x, 1f);
     }
-
     public void PlayAttackAnimation()
     {
         var seq = DOTween.Sequence();
@@ -74,5 +74,10 @@ public class BattleUnit : MonoBehaviour
         var seq = DOTween.Sequence();
         seq.Append(image.transform.DOLocalMoveY(originalPos.y - 150f, 0.5f));
         seq.Join(image.DOFade(0f, 0.5f));
+    }
+    #endregion
+    public void Clear()
+    {
+        hud.gameObject.SetActive(false);
     }
 }

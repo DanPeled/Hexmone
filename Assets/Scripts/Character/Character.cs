@@ -8,14 +8,18 @@ public class Character : MonoBehaviour
     {
         this.body = GetComponent<Rigidbody2D>();
     }
-    public void Move(float horizontal, float vertical, float moveLimiter, float runSpeed)
+    public IEnumerator Move(Vector2 moveVec)
     {
-        if (horizontal != 0 && vertical != 0) // Check for diagonal movement
+        var targetPos = transform.position;
+        targetPos.x += moveVec.x;
+        targetPos.y += moveVec.y;
+
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
-            // limit movement speed diagonally, so you move at {moveLimiter}% speed
-            horizontal *= moveLimiter;
-            vertical *= moveLimiter;
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, 5f * Time.deltaTime);
+            yield return null;
         }
-        body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        transform.position = targetPos;
+
     }
 }

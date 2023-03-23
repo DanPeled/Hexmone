@@ -5,7 +5,8 @@ public class GameController : MonoBehaviour
     public GameState state;
     public BattleSystem battleSystem;
     public Player player;
-
+    public static GameController instance;
+    
     private void Awake()
     {
         this.player = GameObject.FindObjectOfType<Player>();
@@ -13,17 +14,20 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        DialogManager.instance.OnShowDialog += () => {
+        DialogManager.instance.OnShowDialog += () =>
+        {
             state = GameState.Dialog;
         };
 
-       DialogManager.instance.OnCloseDialog += () => {
-           if (state == GameState.Dialog){
-            state = GameState.FreeRoam;
-           }
+        DialogManager.instance.OnCloseDialog += () =>
+        {
+            if (state == GameState.Dialog)
+            {
+                state = GameState.FreeRoam;
+            }
         };
     }
-public void StartBattle()
+    public void StartBattle()
     {
         state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
@@ -34,11 +38,21 @@ public void StartBattle()
             .GetRandomWildCreature();
         battleSystem.StartBattle(playerParty, wildCreature);
     }
+    public void StartTrainerBattle(TrainerController trainer)
+    {
+        state = GameState.Battle;
+        battleSystem.gameObject.SetActive(true);
+        var playerParty = player.GetComponent<CreaturesParty>();
+        var trainerParty = trainer.GetComponent<CreaturesParty>();
+        battleSystem.StartTrainerBattle(playerParty, trainerParty);
+    }
     void Update()
     {
-        if (state == GameState.Dialog){
+        if (state == GameState.Dialog)
+        {
             DialogManager.instance.HandleUpdate();
         }
+        instance = this;
     }
 }
 

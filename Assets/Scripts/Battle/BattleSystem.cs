@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public enum BattleState
 {
@@ -35,33 +36,84 @@ public class BattleSystem : MonoBehaviour
         currentMove,
         currentMember;
     bool actionPossible = false;
-    CreaturesParty playerParty;
+    public Image playerImage, trainerImage;
+    CreaturesParty playerParty, trainerParty;
     Creature wildCreature;
     Toggle up = new Toggle(),
         down = new Toggle(),
         left = new Toggle(),
         right = new Toggle();
-
-    public void StartBattle(CreaturesParty creaturesParty, Creature wildCreature)
+    bool isTrainerBattle = false;
+    Player player;
+    TrainerController trainer;
+    public void StartBattle(CreaturesParty playerParty, Creature wildCreature)
     {
-        this.playerParty = creaturesParty;
+        this.playerParty = playerParty;
         this.wildCreature = wildCreature;
         StartCoroutine(SetupBattle());
     }
+    public void StartTrainerBattle(CreaturesParty playerParty, CreaturesParty trainerParty)
+    {
+        this.playerParty = playerParty;
+        this.trainerParty = trainerParty;
+        isTrainerBattle = true;
+
+        player = playerParty.GetComponent<Player>();
+        trainer = trainerParty.GetComponent<TrainerController>();
+        StartCoroutine(SetupBattle());
+    }
+
 
     public IEnumerator SetupBattle()
     {
+        playerUnit.Clear();
+        enemyUnit.Clear();
         GameObject.FindObjectOfType<Player>().playerActive = false;
-        playerUnit.Setup(playerParty.GetHealthyCreature());
-        enemyUnit.Setup(wildCreature);
+        if (!this.isTrainerBattle)
+        {
+            // Wild Creature Battle
+            playerUnit.Setup(playerParty.GetHealthyCreature());
+            enemyUnit.Setup(wildCreature);
+            dialogBox.SetMoveNames(playerUnit.creature.moves);
+
+            yield return dialogBox.TypeDialog(
+                $"A Wild {enemyUnit.creature._base.creatureName} Appeared",
+                dialogBox.dialogText
+            );
+        }
+        else
+        {
+            // Trainer Battle
+
+            // Show player and trainer sprites
+            playerUnit.gameObject.SetActive(false);
+            enemyUnit.gameObject.SetActive(false);
+
+            playerImage.gameObject.SetActive(true);
+            trainerImage.gameObject.SetActive(true);
+            playerImage.sprite = player.sprite;
+            trainerImage.sprite = trainer.sprite;
+
+            yield return dialogBox.TypeDialog($"{trainer.trainerName} wants to battle");
+
+            // Send out first creature of the trainer
+            trainerImage.gameObject.SetActive(false);
+            enemyUnit.gameObject.SetActive(true);
+            var enemyCreature = trainerParty.GetHealthyCreature();
+            enemyUnit.Setup(enemyCreature);
+            yield return dialogBox.TypeDialog($"{trainer.trainerName} sent out {enemyCreature._base.creatureName}");
+
+            // Send out first creature of the player
+            playerImage.gameObject.SetActive(false);
+            playerUnit.gameObject.SetActive(true);
+            var playerCreature = playerParty.GetHealthyCreature();
+            playerUnit.Setup(playerCreature);
+            yield return dialogBox.TypeDialog($"Go {playerCreature._base.creatureName}!");
+            dialogBox.SetMoveNames(playerUnit.creature.moves);
+
+        }
+
         partyScreen.Init();
-        dialogBox.SetMoveNames(playerUnit.creature.moves);
-
-        yield return dialogBox.TypeDialog(
-            $"A Wild {enemyUnit.creature._base.creatureName} Appeared",
-            dialogBox.dialogText
-        );
-
         StartCoroutine(PlayerAction());
     }
 
@@ -113,11 +165,14 @@ public class BattleSystem : MonoBehaviour
 
             // Check who goes first
             bool playerGoesFirst = true;
-            if (enemyMovePriority > playerMovePriority){
+            if (enemyMovePriority > playerMovePriority)
+            {
                 playerGoesFirst = false;
-            } else if (enemyMovePriority == playerMovePriority){
+            }
+            else if (enemyMovePriority == playerMovePriority)
+            {
                 playerGoesFirst = playerUnit.creature.Speed >= enemyUnit.creature.Speed;
-            } 
+            }
 
             var firstUnit = (playerGoesFirst) ? playerUnit : enemyUnit;
             var secondUnit = (playerGoesFirst) ? enemyUnit : playerUnit;
@@ -364,7 +419,7 @@ public class BattleSystem : MonoBehaviour
         while (creature.statusChanges.Count > 0)
         {
             var message = creature.statusChanges.Dequeue();
-            yield return dialogBox.TypeDialog(message, dialogBox.dialogText);
+            yield return dialogBox.TypeDialog(message);
         }
     }
 
@@ -374,11 +429,11 @@ public class BattleSystem : MonoBehaviour
         dialogBox.ToggleMoveSelector(false);
         if (won)
         {
-            yield return dialogBox.TypeDialog("You Have Won The Battle!", dialogBox.dialogText);
+            yield return dialogBox.TypeDialog("You Have Won The Battle!");
         }
         else
         {
-            yield return dialogBox.TypeDialog("You Have Lost The Battle!", dialogBox.dialogText);
+            yield return dialogBox.TypeDialog("You Have Lost The Battle!");
         }
         yield return new WaitForSeconds(1f);
         GameObject.FindObjectOfType<Player>().playerActive = true;
@@ -404,7 +459,23 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            BattleOver(true);
+            if (!isTrainerBattle)
+            {
+                BattleOver(true);
+            }
+            else
+            {
+                var nextCreature = trainerParty.GetHealthyCreature();
+                if (nextCreature != null)
+                {
+                    // Send out next creature
+                    StartCoroutine(SendNextTrainerCreature(nextCreature));
+                }
+                else
+                {
+                    BattleOver(true);
+                }
+            }
         }
     }
 
@@ -421,15 +492,15 @@ public class BattleSystem : MonoBehaviour
     {
         if (damageDetails.Critical > 1f)
         {
-            yield return dialogBox.TypeDialog("A Critical Hit", dialogBox.dialogText);
+            yield return dialogBox.TypeDialog("A Critical Hit");
         }
         if (damageDetails.TypeEffectiveness > 1f)
         {
-            yield return dialogBox.TypeDialog("It's Super Effective!", dialogBox.dialogText);
+            yield return dialogBox.TypeDialog("It's Super Effective!");
         }
         if (damageDetails.TypeEffectiveness < 1f)
         {
-            yield return dialogBox.TypeDialog("It's Not Very Effective", dialogBox.dialogText);
+            yield return dialogBox.TypeDialog("It's Not Very Effective");
         }
     }
 
@@ -527,7 +598,8 @@ public class BattleSystem : MonoBehaviour
         if (Input.GetButtonDown("Action"))
         {
             var move = playerUnit.creature.moves[currentMove];
-            if(move.PP <= 0){
+            if (move.PP <= 0)
+            {
                 return;
             }
             dialogBox.ToggleMoveSelector(false);
@@ -549,7 +621,7 @@ public class BattleSystem : MonoBehaviour
         string winningText = playerIsWinner
             ? "Player"
             : $"Enemy {enemyUnit.creature._base.creatureName}";
-        yield return dialogBox.TypeDialog($"{winningText} Has Won", dialogBox.dialogText);
+        yield return dialogBox.TypeDialog($"{winningText} Has Won");
         gameObject.SetActive(false);
     }
 
@@ -632,6 +704,15 @@ public class BattleSystem : MonoBehaviour
             dialogBox.dialogText
         );
         playerUnit.image.color = playerUnit.originalColor;
+        battleState = BattleState.RunningTurn;
+    }
+
+    IEnumerator SendNextTrainerCreature(Creature nextCreature)
+    {
+        battleState = BattleState.Busy;
+        enemyUnit.Setup(nextCreature);
+        yield return dialogBox.TypeDialog($"{trainer.trainerName} send out {nextCreature._base.creatureName}");
+
         battleState = BattleState.RunningTurn;
     }
 }

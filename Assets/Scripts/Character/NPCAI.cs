@@ -19,7 +19,8 @@ public class NPCAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         InvokeRepeating("UpdatePath", 0f, .5f);
         speed = speed * 100000;
-        for(int i = 0; i < paths.Length; i++){
+        for (int i = 0; i < paths.Length; i++)
+        {
             paths[i] += (Vector2)transform.position;
         }
     }
@@ -36,9 +37,11 @@ public class NPCAI : MonoBehaviour
         {
             path = p;
             currentWayPoint = 0;
-            if (currentPath + 1 < paths.Length){
-                currentPath ++;
-            } else currentPath = 0;
+            if (currentPath + 1 < paths.Length)
+            {
+                currentPath++;
+            }
+            else currentPath = 0;
         }
     }
     void FixedUpdate()
