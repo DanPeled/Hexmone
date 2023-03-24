@@ -10,11 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 518a5f20f0acf054194f0c22ef17edc5, type: 3}
-  m_Name: Star Platinum
+  m_Name: SproutSlap
   m_EditorClassIdentifier: 
-  moveName: Star Platinum
-  description: "\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7\u05D7"
-  type: 2
-  power: 40
+  moveName: Sprout Slap
+  description: 
+  type: 6
+  power: 20
   accuracy: 100
-  pp: 34
+  pp: 35
+  priority: 0
+  alwaysHits: 0
+  category: 0
+  effects:
+    boosts: []
+    status: 0
+    volatileStatus: 0
+  secondaryEffects: []
+  target: 0

@@ -12,6 +12,7 @@ public class LevelLoader : MonoBehaviour
     public GameObject loadingScreen;
     public void Load(Room targetRoom)
     {
+        transform.GetChild(0).gameObject.SetActive(true);
         StartCoroutine(LoadAnim("Transition", targetRoom));
     }
     public IEnumerator LoadAnim(string scene, Room targetRoom)

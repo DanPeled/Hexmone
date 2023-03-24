@@ -12,12 +12,12 @@ public class BattleDialogBox : MonoBehaviour
     public TextMeshProUGUI dialogText;
     public GameObject actionSelector,
         moveSelector,
-        moveDetails;
+        moveDetails, choiceBox;
     public List<TextMeshProUGUI> actionTexts;
     public List<TextMeshProUGUI> moveTexts;
 
     public TextMeshProUGUI ppText,
-        typeText;
+        typeText, yesText, noText;
 
     public void SetDialog(string dialog)
     {
@@ -47,7 +47,9 @@ public class BattleDialogBox : MonoBehaviour
     {
         dialogText.enabled = state;
     }
-
+    public void ToggleChoiceBox(bool state){
+        choiceBox.SetActive(true);
+    }
     public void ToggleActionSelector(bool state)
     {
         actionSelector.SetActive(state);
@@ -72,6 +74,11 @@ public class BattleDialogBox : MonoBehaviour
                 actionTexts[i].color = Color.black;
             }
         }
+    }
+    public void UpdateChoiceBoxSelection(bool yesSelected)
+    {
+        yesText.color = yesSelected ? highlightedColor : Color.black;
+        noText.color = !yesSelected ? highlightedColor : Color.black;
     }
 
     public void UpdateMoveSelection(int selectedMove, Move move)

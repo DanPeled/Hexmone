@@ -6,7 +6,6 @@ public class GameController : MonoBehaviour
     public BattleSystem battleSystem;
     public Player player;
     public static GameController instance;
-    
     private void Awake()
     {
         this.player = GameObject.FindObjectOfType<Player>();
@@ -14,6 +13,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        battleSystem.gameObject.SetActive(false);
         DialogManager.instance.OnShowDialog += () =>
         {
             state = GameState.Dialog;
@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
             }
         };
     }
+    TrainerController trainer;
     public void StartBattle()
     {
         state = GameState.Battle;
@@ -41,6 +42,7 @@ public class GameController : MonoBehaviour
     public void StartTrainerBattle(TrainerController trainer)
     {
         state = GameState.Battle;
+        this.trainer = trainer;
         battleSystem.gameObject.SetActive(true);
         var playerParty = player.GetComponent<CreaturesParty>();
         var trainerParty = trainer.GetComponent<CreaturesParty>();
@@ -53,6 +55,14 @@ public class GameController : MonoBehaviour
             DialogManager.instance.HandleUpdate();
         }
         instance = this;
+    }
+    public void EndBattle(bool won){
+        if (trainer != null && won){
+            trainer.BattleLost();
+            trainer = null;
+        }
+        state = GameState.FreeRoam;
+        battleSystem.gameObject.SetActive(false);
     }
 }
 

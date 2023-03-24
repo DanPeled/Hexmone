@@ -3,16 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrainerController : MonoBehaviour
+public class TrainerController : MonoBehaviour, Interactable
 {
-    public Dialog dialog;
+    public Dialog dialog, dialogAfterBattle;
     public GameObject exclamation, fov;
     public Sprite sprite;
     public string trainerName;
     Character character;
+
+    //State
+    bool battleLost = false;
     void Awake()
     {
         this.character = GetComponent<Character>();
+    }
+    public void Interact()
+    {
+        if (!battleLost)
+        {
+            StartCoroutine(DialogManager.instance.ShowDialog(dialog, () =>
+            {
+                GameController.instance.StartTrainerBattle(this);
+            }));
+        } else {
+            StartCoroutine(DialogManager.instance.ShowDialog(dialogAfterBattle));
+        }
     }
     public IEnumerator TriggerTrainerBattle(Player player)
     {
@@ -34,5 +49,10 @@ public class TrainerController : MonoBehaviour
         {
             GameController.instance.StartTrainerBattle(this);
         }));
+    }
+    public void BattleLost()
+    {
+        battleLost = true;
+        fov.gameObject.SetActive(false);
     }
 }

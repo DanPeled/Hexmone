@@ -20,7 +20,7 @@ public class DialogManager : MonoBehaviour
     }
     Dialog dialog;
     bool isTyping;
-    public IEnumerator ShowDialog(Dialog dialog, Action? onEnd)
+    public IEnumerator ShowDialog(Dialog dialog, Action onEnd = null)
     {
         this.onEnd = onEnd;
         yield return new WaitForEndOfFrame();

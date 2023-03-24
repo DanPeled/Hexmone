@@ -37,14 +37,16 @@ public enum CreatureType
     Fire,
     Water,
     Air,
-    Rock,
+    Stone,
     Bug,
     Grass,
     Dragon,
     Electric,
     Poison,
     Fighting,
-    Diffrent
+    Diffrent,
+    Food,
+    Fairy
 }
 
 public enum Stat
