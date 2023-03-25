@@ -7,7 +7,7 @@ using System.Linq;
 public class Creature
 {
     public CreatureBase _base;
-    public int level;
+    public int level, exp;
     public int HP, statusTime;
     public bool HPChanged { get; set; }
     public List<Move> moves = new List<Move>();
@@ -15,11 +15,16 @@ public class Creature
     public Dictionary<Stat, int> stats;
     public Dictionary<Stat, int> statBoosts;
     public Condition status;
-    public Queue<string> statusChanges = new Queue<string>();
+    public Queue<string> statusChanges;
     public Action OnStatusChanged;
     public Condition volatileStatus;
     public int volatileStatusTime;
-
+    public Creature(CreatureBase base_, int pLvl)
+    {
+        this._base = base_;
+        level = pLvl;
+        Init();
+    }
     public void Init()
     {
         // Generate Moves
@@ -34,9 +39,10 @@ public class Creature
                 break;
             }
         }
+        exp = _base.GetExpForLevel(level);
         CalculateStats();
         this.HP = this.maxHealth;
-
+        statusChanges = new Queue<string>();
         ResetStatBoost();
         status = null;
         volatileStatus = null;

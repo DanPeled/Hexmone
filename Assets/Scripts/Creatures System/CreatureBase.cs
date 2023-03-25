@@ -22,6 +22,17 @@ public class CreatureBase : ScriptableObject
     public int spDefense;
     public int speed;
     public List<LearnableMove> learnableMoves = new List<LearnableMove>();
+    public int catchRate = 225;
+    public int expYield;
+    public GrowthRate growthRate;
+    public int GetExpForLevel(int level){
+        if (growthRate == GrowthRate.Fast){
+            return 4 * (level * level * level) / 5;
+        } else if (growthRate == GrowthRate.MeduimFast){
+            return level * level * level;
+        }
+        return -1;
+    }
 }
 
 [System.Serializable]
@@ -30,7 +41,9 @@ public class LearnableMove
     public MoveBase moveBase;
     public int level;
 }
-
+public enum GrowthRate{
+    Fast, MeduimFast
+}
 public enum CreatureType
 {
     Normal,
@@ -50,7 +63,9 @@ public enum CreatureType
     Dragon,
     Dark,
     Steel,
-    Fairy
+    Fairy,
+    Food,
+    Diffrent
 }
 
 public enum Stat

@@ -297,7 +297,7 @@ public class Player : MonoBehaviour
         if (inView && trainer != null)
         {
             yield return trainer.TriggerTrainerBattle(this);
-            trainer.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            trainer.fov.SetActive(false);
         }
     }
     public void SwitchCamera(Camera targetCam)

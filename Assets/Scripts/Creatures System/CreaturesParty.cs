@@ -18,4 +18,11 @@ public class CreaturesParty : MonoBehaviour
     {
         return creatures.Where(x => x.HP > 0).FirstOrDefault();
     }
+    public void AddCreature(Creature newCreature){
+        if (creatures.Count < 6){
+            creatures.Add(newCreature);
+        } else {
+            // TODO: Add the to the PC
+        }
+    }
 }

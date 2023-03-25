@@ -1,9 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class ImageReplacementSystem : MonoBehaviour
 {
-    public Sprite missingCreatureTexture;
+    public Sprite missingTexture;
     void Start()
     {
         ReplaceImages();
@@ -18,14 +19,26 @@ public class ImageReplacementSystem : MonoBehaviour
         {
             if (image.sprite == null)
             {
-                if ((image.GetComponent<BattleUnit>() != null || image.tag.Equals("CharacterImage")) && image.gameObject.activeInHierarchy)
+                if (image.gameObject.activeInHierarchy)
                 {
-                    image.sprite = missingCreatureTexture;
+                    if ((image.GetComponent<BattleUnit>() != null || image.tag.Equals("CharacterImage")))
+                    {
+                        image.sprite = missingTexture;
+                    }
+
                 }
                 else
                 {
                     continue;
                 }
+            }
+        }
+        foreach (var spriteRenderer in FindObjectsOfType<SpriteRenderer>())
+        {
+            if (spriteRenderer.GetComponent<SpriteRenderer>() != null &&
+             spriteRenderer.gameObject.activeInHierarchy && spriteRenderer.GetComponentInParent<Player>() == null && spriteRenderer.GetComponentInParent<TrainerController>() == null && !spriteRenderer.gameObject.name.StartsWith("Hexoball"))
+            {
+                spriteRenderer.GetComponent<SpriteRenderer>().sprite = missingTexture;
             }
         }
     }

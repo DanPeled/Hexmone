@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -20,6 +21,7 @@ public class BattleUnit : MonoBehaviour
 
     public void Setup(Creature creature)
     {
+        this.creature = creature;
         if (isPlayerUnit)
         {
             image.sprite = creature._base.backSprite;
@@ -28,13 +30,13 @@ public class BattleUnit : MonoBehaviour
         {
             image.sprite = creature._base.frontSprite;
         }
+        transform.localScale = new Vector3(1, 1, 1);
         hud.gameObject.SetActive(true);
         hud.SetData(creature);
         image.color = originalColor;
         PlayEnterAnimation();
-        this.creature = creature;
     }
-#region Animations
+    #region Animations
     public void PlayEnterAnimation()
     {
         image.color = originalColor;
@@ -74,6 +76,22 @@ public class BattleUnit : MonoBehaviour
         var seq = DOTween.Sequence();
         seq.Append(image.transform.DOLocalMoveY(originalPos.y - 150f, 0.5f));
         seq.Join(image.DOFade(0f, 0.5f));
+    }
+    public IEnumerator PlayCaptureAnimation()
+    {
+        var seq = DOTween.Sequence();
+        seq.Append(image.DOFade(0, 0.5f));
+        seq.Join(transform.DOLocalMoveY(originalPos.y + 50f, 0.5f));
+        seq.Join(transform.DOScale(new Vector3(0.3f, 0.3f, 1f), 0.5f));
+        yield return seq.WaitForCompletion();
+    }
+    public IEnumerator PlayBreakOutAnimation()
+    {
+        var seq = DOTween.Sequence();
+        seq.Append(image.DOFade(1, 0.5f));
+        seq.Join(transform.DOLocalMoveY(originalPos.y, 0.5f));
+        seq.Join(transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f));
+        yield return seq.WaitForCompletion();
     }
     #endregion
     public void Clear()
