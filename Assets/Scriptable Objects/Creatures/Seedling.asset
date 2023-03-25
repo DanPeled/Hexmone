@@ -15,7 +15,7 @@ MonoBehaviour:
   creatureName: Seedling
   description: 
   maxHealth: 60
-  type1: 6
+  type1: 4
   type2: 0
   damage: 30
   frontSprite: {fileID: 21300000, guid: 3de91b2832ea2794dad0c82e9a3ac40d, type: 3}

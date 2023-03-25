@@ -10,13 +10,18 @@ public class TrainerController : MonoBehaviour, Interactable
     public Sprite sprite;
     public string trainerName;
     Character character;
+    Vector2 originalPos;
 
     //State
-    bool battleLost = false;
+    public bool battleLost = false;
     void Awake()
     {
         this.character = GetComponent<Character>();
     }
+        void Start()
+        {
+        this.originalPos = transform.position;
+        }
     public void Interact()
     {
         if (!battleLost)
@@ -54,5 +59,6 @@ public class TrainerController : MonoBehaviour, Interactable
     {
         battleLost = true;
         fov.gameObject.SetActive(false);
+        this.transform.position = originalPos;
     }
 }

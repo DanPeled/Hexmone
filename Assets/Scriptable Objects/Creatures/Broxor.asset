@@ -15,8 +15,8 @@ MonoBehaviour:
   creatureName: Broxor
   description: 
   maxHealth: 340
-  type1: 6
-  type2: 10
+  type1: 4
+  type2: 6
   damage: 155
   frontSprite: {fileID: 0}
   backSprite: {fileID: 0}

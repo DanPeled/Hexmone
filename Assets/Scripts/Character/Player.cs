@@ -180,10 +180,6 @@ public class Player : MonoBehaviour
             StopCoroutine(lastRoutine);
         active = false;
         lastRoutine = StartCoroutine(removeNotification());
-        if (other.gameObject.GetComponent<TrainerController>() != null)
-        {
-            other.gameObject.GetComponent<TrainerController>().fov.gameObject.SetActive(true);
-        }
     }
 
     #endregion

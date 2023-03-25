@@ -36,16 +36,20 @@ public enum CreatureType
     Normal,
     Fire,
     Water,
-    Air,
-    Stone,
-    Bug,
-    Grass,
-    Dragon,
     Electric,
-    Poison,
+    Grass,
+    Ice,
     Fighting,
-    Diffrent,
-    Food,
+    Poison,
+    Ground,
+    Flying,
+    Psychic,
+    Bug,
+    Rock,
+    Ghost,
+    Dragon,
+    Dark,
+    Steel,
     Fairy
 }
 
@@ -64,17 +68,27 @@ public enum Stat
 
 public class TypeChart
 {
-    static float[][] chart =
+    static float[,] chart =
     {
-        //
-        /*NOR*/new float[]
-        {
-            1f,
-            1f,
-            1f
-        },
-        /*FIR*/new float[] { 1f, 0.5f, 0.5f },
-        /*WAT*/new float[] { 1f, 2f, 0.5f }
+    /*              NOR FIR WAT ELE GRA ICE FIG POI GRO FLY PSY BUG ROC GHO DRG DAR STE FAI  */
+    /* Normal    */ { 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 1f, 1f, 0.5f, 0f, 1f, 1f, 0.5f, 1f },
+    /* Fire      */ { 1f, 0.5f, 2f, 1f, 0.5f, 0.5f, 1f, 1f, 2f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 0.5f, 1f },
+    /* Water     */ { 1f, 2f, 0.5f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 0.5f, 1f },
+    /* Electric */ { 1f, 1f, 2f, 0.5f, 0.5f, 1f, 1f, 1f, 0f, 2f, 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 1f },
+    /* Grass     */ { 1f, 2f, 0.5f, 1f, 0.5f, 2f, 1f, 2f, 0.5f, 2f, 1f, 0.5f, 2f, 1f, 1f, 1f, 0.5f, 1f },
+    /* Ice       */ { 1f, 2f, 1f, 1f, 2f, 0.5f, 1f, 1f, 2f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 0.5f, 1f },
+    /* Fighting */ { 2f, 1f, 1f, 1f, 1f, 2f, 1f, 0.5f, 1f, 0.5f, 0.5f, 0.5f, 2f, 0f, 1f, 2f, 2f, 0.5f },
+    /* Poison    */ { 1f, 1f, 1f, 1f, 2f, 1f, 1f, 0.5f, 0.5f, 1f, 1f, 1f, 0.5f, 0.5f, 1f, 1f, 0f, 2f },
+    /* Ground    */ { 1f, 1f, 1f, 2f, 0f, 2f, 1f, 0.5f, 2f, 1f, 1f, 0.5f, 2f, 1f, 1f, 1f, 1f, 1f },
+    /* Flying    */ { 1f, 1f, 1f, 2f, 0.5f, 1f, 2f, 1f, 0f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f },
+    /* Psychic   */ { 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 2f, 1f, 1f, 0.5f, 1f, 1f, 1f, 2f, 2f, 1f, 1f },
+    /* Bug       */ { 1f, 0.5f, 1f, 1f, 2f, 1f, 0.5f, 1f, 0.5f, 2f, 1f, 2f, 1f, 0.5f, 2f, 1f, 0.5f, 0.5f },
+    /* Rock      */ { 0.5f, 2f, 1f, 1f, 2f, 1f, 0.5f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 1f },
+    /* Ghost     */ { 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0.5f, 1f, 1f, 2f, 1f, 1f, 2f, 1f, 1f, 1f, 2f },
+    /* Dragon    */ { 1f, 0.5f, 0.5f, 0.5f, 0.5f, 2f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 2f, 1f },
+    /* Dark      */ { 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 1f, 1f, 1f, 0f, 2f, 1f, 2f, 1f, 0.5f, 1f, 0.5f },
+    /* Steel     */ { 0.5f, 2f, 1f, 0.5f, 2f, 1f, 1f, 1f, 0.5f, 2f, 1f, 0.5f, 1f, 0.5f, 1f, 0.5f, 0.5f, 2f },
+    /* Fairy     */ { 1f, 0.5f, 1f, 1f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 0f, 2f, 0.5f, 1f }
     };
 
     public static float GetAffectiveness(CreatureType attackType, CreatureType defenseType)
@@ -85,6 +99,6 @@ public class TypeChart
         }
         int row = (int)attackType - 1;
         int col = (int)defenseType - 1;
-        return chart[row][col];
+        return chart[row, col];
     }
 }
