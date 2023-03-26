@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
 public enum BattleState
 {
     Start,
@@ -13,7 +14,8 @@ public enum BattleState
     RunningTurn,
     Busy,
     PartyScreen,
-    BattleOver, AboutToUse
+    BattleOver, AboutToUse,
+    MoveToForget
 }
 
 public enum BattleAction
@@ -31,6 +33,7 @@ public class BattleSystem : MonoBehaviour
 
     public BattleDialogBox dialogBox;
     public PartyScreen partyScreen;
+    public MoveSelectionUI moveSelectionUI;
     public BattleState? battleState,
         prevState;
     public int currentAction,
@@ -38,6 +41,7 @@ public class BattleSystem : MonoBehaviour
         currentMember;
     bool actionPossible = false;
     public Image playerImage, trainerImage;
+
     CreaturesParty playerParty, trainerParty;
     Creature wildCreature;
     Toggle up = new Toggle(),
@@ -49,6 +53,7 @@ public class BattleSystem : MonoBehaviour
     TrainerController trainer;
     public GameObject hexoballSprite;
     int escapeAttempts;
+    MoveBase moveToLearn;
     public void StartBattle(CreaturesParty playerParty, Creature wildCreature)
     {
         this.playerParty = playerParty;
@@ -70,6 +75,7 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SetupBattle()
     {
+        moveSelectionUI.gameObject.SetActive(false);
         playerUnit.Clear();
         enemyUnit.Clear();
         GameObject.FindObjectOfType<Player>().playerActive = false;
@@ -442,13 +448,48 @@ public class BattleSystem : MonoBehaviour
             yield return dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} gained {expGain} exp");
             yield return playerUnit.hud.SetExpSmooth();
             // Check lvl up
+            while (playerUnit.creature.CheckForLevelUp())
+            {
+                playerUnit.hud.SetLevel();
+                yield return dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} grew to level {playerUnit.creature.level}");
 
+                //Try to learn new move
+                var newMove = playerUnit.creature.GetLearnableMoveAtCurrLevel();
+                if (newMove != null)
+                {
+                    if (playerUnit.creature.moves.Count < playerUnit.creature._base.maxNumberOfMoves)
+                    {
+                        playerUnit.creature.LearnMove(newMove);
+                        yield return dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} learned {newMove.moveBase.moveName}");
+                        dialogBox.SetMoveNames(playerUnit.creature.moves);
+                    }
+                    else
+                    {
+                        // Option to forget move
+                        yield return dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} is trying to learn {newMove.moveBase.moveName}");
+                        yield return dialogBox.TypeDialog($"But it cannot learn more than {playerUnit.creature._base.maxNumberOfMoves} moves");
+                        yield return ChooseMoveToForget(playerUnit.creature, newMove.moveBase);
+                        yield return new WaitUntil(() => battleState != BattleState.MoveToForget);
+                        yield return new WaitForSeconds(2f);
+                    }
+                }
+
+                yield return playerUnit.hud.SetExpSmooth(true);
+            }
 
             yield return new WaitForSeconds(1f);
         }
         CheckForBattleOver(faintedUnit);
     }
-
+    IEnumerator ChooseMoveToForget(Creature creature, MoveBase newMove)
+    {
+        battleState = BattleState.Busy;
+        yield return dialogBox.TypeDialog($"Choose a move you want to forget");
+        moveSelectionUI.gameObject.SetActive(true);
+        moveSelectionUI.SetMoveData(creature.moves.Select(x => x.base_).ToList(), newMove);
+        moveToLearn = newMove;
+        battleState = BattleState.MoveToForget;
+    }
     IEnumerator OnBattleOver(bool won)
     {
         dialogBox.ToggleActionSelector(false);
@@ -547,15 +588,30 @@ public class BattleSystem : MonoBehaviour
             case BattleState.AboutToUse:
                 HandleAboutToUse();
                 break;
+            case BattleState.MoveToForget:
+                Action<int> onMoveSelected = (moveIndex) => {
+                    moveSelectionUI.gameObject.SetActive(false);
+                    if (moveIndex == 4){
+                        // Dont learn the new move
+                        StartCoroutine(dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} did not learn {moveToLearn.moveName}"));
+                    } else {
+                        // forget the selected move and learn new move
+                        var selectedMove = playerUnit.creature.moves[moveIndex].base_;
+                        StartCoroutine(dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} forgot {selectedMove.moveName} and learned {moveToLearn.moveName}"));
+
+                        playerUnit.creature.moves[moveIndex] = new Move(moveToLearn);
+                    }
+                    moveToLearn = null;
+                    battleState = BattleState.RunningTurn;
+                } ;
+                moveSelectionUI.HandleMoveSelection(onMoveSelected);
+                break;
+
         }
-        up.update(Input.GetAxisRaw("Vertical") != 0 && Input.GetAxisRaw("Vertical") > 0);
-        down.update(Input.GetAxisRaw("Vertical") != 0 && Input.GetAxisRaw("Vertical") < 0);
-        left.update(Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Horizontal") < 0);
-        right.update(Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Horizontal") > 0);
     }
     void HandleAboutToUse()
     {
-        if (up.isClicked() || down.isClicked())
+        if (InputSystem.instance.up.isClicked() || InputSystem.instance.down.isClicked())
         {
             aboutToUseChoice = !aboutToUseChoice;
         }
@@ -589,19 +645,19 @@ public class BattleSystem : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (right.isClicked())
+        if (InputSystem.instance.right.isClicked())
         {
             currentAction++;
         }
-        else if (left.isClicked())
+        else if (InputSystem.instance.left.isClicked())
         {
             currentAction--;
         }
-        else if (down.isClicked())
+        else if (InputSystem.instance.down.isClicked())
         {
             currentAction += 2;
         }
-        else if (up.isClicked())
+        else if (InputSystem.instance.up.isClicked())
         {
             currentAction -= 2;
         }
@@ -637,19 +693,19 @@ public class BattleSystem : MonoBehaviour
 
     void HandleMoveSelection()
     {
-        if (right.isClicked())
+        if (InputSystem.instance.right.isClicked())
         {
             currentMove++;
         }
-        else if (left.isClicked())
+        else if (InputSystem.instance.left.isClicked())
         {
             currentMove--;
         }
-        else if (down.isClicked())
+        else if (InputSystem.instance.down.isClicked())
         {
             currentMove += 2;
         }
-        else if (up.isClicked())
+        else if (InputSystem.instance.up.isClicked())
         {
             currentMove -= 2;
         }
@@ -689,19 +745,19 @@ public class BattleSystem : MonoBehaviour
     public void HandlePartySelection()
     {
         dialogBox.ToggleActionSelector(false);
-        if (right.isClicked())
+        if (InputSystem.instance.right.isClicked())
         {
             currentMember++;
         }
-        else if (left.isClicked())
+        else if (InputSystem.instance.left.isClicked())
         {
             currentMember--;
         }
-        else if (down.isClicked())
+        else if (InputSystem.instance.down.isClicked())
         {
             currentMember += 2;
         }
-        else if (up.isClicked())
+        else if (InputSystem.instance.up.isClicked())
         {
             currentMember -= 2;
         }

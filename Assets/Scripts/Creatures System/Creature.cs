@@ -10,7 +10,7 @@ public class Creature
     public int level, exp;
     public int HP, statusTime;
     public bool HPChanged { get; set; }
-    public List<Move> moves = new List<Move>();
+    public List<Move> moves;
     public Move currentMove;
     public Dictionary<Stat, int> stats;
     public Dictionary<Stat, int> statBoosts;
@@ -27,14 +27,15 @@ public class Creature
     }
     public void Init()
     {
+        moves =  new List<Move>();
         // Generate Moves
         foreach (var move in _base.learnableMoves)
         {
-            if (move.level <= level)
+            if (move.level <= level && move != null)
             {
                 moves.Add(new Move(move.moveBase));
             }
-            if (moves.Count >= 4)
+            if (moves.Count >= _base.maxNumberOfMoves)
             {
                 break;
             }
@@ -134,6 +135,20 @@ public class Creature
     {
         volatileStatus = null;
     }
+    public bool CheckForLevelUp(){
+        if (exp > _base.GetExpForLevel(level + 1)){
+            level++;
+            return true;
+        }
+        return false;
+    }
+    public LearnableMove GetLearnableMoveAtCurrLevel(){
+        return _base.learnableMoves.Where(x => x.level == this.level).FirstOrDefault();
+    }
+    public void LearnMove(LearnableMove moveToLearn) {
+        if (moves.Count > this._base.maxNumberOfMoves) return;
+        moves.Add(new Move(moveToLearn.moveBase));
+     }
     public int Attack
     {
         get { return GetStat(Stat.Attack); }

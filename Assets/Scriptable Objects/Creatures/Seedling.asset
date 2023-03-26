@@ -33,3 +33,7 @@ MonoBehaviour:
     level: 1
   - moveBase: {fileID: 11400000, guid: 16b58ac7a0dcea44093e23734f5ee58b, type: 2}
     level: 16
+  catchRate: 225
+  expYield: 44
+  growthRate: 0
+  maxNumberOfMoves: 4

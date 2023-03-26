@@ -39,6 +39,7 @@ public class GameController : MonoBehaviour
             .GetComponent<MapArea>()
             .GetRandomWildCreature();
         var wildCreatureCopy = new Creature(wildCreature._base, wildCreature.level);
+        battleSystem.isTrainerBattle = false;
         battleSystem.StartBattle(playerParty, wildCreatureCopy);
     }
     public void StartTrainerBattle(TrainerController trainer)
@@ -46,6 +47,7 @@ public class GameController : MonoBehaviour
         state = GameState.Battle;
         this.trainer = trainer;
         battleSystem.gameObject.SetActive(true);
+        battleSystem.isTrainerBattle = true;
         var playerParty = player.GetComponent<CreaturesParty>();
         var trainerParty = trainer.GetComponent<CreaturesParty>();
         battleSystem.StartTrainerBattle(playerParty, trainerParty);

@@ -25,11 +25,16 @@ public class CreatureBase : ScriptableObject
     public int catchRate = 225;
     public int expYield;
     public GrowthRate growthRate;
+    public int maxNumberOfMoves = 4;
     public int GetExpForLevel(int level){
         if (growthRate == GrowthRate.Fast){
             return 4 * (level * level * level) / 5;
         } else if (growthRate == GrowthRate.MeduimFast){
             return level * level * level;
+        } else if (growthRate == GrowthRate.MeduimSlow){
+            return Mathf.FloorToInt((6f / 5f) * Mathf.Pow(level, 3f) - 15f * Mathf.Pow(level, 2f) + 100f * level - 140f);
+        } else if (growthRate == GrowthRate.Slow){
+            return Mathf.FloorToInt((5 * Mathf.Pow(level, 3)) / 4f);
         }
         return -1;
     }
@@ -42,7 +47,7 @@ public class LearnableMove
     public int level;
 }
 public enum GrowthRate{
-    Fast, MeduimFast
+    Fast, MeduimFast, MeduimSlow, Slow
 }
 public enum CreatureType
 {

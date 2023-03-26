@@ -31,3 +31,9 @@ MonoBehaviour:
     level: 0
   - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
     level: 3
+  - moveBase: {fileID: 11400000, guid: 16b58ac7a0dcea44093e23734f5ee58b, type: 2}
+    level: 51
+  catchRate: 225
+  expYield: 119
+  growthRate: 1
+  maxNumberOfMoves: 4

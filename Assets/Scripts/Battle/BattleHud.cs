@@ -18,7 +18,7 @@ public class BattleHud : MonoBehaviour
 
         this._creature = creature;
         nameText.text = creature._base.creatureName;
-        lvlText.text = $"Lvl {creature.level}";
+        SetLevel();
 
         hPBar.SetHP((float)creature.HP, _creature.maxHealth);
         SetExp();
@@ -55,12 +55,14 @@ public class BattleHud : MonoBehaviour
             statusText.color = statusColors[_creature.status.iD];
         }
     }
-    public void SetExp(){
+    public void SetExp()
+    {
         if (expBar == null) return;
         float normalizedExp = GetNormalizedExp();
         expBar.transform.localScale = new Vector3(normalizedExp, 1, 1);
     }
-    float GetNormalizedExp(){
+    float GetNormalizedExp()
+    {
         int currentLevelExp = _creature._base.GetExpForLevel(_creature.level);
         int nextLevelExp = _creature._base.GetExpForLevel(_creature.level + 1);
 
@@ -69,10 +71,18 @@ public class BattleHud : MonoBehaviour
         return Mathf.Clamp01(normalizedExp);
 
     }
-    public IEnumerator SetExpSmooth()
+    public IEnumerator SetExpSmooth(bool reset = false)
     {
         if (expBar == null) yield break;
+        if (reset)
+        {
+            expBar.transform.localScale = new Vector3(0, 1, 1);
+        }
         float normalizedExp = GetNormalizedExp();
         yield return expBar.transform.DOScaleX(normalizedExp, 1.5f);
+    }
+    public void SetLevel()
+    {
+        lvlText.text = $"L: {_creature.level}";
     }
 }
