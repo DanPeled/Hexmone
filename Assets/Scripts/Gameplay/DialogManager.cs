@@ -50,7 +50,7 @@ public class DialogManager : MonoBehaviour
     }
     public void HandleUpdate()
     {
-        if (Input.GetButtonDown("Action"))
+        if (InputSystem.instance.action.isClicked())
         {
             currentLine++;
             if (currentLine < dialog.lines.Count)
@@ -62,6 +62,7 @@ public class DialogManager : MonoBehaviour
                 currentLine = 0;
                 dialogBox.SetActive(false);
                 OnCloseDialog?.Invoke();
+                GameController.instance.state = GameState.FreeRoam;
                 onEnd?.Invoke();
             }
         }

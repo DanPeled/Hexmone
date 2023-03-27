@@ -1,0 +1,774 @@
+fileFormatVersion: 2
+guid: 652ae4faba53e6e4fb8f2002ebfd152e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_0"
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 757
+        width: 246
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bff988ff8441814abeb04fe76a0509a
+      internalID: -579264936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_1"
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 769
+        width: 217
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37140bbe0f53ee3438ade273ba3750f2
+      internalID: 467547059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_2"
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 851
+        width: 114
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e33d24d5eb5d1664da826c86e9b548b7
+      internalID: 907178511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_3"
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 723
+        width: 114
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46f14d49f77217e49821fc7e0df2b45f
+      internalID: 1943611902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_4"
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 723
+        width: 114
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 508973744a8677848b5c555f72642817
+      internalID: -777959710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_5"
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 723
+        width: 114
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dd0b246ff14f874a8a1ea856a893b1a
+      internalID: 750055517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_6"
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 502
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ea44d012807fb44c8bae2a9a5b71519
+      internalID: 1460328725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_7"
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 589
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78414ac9ad1e04845942d2a7058a100d
+      internalID: -1838138392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_8"
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 502
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bf176609bc76304b960bb8ed8167ff2
+      internalID: -1247408051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_9"
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 514
+        width: 334
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18d8dd65c75d34e46bff776b77e9ea8f
+      internalID: 1429093880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_10"
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 418
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbdf60cb2c591a84f996f47c18bb38ec
+      internalID: 1398707329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_11"
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 353
+        width: 334
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4417343219a7f9a48bb3d744ab7f919e
+      internalID: -774904065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_12"
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 228
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6514abdfd2ad19342bfe37fa7025fb59
+      internalID: -652245466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_13"
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 230
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7eca8c3a1fc3b34b91cbfc424b7aea8
+      internalID: 1084668713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_14"
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 228
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc84390da943d8c4c83f230056d4c688
+      internalID: 453907194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_15"
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 227
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0827603525ce6334aa4cf5497a510e49
+      internalID: -1678195545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_16"
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 226
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19b73ede81b1e7c4a8fd23c96823279b
+      internalID: 309801353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_17"
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 180
+        width: 334
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be07a6984d8625b43a7324ef9d2f5451
+      internalID: -2100172171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_18"
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 119
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9fb19e92e115b746bb7a6558b0ab2b3
+      internalID: -1701830474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_19"
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 119
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 872e46b4a96244b4db7580dff23a59bf
+      internalID: 1846637396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_20"
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 119
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e357854ed12708408609035f3969c83
+      internalID: 486730341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_21"
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 122
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72e9ea0229fb5f148810007818c83f17
+      internalID: 1180774712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_22"
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 120
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 516364bc2da675a4ebfde2519cfdbaba
+      internalID: -2081812020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_23"
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 17
+        width: 334
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2b7f1a5d8928ed45abd56ea0ad749e4
+      internalID: 1344625582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_24"
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 10
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d837ecac732af5c439390b07666e24ec
+      internalID: 1991064695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_25"
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 9
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 282416afcf8d06743af895353c113cd4
+      internalID: -1854728854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_26"
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 9
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb2e8387159225e4aaa02bb1adf4025c
+      internalID: 994178710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_27"
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 10
+        width: 97
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe047d810161dfd4ead485e36c93a82a
+      internalID: 1323242915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Bot\xF5rs de inteface PNG_28"
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 9
+        width: 97
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9bc78028147f814e83cf4b98b1a05d7
+      internalID: -1121604929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      "Bot\xF5rs de inteface PNG_21": 1180774712
+      "Bot\xF5rs de inteface PNG_24": 1991064695
+      "Bot\xF5rs de inteface PNG_23": 1344625582
+      "Bot\xF5rs de inteface PNG_13": 1084668713
+      "Bot\xF5rs de inteface PNG_7": -1838138392
+      "Bot\xF5rs de inteface PNG_1": 467547059
+      "Bot\xF5rs de inteface PNG_11": -774904065
+      "Bot\xF5rs de inteface PNG_25": -1854728854
+      "Bot\xF5rs de inteface PNG_18": -1701830474
+      "Bot\xF5rs de inteface PNG_8": -1247408051
+      "Bot\xF5rs de inteface PNG_4": -777959710
+      "Bot\xF5rs de inteface PNG_6": 1460328725
+      "Bot\xF5rs de inteface PNG_28": -1121604929
+      "Bot\xF5rs de inteface PNG_5": 750055517
+      "Bot\xF5rs de inteface PNG_3": 1943611902
+      "Bot\xF5rs de inteface PNG_26": 994178710
+      "Bot\xF5rs de inteface PNG_27": 1323242915
+      "Bot\xF5rs de inteface PNG_19": 1846637396
+      "Bot\xF5rs de inteface PNG_16": 309801353
+      "Bot\xF5rs de inteface PNG_20": 486730341
+      "Bot\xF5rs de inteface PNG_14": 453907194
+      "Bot\xF5rs de inteface PNG_9": 1429093880
+      "Bot\xF5rs de inteface PNG_0": -579264936
+      "Bot\xF5rs de inteface PNG_12": -652245466
+      "Bot\xF5rs de inteface PNG_22": -2081812020
+      "Bot\xF5rs de inteface PNG_10": 1398707329
+      "Bot\xF5rs de inteface PNG_2": 907178511
+      "Bot\xF5rs de inteface PNG_15": -1678195545
+      "Bot\xF5rs de inteface PNG_17": -2100172171
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

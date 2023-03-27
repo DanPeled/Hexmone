@@ -6,7 +6,7 @@ using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ISavable
 {
     public Sprite sprite;
     public string playerName;
@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     Rigidbody2D body;
     public Camera mainCam;
     public List<Camera> cameras;
+    public int camIndex;
     float horizontal;
     float vertical;
     public bool isMoving;
@@ -42,6 +43,8 @@ public class Player : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<CharacterAnimator>();
+        battleSystem = FindObjectOfType<BattleSystem>().gameObject;
+        gameController = FindObjectOfType<GameController>();
     }
 
     void Start()
@@ -57,7 +60,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         instance = this;
-        if (colldingDoor && Input.GetButton("Action"))
+        if (colldingDoor && InputSystem.instance.action.isClicked())
         {
             Door(doorObject.gameObject);
         }
@@ -72,8 +75,8 @@ public class Player : MonoBehaviour
         {
             this.GetComponent<BoxCollider2D>().enabled = true;
             // Gives a value between -1 and 1
-            horizontal = Input.GetAxisRaw("Horizontal"); // -1 is left
-            vertical = Input.GetAxisRaw("Vertical"); // -1 is down
+            horizontal = InputSystem.instance.right.isPressed() ? 1 : (InputSystem.instance.left.isPressed() ? -1 : 0);  // -1 is left
+            vertical = InputSystem.instance.up.isPressed() ? 1 : (InputSystem.instance.down.isPressed() ? -1 : 0); // -1 is down
         }
         else
         {
@@ -119,7 +122,7 @@ public class Player : MonoBehaviour
         }
         #endregion
         anim.isMoving = isMoving;
-        if (Input.GetButtonDown("Action"))
+        if (InputSystem.instance.action.isClicked())
         {
             ShowDialog();
             Interact(interactObject);
@@ -150,7 +153,7 @@ public class Player : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "TV":
-                if (Input.GetButton("Action") || active)
+                if (InputSystem.instance.action.isClicked() || active)
                 {
                     TV();
                 }
@@ -250,13 +253,13 @@ public class Player : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Door":
-                if (Input.GetButtonDown("Action"))
+                if (InputSystem.instance.action.isClicked())
                 {
                     Door(other.gameObject);
                 }
                 break;
             case "TV":
-                if (Input.GetButton("Action") || active)
+                if (InputSystem.instance.action.isClicked() || active)
                 {
                     TV();
                 }
@@ -287,7 +290,7 @@ public class Player : MonoBehaviour
                 playerActive = false;
                 isMoving = false;
                 battleSystem.SetActive(true);
-                SwitchCamera(cameras[1]);
+                SwitchCamera(1);
                 gameController.StartBattle();
             }
         }
@@ -300,14 +303,19 @@ public class Player : MonoBehaviour
             trainer.fov.SetActive(false);
         }
     }
-    public void SwitchCamera(Camera targetCam)
-    {
-        cameras.ForEach(c => c.gameObject.SetActive(false));
-        targetCam.gameObject.SetActive(true);
-    }
     public void SwitchCamera(int camIndex)
     {
+        this.camIndex = camIndex;
         cameras.ForEach(c => c.gameObject.SetActive(false));
         cameras[camIndex].gameObject.SetActive(true);
     }
+    public object CaptureState(){
+        float[] pos = new float[] {transform.position.x, transform.position.y};
+        return pos;
+    }
+    public void RestoreState(object state){
+        float[] pos = (float[])state;
+        transform.position = new Vector3(pos[0], pos[1]);
+    }
+
 }

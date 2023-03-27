@@ -28,7 +28,7 @@ public class MoveSelectionUI : MonoBehaviour
         }
         currentSelection = Mathf.Clamp(currentSelection, 0, 4);
         UpdateMoveSelection(currentSelection);
-        if (Input.GetButtonDown("Action")){
+        if (InputSystem.instance.action.isClicked()){
             onSelected?.Invoke(currentSelection);
         }
     }

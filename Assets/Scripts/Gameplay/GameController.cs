@@ -51,13 +51,18 @@ public class GameController : MonoBehaviour
         var playerParty = player.GetComponent<CreaturesParty>();
         var trainerParty = trainer.GetComponent<CreaturesParty>();
         battleSystem.StartTrainerBattle(playerParty, trainerParty);
-        player.SwitchCamera(player.cameras[1]);
+        player.SwitchCamera(1);
     }
     void Update()
     {
         if (state == GameState.Dialog)
         {
             DialogManager.instance.HandleUpdate();
+        }
+        if (state != GameState.FreeRoam){
+            player.playerActive = false;
+        } else {
+            player.playerActive = true;
         }
         instance = this;
     }

@@ -617,7 +617,7 @@ public class BattleSystem : MonoBehaviour
         }
         dialogBox.UpdateChoiceBoxSelection(aboutToUseChoice);
 
-        if (Input.GetButtonDown("Action"))
+        if (InputSystem.instance.action.isClicked())
         {
             dialogBox.ToggleChoiceBox(false);
             dialogBox.choiceBox.SetActive(false);
@@ -634,8 +634,8 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(SendNextTrainerCreature());
             }
         }
-        else if (Input.GetButtonDown("Back"))
-        {
+        else if (InputSystem.instance.back.isClicked())
+        { 
             dialogBox.ToggleChoiceBox(false);
             StartCoroutine(SendNextTrainerCreature());
         }
@@ -665,7 +665,7 @@ public class BattleSystem : MonoBehaviour
         currentAction = Mathf.Clamp(currentAction, 0, 3);
         dialogBox.UpdateActionSelection(currentAction);
 
-        if (Input.GetButtonDown("Action") && this.actionPossible)
+        if (InputSystem.instance.action.isClicked() && this.actionPossible)
         {
             if (currentAction == 0)
             {
@@ -712,7 +712,7 @@ public class BattleSystem : MonoBehaviour
 
         currentMove = Mathf.Clamp(currentMove, 0, playerUnit.creature.moves.Count - 1);
         dialogBox.UpdateMoveSelection(currentMove, playerUnit.creature.moves[currentMove]);
-        if (Input.GetButtonDown("Action"))
+        if (InputSystem.instance.action.isClicked())
         {
             var move = playerUnit.creature.moves[currentMove];
             if (move.PP <= 0)
@@ -723,7 +723,7 @@ public class BattleSystem : MonoBehaviour
             dialogBox.ToggleDialogText(true);
             StartCoroutine(RunTurns(BattleAction.Move));
         }
-        else if (Input.GetButtonDown("Back"))
+        else if (InputSystem.instance.back.isClicked())
         {
             dialogBox.ToggleMoveSelector(false);
             dialogBox.ToggleDialogText(true);
@@ -765,7 +765,7 @@ public class BattleSystem : MonoBehaviour
 
         partyScreen.UpdateMemberSelection(currentMember);
 
-        if (Input.GetButtonDown("Action"))
+        if (InputSystem.instance.action.isClicked())
         {
             dialogBox.ToggleActionSelector(false);
             dialogBox.ToggleMoveSelector(false);
@@ -793,7 +793,7 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(SwitchCreature(selectedMember));
             }
         }
-        else if (Input.GetButtonDown("Back"))
+        else if (InputSystem.instance.back.isClicked())
         {
             if (playerUnit.creature.HP <= 0)
             {

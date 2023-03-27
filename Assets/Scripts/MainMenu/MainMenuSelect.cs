@@ -33,7 +33,7 @@ public class MainMenuSelect : MonoBehaviour
         currentAction = Mathf.Clamp(currentAction, 0, buttons.Length - 1);
 
         // action handeling
-        if (Input.GetButtonDown("Action"))
+        if (InputSystem.instance.action.isClicked())
         {
             switch (currentAction)
             {
