@@ -18,8 +18,8 @@ MonoBehaviour:
   type1: 4
   type2: 6
   damage: 155
-  frontSprite: {fileID: 0}
-  backSprite: {fileID: 0}
+  frontSprite: {fileID: 21300000, guid: 6c12fb5d05a284b479b8c2cc8eb7dcf3, type: 3}
+  backSprite: {fileID: 21300000, guid: d0f3b65676a45c649938b7eaf17e3dc4, type: 3}
   defense: 80
   spAttack: 80
   spDefense: 90
@@ -31,3 +31,7 @@ MonoBehaviour:
     level: 0
   - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
     level: 3
+  catchRate: 225
+  expYield: 0
+  growthRate: 0
+  maxNumberOfMoves: 4

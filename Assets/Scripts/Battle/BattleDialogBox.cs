@@ -8,7 +8,6 @@ using TMPro;
 public class BattleDialogBox : MonoBehaviour
 {
     public int letterPerSecond;
-    public Color highlightedColor;
     public TextMeshProUGUI dialogText;
     public GameObject actionSelector,
         moveSelector,
@@ -67,7 +66,7 @@ public class BattleDialogBox : MonoBehaviour
         {
             if (i == selectedAction)
             {
-                actionTexts[i].color = highlightedColor;
+                actionTexts[i].color = GlobalSettings.i.highlightedColor;
             }
             else
             {
@@ -77,8 +76,8 @@ public class BattleDialogBox : MonoBehaviour
     }
     public void UpdateChoiceBoxSelection(bool yesSelected)
     {
-        yesText.color = yesSelected ? highlightedColor : Color.black;
-        noText.color = !yesSelected ? highlightedColor : Color.black;
+        yesText.color = yesSelected ? GlobalSettings.i.highlightedColor : Color.black;
+        noText.color = !yesSelected ? GlobalSettings.i.highlightedColor : Color.black;
     }
 
     public void UpdateMoveSelection(int selectedMove, Move move)
@@ -87,7 +86,7 @@ public class BattleDialogBox : MonoBehaviour
         {
             if (i == selectedMove)
             {
-                moveTexts[i].color = highlightedColor;
+                moveTexts[i].color = GlobalSettings.i.highlightedColor;
             }
             else
             {

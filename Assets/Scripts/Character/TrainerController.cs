@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrainerController : MonoBehaviour, Interactable
+public class TrainerController : MonoBehaviour, Interactable, ISavable
 {
     public Dialog dialog, dialogAfterBattle;
     public GameObject exclamation, fov;
@@ -18,10 +18,10 @@ public class TrainerController : MonoBehaviour, Interactable
     {
         this.character = GetComponent<Character>();
     }
-        void Start()
-        {
+    void Start()
+    {
         this.originalPos = transform.position;
-        }
+    }
     public void Interact()
     {
         if (!battleLost)
@@ -30,7 +30,9 @@ public class TrainerController : MonoBehaviour, Interactable
             {
                 GameController.instance.StartTrainerBattle(this);
             }));
-        } else {
+        }
+        else
+        {
             StartCoroutine(DialogManager.instance.ShowDialog(dialogAfterBattle));
         }
     }
@@ -60,5 +62,17 @@ public class TrainerController : MonoBehaviour, Interactable
         battleLost = true;
         fov.gameObject.SetActive(false);
         this.transform.position = originalPos;
+    }
+    public object CaptureState()
+    {
+        return battleLost;
+    }
+    public void RestoreState(object state)
+    {
+        battleLost = (bool)state;
+
+        if (battleLost){
+            fov.gameObject.SetActive(false);
+        }
     }
 }

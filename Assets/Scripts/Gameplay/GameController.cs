@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -6,13 +7,20 @@ public class GameController : MonoBehaviour
     public BattleSystem battleSystem;
     public Player player;
     public static GameController instance;
+    public PartyScreen partyScreen;
+    MenuController menu;
+    public InventoryUI inventoryUI;
     private void Awake()
     {
+        menu = GetComponent<MenuController>();
         this.player = GameObject.FindObjectOfType<Player>();
         ConditionDB.Init();
+        MovesDB.Init();
+        CreatureDB.Init();
     }
     void Start()
     {
+        partyScreen.Init();
         battleSystem.gameObject.SetActive(false);
         DialogManager.instance.OnShowDialog += () =>
         {
@@ -26,6 +34,12 @@ public class GameController : MonoBehaviour
                 state = GameState.FreeRoam;
             }
         };
+        menu.onBack += () =>
+        {
+            state = GameState.FreeRoam;
+        };
+        menu.onMenuSelected += onMenuSelected;
+
     }
     TrainerController trainer;
     public void StartBattle()
@@ -59,20 +73,80 @@ public class GameController : MonoBehaviour
         {
             DialogManager.instance.HandleUpdate();
         }
-        if (state != GameState.FreeRoam){
+        if (state != GameState.FreeRoam)
+        {
             player.playerActive = false;
-        } else {
-            player.playerActive = true;
         }
+        else
+        {
+
+            player.playerActive = true;
+            if (InputSystem.instance.start.isClicked())
+            {
+                menu.OpenMenu();
+                state = GameState.Menu;
+            }
+        }
+        if (state == GameState.Menu)
+        {
+            menu.HandleUpdate();
+
+        } else if (state == GameState.PartyScreen){
+            Action onSelected = () => {
+                //TODO:  Go to Summary Screen
+            }; Action onBack = () => {
+                partyScreen.gameObject.SetActive(false);
+                state = GameState.FreeRoam;
+            };
+            partyScreen.HandleUpdate(onSelected, onBack);
+        } else if (state == GameState.Bag){
+            Action onBack = () =>
+            {
+                inventoryUI.gameObject.SetActive(false);
+                state = GameState.FreeRoam;
+            };
+            inventoryUI.HandleUpdate(onBack);
+        }
+
+
         instance = this;
     }
-    public void EndBattle(bool won){
-        if (trainer != null && won){
+    public void EndBattle(bool won)
+    {
+        if (trainer != null && won)
+        {
             trainer.BattleLost();
             trainer = null;
         }
         state = GameState.FreeRoam;
         battleSystem.gameObject.SetActive(false);
+    }
+    void onMenuSelected(int selected)
+    {
+        switch (selected)
+        {
+            case 0:
+                // creature
+                partyScreen.gameObject.SetActive(true);
+                partyScreen.SetPartyData(player.GetComponent<CreaturesParty>().creatures);
+                state = GameState.PartyScreen;
+                break;
+            case 1:
+                // Bag
+                inventoryUI.gameObject.SetActive(true);
+                state = GameState.Bag;
+                break;
+            case 2:
+                // Save
+                SavingSystem.i.Save("saveSlot1");
+                state = GameState.FreeRoam;
+                break;
+            case 3:
+                // Load
+                SavingSystem.i.Load("saveSlot1");
+                state = GameState.FreeRoam;
+                break;
+        }
     }
 }
 
@@ -80,5 +154,5 @@ public enum GameState
 {
     Battle,
     FreeRoam,
-    Dialog
+    Dialog, Menu, Paused, CutScene, PartyScreen, Bag
 }

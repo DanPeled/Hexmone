@@ -37,8 +37,7 @@ public class BattleSystem : MonoBehaviour
     public BattleState? battleState,
         prevState;
     public int currentAction,
-        currentMove,
-        currentMember;
+        currentMove;
     bool actionPossible = false;
     public Image playerImage, trainerImage;
 
@@ -148,6 +147,7 @@ public class BattleSystem : MonoBehaviour
     public void OpenPartyScreen()
     {
         battleState = BattleState.PartyScreen;
+        prevState = battleState;
         partyScreen.SetPartyData(playerParty.creatures);
         partyScreen.gameObject.SetActive(true);
         partyScreen.SetMessageText("Choose A Creature");
@@ -221,7 +221,7 @@ public class BattleSystem : MonoBehaviour
         {
             if (playerAction == BattleAction.SwitchCreature)
             {
-                var selectedCreature = playerParty.creatures[currentMember];
+                var selectedCreature = partyScreen.SelectedMember;
                 battleState = BattleState.Busy;
                 yield return SwitchCreature(selectedCreature);
             }
@@ -589,12 +589,16 @@ public class BattleSystem : MonoBehaviour
                 HandleAboutToUse();
                 break;
             case BattleState.MoveToForget:
-                Action<int> onMoveSelected = (moveIndex) => {
+                Action<int> onMoveSelected = (moveIndex) =>
+                {
                     moveSelectionUI.gameObject.SetActive(false);
-                    if (moveIndex == 4){
+                    if (moveIndex == 4)
+                    {
                         // Dont learn the new move
                         StartCoroutine(dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} did not learn {moveToLearn.moveName}"));
-                    } else {
+                    }
+                    else
+                    {
                         // forget the selected move and learn new move
                         var selectedMove = playerUnit.creature.moves[moveIndex].base_;
                         StartCoroutine(dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} forgot {selectedMove.moveName} and learned {moveToLearn.moveName}"));
@@ -603,7 +607,7 @@ public class BattleSystem : MonoBehaviour
                     }
                     moveToLearn = null;
                     battleState = BattleState.RunningTurn;
-                } ;
+                };
                 moveSelectionUI.HandleMoveSelection(onMoveSelected);
                 break;
 
@@ -635,7 +639,7 @@ public class BattleSystem : MonoBehaviour
             }
         }
         else if (InputSystem.instance.back.isClicked())
-        { 
+        {
             dialogBox.ToggleChoiceBox(false);
             StartCoroutine(SendNextTrainerCreature());
         }
@@ -744,32 +748,11 @@ public class BattleSystem : MonoBehaviour
 
     public void HandlePartySelection()
     {
-        dialogBox.ToggleActionSelector(false);
-        if (InputSystem.instance.right.isClicked())
-        {
-            currentMember++;
-        }
-        else if (InputSystem.instance.left.isClicked())
-        {
-            currentMember--;
-        }
-        else if (InputSystem.instance.down.isClicked())
-        {
-            currentMember += 2;
-        }
-        else if (InputSystem.instance.up.isClicked())
-        {
-            currentMember -= 2;
-        }
-        currentMember = Mathf.Clamp(currentMember, 0, playerParty.creatures.Count - 1);
-
-        partyScreen.UpdateMemberSelection(currentMember);
-
-        if (InputSystem.instance.action.isClicked())
+        Action onSelected = () =>
         {
             dialogBox.ToggleActionSelector(false);
             dialogBox.ToggleMoveSelector(false);
-            var selectedMember = playerParty.creatures[currentMember];
+            var selectedMember = partyScreen.SelectedMember;
             if (selectedMember.HP <= 0)
             {
                 partyScreen.SetMessageText("You can't send out a fainted creature");
@@ -792,9 +775,10 @@ public class BattleSystem : MonoBehaviour
                 battleState = BattleState.Busy;
                 StartCoroutine(SwitchCreature(selectedMember));
             }
-        }
-        else if (InputSystem.instance.back.isClicked())
+        };
+        Action onBack = () =>
         {
+
             if (playerUnit.creature.HP <= 0)
             {
                 partyScreen.SetMessageText("You have to choose a creature to continue");
@@ -810,7 +794,11 @@ public class BattleSystem : MonoBehaviour
             {
                 StartCoroutine(PlayerAction());
             }
-        }
+        };
+        dialogBox.ToggleActionSelector(false);
+        partyScreen.HandleUpdate(onSelected, onBack);
+
+
     }
 
     public IEnumerator SwitchCreature(Creature newCreature)

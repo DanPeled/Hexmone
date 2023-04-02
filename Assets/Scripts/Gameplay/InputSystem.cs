@@ -7,16 +7,19 @@ public class InputSystem : MonoBehaviour
         left = new Toggle(),
         right = new Toggle(),
         action = new Toggle(),
-        back = new Toggle();
+        back = new Toggle(),
+        select = new Toggle(),
+        start = new Toggle();
     public static InputSystem instance;
     void Update()
     {
         instance = this;
-        up.update(Input.GetAxisRaw("Vertical") > 0 || MobileControls.i.up);
-        down.update(Input.GetAxisRaw("Vertical") < 0 || MobileControls.i.down);
-        left.update(Input.GetAxisRaw("Horizontal") < 0 || MobileControls.i.left);
-        right.update(Input.GetAxisRaw("Horizontal") > 0 || MobileControls.i.right);
-        action.update(Input.GetButton("Action") || MobileControls.i.action);
-        back.update(Input.GetButton("Back") || MobileControls.i.back);
+        up.update(Input.GetAxisRaw("Vertical") > 0);
+        down.update(Input.GetAxisRaw("Vertical") < 0);
+        left.update(Input.GetAxisRaw("Horizontal") < 0);
+        right.update(Input.GetAxisRaw("Horizontal") > 0);
+        action.update(Input.GetButton("Action"));
+        back.update(Input.GetButton("Back"));
+        start.update(Input.GetButton("Start"));
     }
 }

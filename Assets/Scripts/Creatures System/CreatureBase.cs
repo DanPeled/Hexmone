@@ -8,32 +8,56 @@ using TMPro;
 [CreateAssetMenu(fileName = "Creature", menuName = "Creatures/ Create New Creature")]
 public class CreatureBase : ScriptableObject
 {
-    public string creatureName,
-        description;
+    [SerializeField]
+    public string creatureName, description;
+    [SerializeField]
     public int maxHealth;
+    [SerializeField]
     public const int moveAmount = 3;
+    [SerializeField]
     public CreatureType type1;
+    [SerializeField]
     public CreatureType type2;
+    [SerializeField]
     public int damage;
+    [SerializeField]
     public Sprite frontSprite;
+    [SerializeField]
     public Sprite backSprite;
+    [SerializeField]
     public int defense;
+    [SerializeField]
     public int spAttack;
+    [SerializeField]
     public int spDefense;
+    [SerializeField]
     public int speed;
+    [SerializeField]
     public List<LearnableMove> learnableMoves = new List<LearnableMove>();
+    [SerializeField]
     public int catchRate = 225;
+    [SerializeField]
     public int expYield;
+    [SerializeField]
     public GrowthRate growthRate;
+    [SerializeField]
     public int maxNumberOfMoves = 4;
-    public int GetExpForLevel(int level){
-        if (growthRate == GrowthRate.Fast){
+    public int GetExpForLevel(int level)
+    {
+        if (growthRate == GrowthRate.Fast)
+        {
             return 4 * (level * level * level) / 5;
-        } else if (growthRate == GrowthRate.MeduimFast){
+        }
+        else if (growthRate == GrowthRate.MeduimFast)
+        {
             return level * level * level;
-        } else if (growthRate == GrowthRate.MeduimSlow){
+        }
+        else if (growthRate == GrowthRate.MeduimSlow)
+        {
             return Mathf.FloorToInt((6f / 5f) * Mathf.Pow(level, 3f) - 15f * Mathf.Pow(level, 2f) + 100f * level - 140f);
-        } else if (growthRate == GrowthRate.Slow){
+        }
+        else if (growthRate == GrowthRate.Slow)
+        {
             return Mathf.FloorToInt((5 * Mathf.Pow(level, 3)) / 4f);
         }
         return -1;
@@ -46,7 +70,8 @@ public class LearnableMove
     public MoveBase moveBase;
     public int level;
 }
-public enum GrowthRate{
+public enum GrowthRate
+{
     Fast, MeduimFast, MeduimSlow, Slow
 }
 public enum CreatureType

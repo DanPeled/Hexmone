@@ -238,6 +238,38 @@ public class Creature
         volatileStatus = null;
         ResetStatBoost();
     }
+
+    public Creature(CreatureSaveData saveData){
+
+        _base = CreatureDB.GetCreatureByName(saveData.name);
+        this.HP= saveData.hp;
+        this.level = saveData.level;
+        this.exp = saveData.exp;
+
+        if (saveData.statusId != null){
+            status = ConditionDB.conditions[saveData.statusId.Value];
+        } else  {
+            status = null;
+        }
+
+        this.moves = saveData.moves.Select(s => new Move(s)).ToList();
+
+        CalculateStats();
+        statusChanges = new Queue<string>();
+        ResetStatBoost();
+        volatileStatus = null;
+    }
+    public CreatureSaveData GetSaveData(){
+        var saveData = new CreatureSaveData(){
+            name = this._base.creatureName,
+            hp = this.HP,
+            level = this.level,
+            exp = this.exp,
+            statusId = status?.iD,
+            moves = moves.Select(p => p.GetSaveData()).ToList()
+        };
+        return saveData;
+    }
 }
 
 public class DamageDetails
@@ -245,4 +277,11 @@ public class DamageDetails
     public bool Fainted { get; set; }
     public float Critical { get; set; }
     public float TypeEffectiveness { get; set; }
+}
+[System.Serializable]
+public class CreatureSaveData{
+    public string name;
+    public int hp, level, exp;
+    public ConditionID? statusId;
+    public List<MoveSaveData> moves;
 }

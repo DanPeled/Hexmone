@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Player : MonoBehaviour, ISavable
 {
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour, ISavable
 
     void Awake()
     {
+        mainCam = Camera.main;
         anim = GetComponent<CharacterAnimator>();
         battleSystem = FindObjectOfType<BattleSystem>().gameObject;
         gameController = FindObjectOfType<GameController>();
@@ -309,13 +311,33 @@ public class Player : MonoBehaviour, ISavable
         cameras.ForEach(c => c.gameObject.SetActive(false));
         cameras[camIndex].gameObject.SetActive(true);
     }
-    public object CaptureState(){
-        float[] pos = new float[] {transform.position.x, transform.position.y};
-        return pos;
+    public object CaptureState()
+    {
+        var saveData = new PlayerSaveData()
+        {
+            pos = new float[] { transform.position.x, transform.position.y },
+            creatures = GetComponent<CreaturesParty>().creatures.Select(p => p.GetSaveData()).ToList()
+        };
+        return saveData;
     }
-    public void RestoreState(object state){
-        float[] pos = (float[])state;
+    public void RestoreState(object state)
+    {
+        var saveData = (PlayerSaveData)state;
+
+        //Restore pos
+        var pos = saveData.pos;
         transform.position = new Vector3(pos[0], pos[1]);
+
+        // Restore party
+        GetComponent<CreaturesParty>().creatures = saveData.creatures.Select(s => new Creature(s)).ToList();
     }
 
 }
+
+[System.Serializable]
+public class PlayerSaveData
+{
+    public float[] pos;
+    public List<CreatureSaveData> creatures;
+}
+

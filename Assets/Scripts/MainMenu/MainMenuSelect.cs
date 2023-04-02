@@ -8,7 +8,6 @@ using System.Linq;
 public class MainMenuSelect : MonoBehaviour
 {
     public int currentAction = 0;
-    public Color highlightedColor;
     public LevelLoader levelLoader;
     Toggle up = new Toggle(), down = new Toggle();
 
@@ -52,8 +51,7 @@ public class MainMenuSelect : MonoBehaviour
         }
         for (int i = 0; i < buttons.Length; i++)
         {
-            buttons[i].GetComponentInChildren<TextMeshProUGUI>().color =
-             i == currentAction ? highlightedColor : Color.black;
+            buttons[i].GetComponentInChildren<TextMeshProUGUI>().color = i == currentAction ? GlobalSettings.i.highlightedColor : Color.black;
         }
     }
 

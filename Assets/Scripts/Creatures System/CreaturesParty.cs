@@ -6,7 +6,7 @@ public class CreaturesParty : MonoBehaviour
 {
     public List<Creature> creatures;
 
-    void Start()
+    public void Start()
     {
         foreach (var creature in creatures)
         {

@@ -8,7 +8,6 @@ public class PartyMemberUI : MonoBehaviour
         lvlText;
     public HPBar hpBar;
     Creature _creature;
-    public Color highlightedColor;
 
     public void SetData(Creature creature)
     {
@@ -24,7 +23,7 @@ public class PartyMemberUI : MonoBehaviour
     {
         if (selected)
         {
-            nameText.color = highlightedColor;
+            nameText.color = GlobalSettings.i.highlightedColor;
         }
         else
         {
