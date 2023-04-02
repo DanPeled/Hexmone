@@ -128,7 +128,7 @@ public class GameController : MonoBehaviour
             case 0:
                 // creature
                 partyScreen.gameObject.SetActive(true);
-                partyScreen.SetPartyData(player.GetComponent<CreaturesParty>().creatures);
+                partyScreen.SetPartyData();
                 state = GameState.PartyScreen;
                 break;
             case 1:

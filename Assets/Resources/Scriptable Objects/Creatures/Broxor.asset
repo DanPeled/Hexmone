@@ -21,7 +21,7 @@ MonoBehaviour:
   frontSprite: {fileID: 21300000, guid: 6c12fb5d05a284b479b8c2cc8eb7dcf3, type: 3}
   backSprite: {fileID: 21300000, guid: d0f3b65676a45c649938b7eaf17e3dc4, type: 3}
   defense: 80
-  spAttack: 80
+  spAttack: 200
   spDefense: 90
   speed: 90
   learnableMoves:

@@ -148,7 +148,7 @@ public class BattleSystem : MonoBehaviour
     {
         battleState = BattleState.PartyScreen;
         prevState = battleState;
-        partyScreen.SetPartyData(playerParty.creatures);
+        partyScreen.SetPartyData();
         partyScreen.gameObject.SetActive(true);
         partyScreen.SetMessageText("Choose A Creature");
         battleState = BattleState.PartyScreen;

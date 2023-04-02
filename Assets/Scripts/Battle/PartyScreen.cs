@@ -13,15 +13,20 @@ public class PartyScreen : MonoBehaviour
     List<Creature> creatures;
     int currentMember;
     public Creature SelectedMember => creatures[currentMember];
+    CreaturesParty party;
 
     public void Init()
     {
+        party = CreaturesParty.GetPlayerParty();
         this.memberSlots = GetComponentsInChildren<PartyMemberUI>(true);
+        SetPartyData();
+
+        party.onUpdated += SetPartyData;
     }
 
-    public void SetPartyData(List<Creature> creatures)
+    public void SetPartyData()
     {
-        this.creatures = creatures;
+        this.creatures = party.creatures;
         for (int i = 0; i < this.memberSlots.Length; i++)
         {
             if (i < creatures.Count)
