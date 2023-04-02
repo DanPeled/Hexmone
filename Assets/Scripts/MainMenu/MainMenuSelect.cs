@@ -9,23 +9,17 @@ public class MainMenuSelect : MonoBehaviour
 {
     public int currentAction = 0;
     public LevelLoader levelLoader;
-    Toggle up = new Toggle(), down = new Toggle();
-
     public GameObject[] buttons;
 
     void Update()
     {
-        // Limits the input axis to a click
-        up.update(Input.GetAxisRaw("Vertical") > 0);
-        down.update(Input.GetAxisRaw("Vertical") < 0);
-
 
         // Action change
-        if (down.isClicked())
+        if (InputSystem.instance.down.isClicked())
         {
             currentAction++;
         }
-        else if (up.isClicked())
+        else if (InputSystem.instance.up.isClicked())
         {
             currentAction--;
         }
