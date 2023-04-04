@@ -15,7 +15,7 @@ public enum BattleState
     Busy,
     PartyScreen,
     BattleOver, AboutToUse,
-    MoveToForget
+    MoveToForget, Bag
 }
 
 public enum BattleAction
@@ -34,8 +34,7 @@ public class BattleSystem : MonoBehaviour
     public BattleDialogBox dialogBox;
     public PartyScreen partyScreen;
     public MoveSelectionUI moveSelectionUI;
-    public BattleState? battleState,
-        prevState;
+    public BattleState battleState;
     public int currentAction,
         currentMove;
     bool actionPossible = false;
@@ -53,6 +52,7 @@ public class BattleSystem : MonoBehaviour
     public GameObject hexoballSprite;
     int escapeAttempts;
     MoveBase moveToLearn;
+    public InventoryUI inventoryUI;
     public void StartBattle(CreaturesParty playerParty, Creature wildCreature)
     {
         this.playerParty = playerParty;
@@ -131,7 +131,7 @@ public class BattleSystem : MonoBehaviour
     void BattleOver(bool won)
     {
         battleState = BattleState.BattleOver;
-        playerParty.creatures.ForEach(p => p.OnBattleOver());
+        playerParty.Creatures.ForEach(p => p.OnBattleOver());
         StartCoroutine(OnBattleOver(won));
     }
 
@@ -143,11 +143,15 @@ public class BattleSystem : MonoBehaviour
         dialogBox.ToggleActionSelector(true);
         yield return null;
     }
+    void OpenBag(){
+        battleState = BattleState.Bag;
+        inventoryUI.gameObject.SetActive(true);
 
+    }
     public void OpenPartyScreen()
     {
+        partyScreen.CalledFrom = battleState;
         battleState = BattleState.PartyScreen;
-        prevState = battleState;
         partyScreen.SetPartyData();
         partyScreen.gameObject.SetActive(true);
         partyScreen.SetMessageText("Choose A Creature");
@@ -610,7 +614,13 @@ public class BattleSystem : MonoBehaviour
                 };
                 moveSelectionUI.HandleMoveSelection(onMoveSelected);
                 break;
-
+            case BattleState.Bag:
+                Action onBack = () => {
+                    inventoryUI.gameObject.SetActive(false);
+                    battleState = BattleState.ActionSelection;
+                };
+                inventoryUI.HandleUpdate(onBack);
+                break;
         }
     }
     void HandleAboutToUse()
@@ -628,7 +638,6 @@ public class BattleSystem : MonoBehaviour
             if (aboutToUseChoice)
             {
                 // Yes Option
-                prevState = BattleState.AboutToUse;
                 OpenPartyScreen();
 
             }
@@ -646,9 +655,6 @@ public class BattleSystem : MonoBehaviour
     }
     public void HandleActionSelection()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
-
         if (InputSystem.instance.right.isClicked())
         {
             currentAction++;
@@ -679,12 +685,11 @@ public class BattleSystem : MonoBehaviour
             else if (currentAction == 1)
             {
                 // Bag
-                StartCoroutine(RunTurns(BattleAction.UseItem));
+                OpenBag();
             }
             else if (currentAction == 2)
             {
                 // Creature
-                prevState = battleState;
                 OpenPartyScreen();
             }
             else if (currentAction == 3)
@@ -765,16 +770,19 @@ public class BattleSystem : MonoBehaviour
             }
             partyScreen.gameObject.SetActive(false);
 
-            if (prevState == BattleState.ActionSelection)
+            if (partyScreen.CalledFrom == BattleState.ActionSelection)
             {
-                prevState = null;
                 StartCoroutine(RunTurns(BattleAction.SwitchCreature));
             }
             else
             {
                 battleState = BattleState.Busy;
-                StartCoroutine(SwitchCreature(selectedMember));
+                bool isTrainerAboutToUse = partyScreen.CalledFrom == BattleState.AboutToUse;
+
+                StartCoroutine(SwitchCreature(selectedMember, isTrainerAboutToUse));
             }
+            partyScreen.CalledFrom = null;
+
         };
         Action onBack = () =>
         {
@@ -785,15 +793,15 @@ public class BattleSystem : MonoBehaviour
                 return;
             }
             partyScreen.gameObject.SetActive(false);
-            if (prevState == BattleState.AboutToUse)
+            if (partyScreen.CalledFrom == BattleState.AboutToUse)
             {
-                prevState = null;
                 StartCoroutine(SendNextTrainerCreature());
             }
             else
             {
                 StartCoroutine(PlayerAction());
             }
+            partyScreen.CalledFrom = null;
         };
         dialogBox.ToggleActionSelector(false);
         partyScreen.HandleUpdate(onSelected, onBack);
@@ -801,7 +809,7 @@ public class BattleSystem : MonoBehaviour
 
     }
 
-    public IEnumerator SwitchCreature(Creature newCreature)
+    public IEnumerator SwitchCreature(Creature newCreature, bool isTrainerAboutToUse=false)
     {
         if (playerUnit.creature.HP > 0)
         {
@@ -821,15 +829,13 @@ public class BattleSystem : MonoBehaviour
             dialogBox.dialogText
         );
         playerUnit.image.color = playerUnit.originalColor;
-        if (prevState == null)
-        {
+        if (isTrainerAboutToUse){
+            StartCoroutine(SendNextTrainerCreature());
+
+        } else {
             battleState = BattleState.RunningTurn;
         }
-        else if (prevState == BattleState.AboutToUse)
-        {
-            prevState = null;
-            StartCoroutine(SendNextTrainerCreature());
-        }
+        
     }
 
     IEnumerator SendNextTrainerCreature()

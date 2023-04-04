@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System;
@@ -28,6 +29,7 @@ public class InventoryUI : MonoBehaviour
     void Start()
     {
         UpdateItemList();
+        inventory.onUpdated += UpdateItemList;
     }
     void Update()
     {
@@ -78,12 +80,24 @@ public class InventoryUI : MonoBehaviour
             // Handle Party selection
             Action onSelected = () => {
                 // use the item on the selected creature
+                StartCoroutine(UseItem());
             };
             Action onBackPartyScreen = () => {
                 ClosePartyScreen();
             };
             partyScreen.HandleUpdate(onSelected, onBack);
         }
+    }
+    IEnumerator UseItem(){
+        state = InventoryUIState.Busy;
+        var usedItem = inventory.UseItem(selectedItem, partyScreen.SelectedMember);
+        if (usedItem != null){
+            yield return DialogManager.instance.ShowDialogText($"The player used {usedItem.name} ");
+        } else {
+            yield return DialogManager.instance.ShowDialogText($"It won't have any effect!");
+        }
+        ClosePartyScreen();
+
     }
     void UpdateItemSelection()
     {

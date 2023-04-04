@@ -195,7 +195,7 @@ public class Creature
         float d = a * move.base_.power * ((float)attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        UpdateHP(damage);
+        DecreaseHP(damage);
         return damageDetails;
     }
 
@@ -228,7 +228,12 @@ public class Creature
         }
         return canPreformMove;
     }
-    public void UpdateHP(int damage)
+    public void IncreaseHP(int amount)
+    {
+        HP = Mathf.Clamp(HP + amount, 0, maxHealth);
+        HPChanged = true;
+    }
+    public void DecreaseHP(int damage)
     {
         HP = Mathf.Clamp(HP - damage, 0, maxHealth);
         HPChanged = true;

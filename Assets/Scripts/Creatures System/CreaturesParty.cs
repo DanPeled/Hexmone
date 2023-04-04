@@ -5,12 +5,20 @@ using System;
 
 public class CreaturesParty : MonoBehaviour
 {
-    public List<Creature> creatures;
     public event Action onUpdated;
+    public List<Creature> creatures;
+    public List<Creature> Creatures {
+        get {
+            return creatures;
+        } set {
+            creatures = value;
+            onUpdated?.Invoke();
+        }
+    }
 
     public void Start()
     {
-        foreach (var creature in creatures)
+        foreach (var creature in Creatures)
         {
             creature.Init();
         }
@@ -18,11 +26,11 @@ public class CreaturesParty : MonoBehaviour
 
     public Creature GetHealthyCreature()
     {
-        return creatures.Where(x => x.HP > 0).FirstOrDefault();
+        return Creatures.Where(x => x.HP > 0).FirstOrDefault();
     }
     public void AddCreature(Creature newCreature){
-        if (creatures.Count < 6){
-            creatures.Add(newCreature);
+        if (Creatures.Count < 6){
+            Creatures.Add(newCreature);
             onUpdated?.Invoke();
         } else {
             // TODO: Add the to the PC

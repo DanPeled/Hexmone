@@ -18,8 +18,8 @@ public class InputSystem : MonoBehaviour
         down.update(Input.GetAxisRaw("Vertical") < 0);
         left.update(Input.GetAxisRaw("Horizontal") < 0);
         right.update(Input.GetAxisRaw("Horizontal") > 0);
-        action.update(Input.GetButton("Action"));
-        back.update(Input.GetButton("Back"));
+        action.update(Input.GetButton("Action") || Input.GetKey(KeyCode.J));
+        back.update(Input.GetButton("Back") || Input.GetKey(KeyCode.K));
         start.update(Input.GetButton("Start"));
     }
 }

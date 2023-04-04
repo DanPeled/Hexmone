@@ -14,6 +14,10 @@ public class PartyScreen : MonoBehaviour
     int currentMember;
     public Creature SelectedMember => creatures[currentMember];
     CreaturesParty party;
+    /// <summary>
+    /// Party screen can be called from diffrent states
+    /// </summary>
+    public BattleState? CalledFrom { get; set; }
 
     public void Init()
     {
@@ -26,7 +30,7 @@ public class PartyScreen : MonoBehaviour
 
     public void SetPartyData()
     {
-        this.creatures = party.creatures;
+        this.creatures = party.Creatures;
         for (int i = 0; i < this.memberSlots.Length; i++)
         {
             if (i < creatures.Count)
@@ -82,7 +86,7 @@ public class PartyScreen : MonoBehaviour
         }
         currentMember = Mathf.Clamp(currentMember, 0, creatures.Count - 1);
         if (currentMember != prevSelection)
-        UpdateMemberSelection(currentMember);
+            UpdateMemberSelection(currentMember);
 
         if (InputSystem.instance.action.isClicked())
         {

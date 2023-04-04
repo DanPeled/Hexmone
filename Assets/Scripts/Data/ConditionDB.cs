@@ -26,7 +26,7 @@ public class ConditionDB
                     startMessage = "has been poisoned",
                     onAfterTurn = (Creature creature) =>
                     {
-                        creature.UpdateHP(creature.maxHealth / 8);
+                        creature.DecreaseHP(creature.maxHealth / 8);
                         creature.statusChanges.Enqueue(
                             $"{creature._base.creatureName} hurt itself due to poison"
                         );
@@ -41,7 +41,7 @@ public class ConditionDB
                     startMessage = "has been burned",
                     onAfterTurn = (Creature creature) =>
                     {
-                        creature.UpdateHP(creature.maxHealth / 16);
+                        creature.DecreaseHP(creature.maxHealth / 16);
                         creature.statusChanges.Enqueue(
                             $"{creature._base.creatureName} hurt itself due to burn"
                         );
@@ -150,7 +150,7 @@ public class ConditionDB
                         creature.statusChanges.Enqueue(
                             $"{creature._base.creatureName} is confused"
                         );
-                        creature.UpdateHP(creature.maxHealth / 8);
+                        creature.DecreaseHP(creature.maxHealth / 8);
                         creature.statusChanges.Enqueue($"It hurt itself due to confusion");
                         return false;
                     }

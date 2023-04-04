@@ -17,4 +17,14 @@ public int ppAmount;
     [Header("Revive")]
     public bool revive;
     public bool maxRevive;
+
+    public override bool Use(Creature creature)
+    {
+        if (hpAmount > 0){
+            if (creature.HP == creature.maxHealth){
+                return false;
+            }
+            creature.IncreaseHP(hpAmount);
+        } return true;
+    }
 }

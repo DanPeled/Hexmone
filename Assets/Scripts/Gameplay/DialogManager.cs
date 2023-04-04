@@ -19,7 +19,7 @@ public class DialogManager : MonoBehaviour
         instance = this;
     }
     Dialog dialog;
-    bool isTyping;
+    public bool isTyping;
     public IEnumerator ShowDialog(Dialog dialog, Action onEnd = null)
     {
         this.onEnd = onEnd;
@@ -30,19 +30,29 @@ public class DialogManager : MonoBehaviour
         dialogBox.SetActive(true);
         SetDialog(dialog.lines[0]);
     }
-    // public IEnumerator TypeDialog(string line)
-    // {
-    //     yield return new WaitForEndOfFrame();
-    //     dialogText.text = " ";
-    //     isTyping = true;
-    //     foreach (var letter in line.ToCharArray())
-    //     {
-    //         dialogText.text += letter;
-    //         yield return new WaitForSeconds(1f / lettersPerSecond);
-    //     }
-    //     isTyping = false;
-    //     dialogText.text = line;
-    // }
+    public IEnumerator TypeDialog(string line)
+    {
+        yield return new WaitForEndOfFrame();
+        dialogText.text = " ";
+        isTyping = true;
+        foreach (var letter in line.ToCharArray())
+        {
+            dialogText.text += letter;
+            yield return new WaitForSeconds(1f / lettersPerSecond);
+        }
+        isTyping = false;
+        dialogText.text = line;
+    }
+    public IEnumerator ShowDialogText(string text, bool waitForInput=true){
+        isTyping = true;
+        dialogBox.SetActive(true);
+        yield return TypeDialog(text);
+        if (waitForInput){
+            yield return new WaitUntil(() => InputSystem.instance.action.isClicked());
+        }
+        dialogBox.SetActive(false);
+        isTyping = false;
+    }
     public void SetDialog(string line){
         isTyping = true;
         this.dialogText.text = line;

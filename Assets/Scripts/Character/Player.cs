@@ -316,7 +316,7 @@ public class Player : MonoBehaviour, ISavable
         var saveData = new PlayerSaveData()
         {
             pos = new float[] { transform.position.x, transform.position.y },
-            creatures = GetComponent<CreaturesParty>().creatures.Select(p => p.GetSaveData()).ToList()
+            creatures = GetComponent<CreaturesParty>().Creatures.Select(p => p.GetSaveData()).ToList()
         };
         return saveData;
     }
@@ -329,7 +329,7 @@ public class Player : MonoBehaviour, ISavable
         transform.position = new Vector3(pos[0], pos[1]);
 
         // Restore party
-        GetComponent<CreaturesParty>().creatures = saveData.creatures.Select(s => new Creature(s)).ToList();
+        GetComponent<CreaturesParty>().Creatures = saveData.creatures.Select(s => new Creature(s)).ToList();
     }
 
 }
