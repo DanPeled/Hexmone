@@ -10,21 +10,29 @@ public class Move
         this.base_ = pBase;
         this.PP = pBase.pp;
     }
-    public Move(MoveSaveData saveData){
+    public Move(MoveSaveData saveData)
+    {
         base_ = MovesDB.GetMoveByName(saveData.name);
         PP = saveData.pp;
     }
-    public MoveSaveData GetSaveData(){
-        var saveData = new MoveSaveData(){
+    public MoveSaveData GetSaveData()
+    {
+        var saveData = new MoveSaveData()
+        {
             name = base_.moveName,
-            pp  = PP
+            pp = PP
         };
         return saveData;
+    }
+    public void IncreasePP(int amount)
+    {
+        this.PP = Mathf.Clamp(this.PP + amount, 0, base_.pp);
     }
 }
 
 [System.Serializable]
-public class MoveSaveData{
+public class MoveSaveData
+{
     public string name;
     public int pp;
 }

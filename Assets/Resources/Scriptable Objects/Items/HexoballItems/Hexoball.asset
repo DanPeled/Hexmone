@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e312818ece98b41805eb4eee0c037f, type: 3}
+  m_Name: Hexoball
+  m_EditorClassIdentifier: 
+  name: Hexoball
+  description: A ball to capture creatures.
+  icon: {fileID: 21300000, guid: 25410d799b46fd64380e3e4548b7db8e, type: 3}

@@ -7,7 +7,21 @@ public class Inventory : MonoBehaviour
 {
 
     public List<ItemSlot> slots;
+    public List<ItemSlot> hexoballsSlots;
+    public List<ItemSlot> tmSlots;
+    public List<List<ItemSlot>> allSlots;
+
+    public static List<string> ItemCategories { get; set; } = new List<string>() {
+        "ITEMS", "HEXOBALLS", "TMs & HMs"
+    };
     public event Action onUpdated;
+    private void Awake()
+    {
+        allSlots = new List<List<ItemSlot>>() {slots, hexoballsSlots, tmSlots};
+    }
+    public List<ItemSlot> GetSlotsByCategory(int categoryIndex){
+        return allSlots[categoryIndex];
+    }
     public ItemBase UseItem(int index, Creature creature)
     {
         var item = slots[index].item;
