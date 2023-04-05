@@ -9,16 +9,21 @@ public class PartyMemberUI : MonoBehaviour
     public HPBar hpBar;
     Creature _creature;
 
-    public void SetData(Creature creature)
+    public void Init(Creature creature)
     {
         this._creature = creature;
-        nameText.text = creature._base.creatureName;
-        lvlText.text = $"Lvl {creature.level}";
+        UpdateData();
+        _creature.OnHPChanged += UpdateData;
+        
+    }
+    void UpdateData(){
 
-        hpBar.SetHP((float)creature.HP, _creature.maxHealth);
+        nameText.text = _creature._base.creatureName;
+        lvlText.text = $"Lvl {_creature.level}";
+
+        hpBar.SetHP((float)_creature.HP, _creature.maxHealth);
         StartCoroutine(hpBar.SetHPSmooth((float)_creature.HP));
     }
-
     public void SetSelected(bool selected)
     {
         if (selected)

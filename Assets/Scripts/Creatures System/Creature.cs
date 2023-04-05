@@ -9,14 +9,14 @@ public class Creature
     public CreatureBase _base;
     public int level, exp;
     public int HP, statusTime;
-    public bool HPChanged { get; set; }
     public List<Move> moves;
     public Move currentMove;
     public Dictionary<Stat, int> stats;
     public Dictionary<Stat, int> statBoosts;
     public Condition status;
     public Queue<string> statusChanges;
-    public Action OnStatusChanged;
+    public event Action OnStatusChanged;
+    public event Action OnHPChanged;
     public Condition volatileStatus;
     public int volatileStatusTime;
     public Creature(CreatureBase base_, int pLvl)
@@ -231,12 +231,12 @@ public class Creature
     public void IncreaseHP(int amount)
     {
         HP = Mathf.Clamp(HP + amount, 0, maxHealth);
-        HPChanged = true;
+        OnHPChanged?.Invoke();
     }
     public void DecreaseHP(int damage)
     {
         HP = Mathf.Clamp(HP - damage, 0, maxHealth);
-        HPChanged = true;
+        OnHPChanged?.Invoke();
     }
     public void OnBattleOver()
     {

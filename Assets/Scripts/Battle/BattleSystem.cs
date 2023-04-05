@@ -146,7 +146,6 @@ public class BattleSystem : MonoBehaviour
     void OpenBag(){
         battleState = BattleState.Bag;
         inventoryUI.gameObject.SetActive(true);
-
     }
     public void OpenPartyScreen()
     {
@@ -231,8 +230,8 @@ public class BattleSystem : MonoBehaviour
             }
             else if (playerAction == BattleAction.UseItem)
             {
+                // this is handled from item screen, so do nothing and skip to enemy move
                 dialogBox.ToggleActionSelector(false);
-                yield return ThrowHexoball();
             }
             else if (playerAction == BattleAction.Run)
             {
@@ -260,7 +259,7 @@ public class BattleSystem : MonoBehaviour
         if (!canRunMove)
         {
             yield return ShowStatusChanges(sourceUnit.creature);
-            yield return sourceUnit.hud.UpdateHP();
+            yield return sourceUnit.hud.WaitForHPUpdate();
             yield break;
         }
         yield return ShowStatusChanges(sourceUnit.creature);
@@ -291,9 +290,9 @@ public class BattleSystem : MonoBehaviour
             else
             {
                 var damageDetails = targetUnit.creature.TakeDamage(move, sourceUnit.creature);
+                yield return targetUnit.hud.WaitForHPUpdate();
+                yield return playerUnit.hud.WaitForHPUpdate();
                 yield return ShowDamageDetails(damageDetails);
-                yield return targetUnit.hud.UpdateHP();
-                yield return playerUnit.hud.UpdateHP();
             }
             if (
                 move.base_.secondaryEffects != null
@@ -340,7 +339,7 @@ public class BattleSystem : MonoBehaviour
         // Statuses like brn or psn will hurt the creature aftr the turn
         sourceUnit.creature.OnAfterTurn();
         yield return ShowStatusChanges(sourceUnit.creature);
-        yield return sourceUnit.hud.UpdateHP();
+        yield return sourceUnit.hud.WaitForHPUpdate();
         if (sourceUnit.creature.HP <= 0)
         {
             yield return HandleCreatureFainted(sourceUnit);
@@ -619,7 +618,12 @@ public class BattleSystem : MonoBehaviour
                     inventoryUI.gameObject.SetActive(false);
                     battleState = BattleState.ActionSelection;
                 };
-                inventoryUI.HandleUpdate(onBack);
+                Action onItemUsed = () => {
+                    battleState = BattleState.Busy;
+                    inventoryUI.gameObject.SetActive(false);
+                    StartCoroutine(RunTurns(BattleAction.UseItem));
+                };
+                inventoryUI.HandleUpdate(onBack, onItemUsed);
                 break;
         }
     }

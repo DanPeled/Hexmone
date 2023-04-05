@@ -61,6 +61,7 @@ public class Player : MonoBehaviour, ISavable
     }
     void Update()
     {
+        notificationBar.transform.parent.gameObject.GetComponent<Canvas>().worldCamera = cameras[camIndex];
         instance = this;
         if (colldingDoor && InputSystem.instance.action.isClicked())
         {
@@ -284,13 +285,12 @@ public class Player : MonoBehaviour, ISavable
         {
             if (rnd <= 10)
             {
+                playerActive = false;
+                isMoving = false;
                 roomSys.levelLoader.Load(
                     new Room(transform.position, "Transition", this.gameObject)
                 );
-
                 yield return new WaitForSeconds(1);
-                playerActive = false;
-                isMoving = false;
                 battleSystem.SetActive(true);
                 SwitchCamera(1);
                 gameController.StartBattle();

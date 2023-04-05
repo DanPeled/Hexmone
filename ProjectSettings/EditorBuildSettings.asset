@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ControllerTesting.unity
     guid: ddaa358affa684847b0070fe1f164811
+  - enabled: 1
+    path: Assets/Scenes/WorldEditor.unity
+    guid: c0f80340885cc7143b0a610a59a2f1df
   m_configObjects: {}

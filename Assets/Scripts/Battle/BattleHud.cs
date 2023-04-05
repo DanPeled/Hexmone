@@ -15,6 +15,10 @@ public class BattleHud : MonoBehaviour
 
     public void SetData(Creature creature)
     {
+        if(_creature != null ){
+            _creature.OnStatusChanged -= SetStatusText;
+            _creature.OnHPChanged -= UpdateHP;
+        }
 
         this._creature = creature;
         nameText.text = creature._base.creatureName;
@@ -22,7 +26,7 @@ public class BattleHud : MonoBehaviour
 
         hPBar.SetHP((float)creature.HP, _creature.maxHealth);
         SetExp();
-        StartCoroutine(UpdateHP());
+        StartCoroutine(UpdateHPAsync());
         statusColors = new Dictionary<ConditionID, Color>(){
             {ConditionID.psn, psnColor},
             {ConditionID.brn, brnColor},
@@ -32,16 +36,19 @@ public class BattleHud : MonoBehaviour
         };
         SetStatusText();
 
-        creature.OnStatusChanged += SetStatusText;
+        _creature.OnStatusChanged += SetStatusText;
+        _creature.OnHPChanged += UpdateHP;
     }
-
-    public IEnumerator UpdateHP()
+    public void UpdateHP()
     {
-        if (_creature.HPChanged)
-        {
-            yield return hPBar.SetHPSmooth((float)_creature.HP);
-            _creature.HPChanged = false;
-        }
+        StartCoroutine(UpdateHPAsync());
+    }
+    public IEnumerator UpdateHPAsync()
+    {
+        yield return hPBar.SetHPSmooth((float)_creature.HP);
+    }
+    public IEnumerator WaitForHPUpdate(){
+        yield return new WaitUntil(() => !hPBar.isUpdating);
     }
     public void SetStatusText()
     {

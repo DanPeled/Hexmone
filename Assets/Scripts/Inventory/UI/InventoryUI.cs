@@ -20,6 +20,7 @@ public class InventoryUI : MonoBehaviour
     const int itemsInViewport = 8;
     public Image upArrow, downArrow;
     InventoryUIState state;
+    Action onItemUsed;
     void Awake()
     {
         inventory = Inventory.GetInventory();
@@ -52,8 +53,9 @@ public class InventoryUI : MonoBehaviour
 
         UpdateItemSelection();
     }
-    public void HandleUpdate(Action onBack)
+    public void HandleUpdate(Action onBack, Action onItemUsed = null)
     {
+        this.onItemUsed = onItemUsed;
         if (state == InventoryUIState.ItemSelection)
         {
             int prevSelection = selectedItem;
@@ -68,7 +70,8 @@ public class InventoryUI : MonoBehaviour
             selectedItem = Mathf.Clamp(selectedItem, 0, inventory.slots.Count - 1);
             if (prevSelection != selectedItem)
                 UpdateItemSelection();
-            if (InputSystem.instance.action.isClicked()){
+            if (InputSystem.instance.action.isClicked())
+            {
                 state = InventoryUIState.PartySelection;
                 OpenPartyScreen();
             }
@@ -76,24 +79,33 @@ public class InventoryUI : MonoBehaviour
             {
                 onBack?.Invoke();
             }
-        } else if (state == InventoryUIState.PartySelection){
+        }
+        else if (state == InventoryUIState.PartySelection)
+        {
             // Handle Party selection
-            Action onSelected = () => {
+            Action onSelected = () =>
+            {
                 // use the item on the selected creature
                 StartCoroutine(UseItem());
             };
-            Action onBackPartyScreen = () => {
+            Action onBackPartyScreen = () =>
+            {
                 ClosePartyScreen();
             };
             partyScreen.HandleUpdate(onSelected, onBack);
         }
     }
-    IEnumerator UseItem(){
+    IEnumerator UseItem()
+    {
         state = InventoryUIState.Busy;
         var usedItem = inventory.UseItem(selectedItem, partyScreen.SelectedMember);
-        if (usedItem != null){
+        if (usedItem != null)
+        {
             yield return DialogManager.instance.ShowDialogText($"The player used {usedItem.name} ");
-        } else {
+            onItemUsed?.Invoke();
+        }
+        else
+        {
             yield return DialogManager.instance.ShowDialogText($"It won't have any effect!");
         }
         ClosePartyScreen();
@@ -120,7 +132,8 @@ public class InventoryUI : MonoBehaviour
     }
     void HandleScrolling()
     {
-        if (slotUIs.Count <= itemsInViewport){
+        if (slotUIs.Count <= itemsInViewport)
+        {
             downArrow.gameObject.SetActive(false);
             upArrow.gameObject.SetActive(false);
             return;
@@ -133,12 +146,14 @@ public class InventoryUI : MonoBehaviour
         bool showDownArrow = selectedItem + 4 < slotUIs.Count;
         downArrow.gameObject.SetActive(showDownArrow);
     }
-    void OpenPartyScreen(){
+    void OpenPartyScreen()
+    {
         state = InventoryUIState.PartySelection;
         partyScreen.gameObject.SetActive(true);
 
     }
-    void ClosePartyScreen(){
+    void ClosePartyScreen()
+    {
         state = InventoryUIState.ItemSelection;
         partyScreen.gameObject.SetActive(false);
     }
