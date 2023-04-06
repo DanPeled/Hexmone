@@ -36,7 +36,7 @@ public class ImageReplacementSystem : MonoBehaviour
         foreach (var spriteRenderer in FindObjectsOfType<SpriteRenderer>())
         {
             if (spriteRenderer.GetComponent<SpriteRenderer>() != null &&
-             spriteRenderer.gameObject.activeInHierarchy && spriteRenderer.GetComponentInParent<Player>() == null && spriteRenderer.GetComponentInParent<TrainerController>() == null && !spriteRenderer.gameObject.name.StartsWith("Hexoball"))
+             spriteRenderer.gameObject.activeInHierarchy && spriteRenderer.GetComponentInParent<Player>() == null && spriteRenderer.GetComponentInParent<TrainerController>() == null && spriteRenderer.GetComponentInParent<NPCController>() == null && !spriteRenderer.gameObject.name.StartsWith("Hexoball"))
             {
                 spriteRenderer.GetComponent<SpriteRenderer>().sprite = missingTexture;
             }

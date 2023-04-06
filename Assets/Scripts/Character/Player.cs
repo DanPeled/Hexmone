@@ -185,6 +185,7 @@ public class Player : MonoBehaviour, ISavable
         if (lastRoutine != null)
             StopCoroutine(lastRoutine);
         active = false;
+        if (other.gameObject.GetComponent<Interactable>() != null)
         lastRoutine = StartCoroutine(removeNotification());
     }
 
@@ -193,7 +194,7 @@ public class Player : MonoBehaviour, ISavable
     {
         this.notification = notification;
         this.notificationBar.GetComponentInChildren<TextMeshProUGUI>().text = notification;
-        while (notificationBar.transform.localPosition.y < -400)
+        while (notificationBar.transform.localPosition.y < -350)
         {
             this.notificationBar.transform.localPosition += new Vector3(0, 50, 0);
             yield return new WaitForSeconds(0.05f);
@@ -201,22 +202,26 @@ public class Player : MonoBehaviour, ISavable
     }
     public IEnumerator notify()
     {
-        while (notificationBar.transform.localPosition.y < -400)
+        while (notificationBar.transform.localPosition.y < -130)
         {
-            this.notificationBar.transform.localPosition += new Vector3(0, 50, 0);
+            var rectTransform = notificationBar.GetComponent<RectTransform>();
+            rectTransform.localPosition += new Vector3(0, 50, 0);
             yield return new WaitForSeconds(0.05f);
         }
     }
     public void ShowDialog()
     {
-        notificationBar.transform.localPosition = new Vector3(notificationBar.transform.localPosition.x, -400, 0);
+        var rectTransform = notificationBar.GetComponent<RectTransform>();
+        rectTransform.localPosition = new Vector3(notificationBar.transform.localPosition.x, -130, 0);
     }
 
     public IEnumerator removeNotification()
     {
-        while (notificationBar.transform.localPosition.y > -720)
+        var rectTransform = notificationBar.GetComponent<RectTransform>();
+
+        while (rectTransform.localPosition.y > -720)
         {
-            this.notificationBar.transform.localPosition -= new Vector3(0, 50, 0);
+            rectTransform.localPosition -= new Vector3(0, 50, 0);
             yield return new WaitForSeconds(0.05f);
         }
     }
