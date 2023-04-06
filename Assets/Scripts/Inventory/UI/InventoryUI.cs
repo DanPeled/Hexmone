@@ -5,7 +5,6 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 public class InventoryUI : MonoBehaviour
 {
     List<ItemSlotUI> slotUIs;
@@ -20,7 +19,7 @@ public class InventoryUI : MonoBehaviour
     const int itemsInViewport = 8;
     public Image upArrow, downArrow;
     InventoryUIState state;
-    Action onItemUsed;
+    Action<ItemBase> onItemUsed;
     void Awake()
     {
         inventory = Inventory.GetInventory();
@@ -53,7 +52,7 @@ public class InventoryUI : MonoBehaviour
 
         UpdateItemSelection();
     }
-    public void HandleUpdate(Action onBack, Action onItemUsed = null)
+    public void HandleUpdate(Action onBack, Action<ItemBase> onItemUsed = null)
     {
         this.onItemUsed = onItemUsed;
         if (state == InventoryUIState.ItemSelection)
@@ -96,8 +95,7 @@ public class InventoryUI : MonoBehaviour
                 UpdateItemSelection();
             if (InputSystem.instance.action.isClicked())
             {
-                state = InventoryUIState.PartySelection;
-                OpenPartyScreen();
+                ItemSelected();
             }
             else if (InputSystem.instance.back.isClicked())
             {
@@ -116,17 +114,26 @@ public class InventoryUI : MonoBehaviour
             {
                 ClosePartyScreen();
             };
-            partyScreen.HandleUpdate(onSelected, onBack);
+            partyScreen.HandleUpdate(onSelected, onBackPartyScreen);
+        }
+    }
+    void ItemSelected(){
+        if (selectedCategory == (int)ItemCategory.Hexoballs){
+            // Hexoball
+            StartCoroutine(UseItem());
+        } else {
+            OpenPartyScreen();
         }
     }
     IEnumerator UseItem()
     {
         state = InventoryUIState.Busy;
-        var usedItem = inventory.UseItem(selectedItem, partyScreen.SelectedMember);
+        var usedItem = inventory.UseItem(selectedItem, partyScreen.SelectedMember, selectedCategory);
         if (usedItem != null)
         {
-            yield return DialogManager.instance.ShowDialogText($"The player used {usedItem.name} ");
-            onItemUsed?.Invoke();
+            if (!(usedItem is HexoballItem))
+                yield return DialogManager.instance.ShowDialogText($"The player used {usedItem.name} ");
+            onItemUsed?.Invoke(usedItem);
         }
         else
         {
@@ -138,6 +145,8 @@ public class InventoryUI : MonoBehaviour
     void UpdateItemSelection()
     {
         var slots = inventory.GetSlotsByCategory(selectedCategory);
+        selectedItem = Mathf.Clamp(selectedItem, 0, slots.Count - 1);
+
         for (int i = 0; i < slotUIs.Count; i++)
         {
             if (i == selectedItem)
@@ -150,7 +159,6 @@ public class InventoryUI : MonoBehaviour
             }
         }
 
-        selectedItem = Mathf.Clamp(selectedItem, 0, slots.Count - 1);
         if (slots.Count > 0)
         {
             var item = slots[selectedItem].item;

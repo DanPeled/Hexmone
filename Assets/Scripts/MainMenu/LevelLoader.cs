@@ -17,6 +17,8 @@ public class LevelLoader : MonoBehaviour
     }
     public IEnumerator LoadAnim(string scene, Room targetRoom)
     {
+        GameObject.FindObjectOfType<Player>().playerActive = false;
+
         string currentScene = SceneManager.GetActiveScene().name;
         foreach (var levelLoader in GameObject.FindObjectsOfType<LevelLoader>())
         {

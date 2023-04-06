@@ -92,4 +92,10 @@ public class BattleHud : MonoBehaviour
     {
         lvlText.text = $"L: {_creature.level}";
     }
+    public void ClearData(){
+        if (_creature != null){
+            _creature.OnHPChanged -= UpdateHP;
+            _creature.OnStatusChanged -= SetStatusText;
+        }
+    }
 }

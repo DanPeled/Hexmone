@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
     TrainerController trainer;
     public void StartBattle()
     {
+        player.playerActive = false;
         state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
         battleSystem.isTrainerBattle = false;

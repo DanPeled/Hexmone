@@ -58,6 +58,7 @@ public class BattleSystem : MonoBehaviour
         this.playerParty = playerParty;
         this.wildCreature = wildCreature;
         player = playerParty.GetComponent<Player>();
+        player.playerActive = false;
         StartCoroutine(SetupBattle());
     }
     public void StartTrainerBattle(CreaturesParty playerParty, CreaturesParty trainerParty)
@@ -132,6 +133,8 @@ public class BattleSystem : MonoBehaviour
     {
         battleState = BattleState.BattleOver;
         playerParty.Creatures.ForEach(p => p.OnBattleOver());
+        playerUnit.hud.ClearData();
+        enemyUnit.hud.ClearData();
         StartCoroutine(OnBattleOver(won));
     }
 
@@ -267,6 +270,7 @@ public class BattleSystem : MonoBehaviour
         int hp = targetUnit.creature.HP;
         move.PP--;
         string usedText = sourceUnit.isPlayerUnit ? "" : "Enemy";
+        if (battleState != BattleState.BattleOver)
         yield return dialogBox.TypeDialog(
             $"{usedText} {sourceUnit.creature._base.creatureName} Used {move.base_.moveName}",
             dialogBox.dialogText
@@ -497,18 +501,10 @@ public class BattleSystem : MonoBehaviour
     {
         dialogBox.ToggleActionSelector(false);
         dialogBox.ToggleMoveSelector(false);
-        if (won)
-        {
-            yield return dialogBox.TypeDialog("You Have Won The Battle!");
-        }
-        else
-        {
-            yield return dialogBox.TypeDialog("You Have Lost The Battle!");
-        }
         yield return new WaitForSeconds(1f);
         GameObject.FindObjectOfType<Player>().playerActive = true;
         GameObject.FindObjectOfType<Player>().SwitchCamera(0);
-        StopCoroutine(SetupBattle());
+        //StopCoroutine(SetupBattle());
         GameController.instance.EndBattle(won);
     }
 
@@ -524,6 +520,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
+                battleState = BattleState.BattleOver;
                 BattleOver(false);
             }
         }
@@ -618,14 +615,23 @@ public class BattleSystem : MonoBehaviour
                     inventoryUI.gameObject.SetActive(false);
                     battleState = BattleState.ActionSelection;
                 };
-                Action onItemUsed = () => {
-                    battleState = BattleState.Busy;
-                    inventoryUI.gameObject.SetActive(false);
-                    StartCoroutine(RunTurns(BattleAction.UseItem));
+                Action<ItemBase> onItemUsed = (ItemBase itemUsed) => {
+                    StartCoroutine(this.OnItemUsed(itemUsed));
                 };
                 inventoryUI.HandleUpdate(onBack, onItemUsed);
                 break;
         }
+    }
+    IEnumerator OnItemUsed(ItemBase usedItem){
+        battleState = BattleState.Busy;
+        inventoryUI.gameObject.SetActive(false);
+
+        if (usedItem is HexoballItem)
+        {
+            yield return ThrowHexoball((HexoballItem)usedItem);
+        }
+
+        StartCoroutine(RunTurns(BattleAction.UseItem));
     }
     void HandleAboutToUse()
     {
@@ -851,7 +857,7 @@ public class BattleSystem : MonoBehaviour
 
         battleState = BattleState.RunningTurn;
     }
-    IEnumerator ThrowHexoball()
+    IEnumerator ThrowHexoball(HexoballItem hexoballItem)
     {
         battleState = BattleState.Busy;
         if (isTrainerBattle)
@@ -860,16 +866,16 @@ public class BattleSystem : MonoBehaviour
             battleState = BattleState.RunningTurn;
             yield break;
         }
-        yield return dialogBox.TypeDialog($"{player.playerName} used HEXOBALL!");
+        yield return dialogBox.TypeDialog($"{player.playerName} used {hexoballItem.name}!");
 
         var hexoBallObject = Instantiate(hexoballSprite, playerUnit.transform.position - new Vector3(2, 0), Quaternion.identity);
         var hexoball = hexoBallObject.GetComponent<SpriteRenderer>();
-
+        hexoball.sprite = hexoballItem.icon;
         //Animations
         yield return hexoball.transform.DOJump(enemyUnit.transform.position + new Vector3(0, 2f), 2f, 1, 1f).WaitForCompletion();
         yield return enemyUnit.PlayCaptureAnimation();
         yield return hexoball.transform.DOMoveY(enemyUnit.transform.position.y - 1.3f, 0.5f).WaitForCompletion();
-        int shakeCount = TryToCatchCreature(enemyUnit.creature);
+        int shakeCount = TryToCatchCreature(enemyUnit.creature, hexoballItem);
         for (int i = 0; i < Mathf.Min(shakeCount, 3); i++)
         {
             yield return new WaitForSeconds(0.5f);
@@ -906,10 +912,10 @@ public class BattleSystem : MonoBehaviour
 
         }
     }
-    int TryToCatchCreature(Creature creature)
+    int TryToCatchCreature(Creature creature, HexoballItem hexoball)
     {
         float a = (3 * creature.maxHealth * creature.HP) *
-         creature._base.catchRate * ConditionDB.GetStatusBonus(creature.status) / (3 * creature.maxHealth);
+         creature._base.catchRate *hexoball.catchRateModifier * ConditionDB.GetStatusBonus(creature.status) / (3 * creature.maxHealth);
         if (a >= 255)
         {
             return 4;

@@ -3,6 +3,10 @@ using UnityEngine;
 using System.Linq;
 using System;
 
+public enum ItemCategory
+{
+    Items, Hexoballs, Tms
+}
 public class Inventory : MonoBehaviour
 {
 
@@ -22,25 +26,29 @@ public class Inventory : MonoBehaviour
     public List<ItemSlot> GetSlotsByCategory(int categoryIndex){
         return allSlots[categoryIndex];
     }
-    public ItemBase UseItem(int index, Creature creature)
+    public ItemBase UseItem(int index, Creature creature, int selectedCategory)
     {
-        var item = slots[index].item;
+
+        var currentSlots = GetSlotsByCategory(selectedCategory);
+
+        var item = currentSlots[index].item;
         bool itemUsed = item.Use(creature);
 
         if (itemUsed)
         {
-            RemoveItem(item);
+            RemoveItem(item, selectedCategory);
             return item;
         }
         return null;
     }
-    public void RemoveItem(ItemBase item)
+    public void RemoveItem(ItemBase item, int selectedCategory)
     {
-        var itemSlot = slots.First(slot => slot.item == item);
+        var currentSlots = GetSlotsByCategory(selectedCategory);
+        var itemSlot = currentSlots.First(slot => slot.item == item);
         itemSlot.count--;
         if (itemSlot.count == 0)
         {
-            slots.Remove(itemSlot);
+            currentSlots.Remove(itemSlot);
         }
         onUpdated?.Invoke();
     }
