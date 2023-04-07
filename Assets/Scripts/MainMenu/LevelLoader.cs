@@ -10,6 +10,7 @@ public class LevelLoader : MonoBehaviour
     public float transitionTime = 1.5f;
     public static string lastScene;
     public GameObject loadingScreen;
+    public static LevelLoader i;
     public void Load(Room targetRoom)
     {
         transform.GetChild(0).gameObject.SetActive(true);
@@ -95,5 +96,9 @@ public class LevelLoader : MonoBehaviour
     public void Load(string scene)
     {
         StartCoroutine(LoadAsync(scene));
+    }
+    void Update()
+    {
+        i = this;
     }
 }

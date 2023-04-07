@@ -10,7 +10,17 @@ public class MainMenuSelect : MonoBehaviour
     public int currentAction = 0;
     public LevelLoader levelLoader;
     public GameObject[] buttons;
-
+    public bool isMobile;
+    public GameObject cover;
+    void Start()
+    {
+        cover.SetActive(false);
+    }
+    public void SetMobile()
+    {
+        MobileControls.isMobilePersisted = !isMobile;
+        isMobile = MobileControls.isMobilePersisted;
+    }
     void Update()
     {
 
@@ -51,6 +61,7 @@ public class MainMenuSelect : MonoBehaviour
 
     public void Play()
     {
+        cover.gameObject.SetActive(true);
         SceneManager.LoadScene("world");
     }
     public void Settings()

@@ -40,6 +40,7 @@ public class Player : MonoBehaviour, ISavable
     Coroutine lastRoutine = null;
     public bool playerActive = true;
     public GameController gameController;
+    public static Rect viewPort;
 
     void Awake()
     {
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour, ISavable
         this.roomSys.levelLoader = GameObject
             .FindGameObjectWithTag("LevelLoader")
             .GetComponent<LevelLoader>();
+
     }
     void Update()
     {
@@ -186,7 +188,7 @@ public class Player : MonoBehaviour, ISavable
             StopCoroutine(lastRoutine);
         active = false;
         if (other.gameObject.GetComponent<Interactable>() != null)
-        lastRoutine = StartCoroutine(removeNotification());
+            lastRoutine = StartCoroutine(removeNotification());
     }
 
     #endregion
@@ -335,6 +337,14 @@ public class Player : MonoBehaviour, ISavable
 
         // Restore party
         GetComponent<CreaturesParty>().Creatures = saveData.creatures.Select(s => new Creature(s)).ToList();
+    }
+    public void SetViewPort(Rect port)
+    {
+        viewPort = new Rect(port);
+        foreach (var cam in cameras)
+        {
+            cam.rect = port;
+        }
     }
 
 }
