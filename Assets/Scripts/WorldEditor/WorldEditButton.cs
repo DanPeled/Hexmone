@@ -17,15 +17,18 @@ public class WorldEditButton : MonoBehaviour, IPointerExitHandler, IPointerEnter
     }
     void Update()
     {
-        if (this.tile != WorldEditor.selectedTile || WorldEditor.selectedTile == null)
+        if (this.image != null)
         {
-            image.color = Color.white;
-        }
-        else
-        {
-            //This is chosen
-            image.color = Color.gray;
-            WorldEditMouseController.sprite = image.sprite;
+            if (this.tile != WorldEditor.selectedTile || WorldEditor.selectedTile == null)
+            {
+                image.color = Color.white;
+            }
+            else
+            {
+                //This is chosen
+                image.color = Color.gray;
+                WorldEditMouseController.sprite = image.sprite;
+            }
         }
     }
     public void OnPointerEnter(PointerEventData eventData)

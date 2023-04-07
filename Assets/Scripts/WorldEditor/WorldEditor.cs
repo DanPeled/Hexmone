@@ -13,6 +13,10 @@ public class WorldEditor : MonoBehaviour
     public static WorldEditor i;
     public float speed = 0.05f;
     public WorldEditorMode mode;
+    public Slider slider;
+    public TextMeshProUGUI brushSizeText;
+    [Range(1,100)]
+    public float brushSize = 1f;
 
     void Awake()
     {
@@ -24,6 +28,8 @@ public class WorldEditor : MonoBehaviour
     }
     void Update()
     {
+        brushSizeText.text = Mathf.FloorToInt(slider.value).ToString();
+        brushSize = slider.value;
         if (mode == WorldEditorMode.Draw)
         {
             if (Input.GetMouseButton(0))
@@ -32,7 +38,14 @@ public class WorldEditor : MonoBehaviour
                 Vector3Int cellPosition = tilemap.WorldToCell(mouseWorldPosition);
                 if (!isHoveringButton)
                 {
-                    tilemap.SetTile(cellPosition, selectedTile);
+                    // Set tile on a rectangle of cells based on the brush size
+                    for (int x = cellPosition.x - Mathf.FloorToInt(brushSize / 2f); x <= cellPosition.x + Mathf.FloorToInt(brushSize / 2f); x++)
+                    {
+                        for (int y = cellPosition.y - Mathf.FloorToInt(brushSize / 2f); y <= cellPosition.y + Mathf.FloorToInt(brushSize / 2f); y++)
+                        {
+                            tilemap.SetTile(new Vector3Int(x, y, 0), selectedTile);
+                        }
+                    }
                 }
 
 
@@ -43,7 +56,14 @@ public class WorldEditor : MonoBehaviour
                 Vector3Int cellPosition = tilemap.WorldToCell(mouseWorldPosition);
                 if (!isHoveringButton)
                 {
-                    tilemap.SetTile(cellPosition, null);
+                    // Set tile on a rectangle of cells based on the brush size
+                    for (int x = cellPosition.x - Mathf.FloorToInt(brushSize / 2f); x <= cellPosition.x + Mathf.FloorToInt(brushSize / 2f); x++)
+                    {
+                        for (int y = cellPosition.y - Mathf.FloorToInt(brushSize / 2f); y <= cellPosition.y + Mathf.FloorToInt(brushSize / 2f); y++)
+                        {
+                            tilemap.SetTile(new Vector3Int(x, y, 0), null);
+                        }
+                    }
                 }
             }
         }
@@ -70,17 +90,8 @@ public class WorldEditor : MonoBehaviour
                     );
                     Fill(fillRegion);
                 }
-                else if (Input.GetMouseButtonDown(1))
-                {
-                    StartErase(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                }
-                else if (Input.GetMouseButtonUp(1))
-                {
-                    EndErase(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                }
             }
         }
-        
         if (Input.mouseScrollDelta.y > 0)
         {
             Camera.main.orthographicSize -= zoomChange * Time.deltaTime * smoothChange;
@@ -115,21 +126,25 @@ public class WorldEditor : MonoBehaviour
     // Fills a rectangular region of tiles with the specified tile
     public void Fill(RectInt region)
     {
-        for (int x = region.xMin; x <= region.xMax; x++)
+        int brushSizeInt = Mathf.RoundToInt(brushSize);
+        for (int x = region.xMin - brushSizeInt; x <= region.xMax + brushSizeInt; x++)
         {
-            for (int y = region.yMin; y <= region.yMax; y++)
+            for (int y = region.yMin - brushSizeInt; y <= region.yMax + brushSizeInt; y++)
             {
-                tilemap.SetTile(new Vector3Int(x, y, 0), selectedTile);
+                if (Vector2.Distance(new Vector2(x, y), new Vector2(region.center.x, region.center.y)) <= brushSize)
+                {
+                    tilemap.SetTile(new Vector3Int(x, y, 0), selectedTile);
+                }
             }
         }
     }
-    
-    // Begins the fill operation
+
     public void StartFill(Vector3 mousePosition)
     {
         startCell = tilemap.WorldToCell(mousePosition);
         isFilling = true;
     }
+
 
     // Ends the fill operation
     public void EndFill(Vector3 mousePosition)
@@ -149,6 +164,7 @@ public class WorldEditor : MonoBehaviour
         );
         Fill(fillRegion);
     }
+
     public void SetMode(int modeIndex)
     {
         WorldEditorMode mode = WorldEditorMode.Draw;
