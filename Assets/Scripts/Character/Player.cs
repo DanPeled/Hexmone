@@ -290,7 +290,7 @@ public class Player : MonoBehaviour, ISavable
         int rnd = UnityEngine.Random.Range(1, 1000);
         if (touchingLongGrass)
         {
-            if (rnd <= 10)
+            if (rnd <= 10 && playerActive)
             {
                 playerActive = false;
                 isMoving = false;
@@ -306,7 +306,7 @@ public class Player : MonoBehaviour, ISavable
     }
     public IEnumerator CheckIfInTrainersView(TrainerController trainer, bool inView)
     {
-        if (inView && trainer != null)
+        if (inView && trainer != null && playerActive)
         {
             yield return trainer.TriggerTrainerBattle(this);
             trainer.fov.SetActive(false);

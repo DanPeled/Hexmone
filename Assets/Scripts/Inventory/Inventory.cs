@@ -21,22 +21,29 @@ public class Inventory : MonoBehaviour
     public event Action onUpdated;
     private void Awake()
     {
-        allSlots = new List<List<ItemSlot>>() {slots, hexoballsSlots, tmSlots};
+        allSlots = new List<List<ItemSlot>>() { slots, hexoballsSlots, tmSlots };
     }
-    public List<ItemSlot> GetSlotsByCategory(int categoryIndex){
+    public List<ItemSlot> GetSlotsByCategory(int categoryIndex)
+    {
         return allSlots[categoryIndex];
     }
-    public ItemBase UseItem(int index, Creature creature, int selectedCategory)
+    public ItemBase GetItem(int itemIndex, int categoryIndex)
+    {
+        var currentSlots = GetSlotsByCategory(categoryIndex);
+        return currentSlots[itemIndex].item;
+    }
+    public ItemBase UseItem(int itemIndex, Creature creature, int selectedCategory)
     {
 
-        var currentSlots = GetSlotsByCategory(selectedCategory);
-
-        var item = currentSlots[index].item;
+        var item = GetItem(itemIndex, selectedCategory);
         bool itemUsed = item.Use(creature);
 
         if (itemUsed)
         {
-            RemoveItem(item, selectedCategory);
+            if (!item.isReusable)
+            {
+                RemoveItem(item, selectedCategory);
+            }
             return item;
         }
         return null;

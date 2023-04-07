@@ -145,9 +145,12 @@ public class Creature
     public LearnableMove GetLearnableMoveAtCurrLevel(){
         return _base.learnableMoves.Where(x => x.level == this.level).FirstOrDefault();
     }
-    public void LearnMove(LearnableMove moveToLearn) {
+    public void LearnMove(MoveBase moveToLearn) {
         if (moves.Count > this._base.maxNumberOfMoves) return;
-        moves.Add(new Move(moveToLearn.moveBase));
+        moves.Add(new Move(moveToLearn));
+     }
+    public bool HasMove(MoveBase move){
+        return this.moves.Count(m => m.base_ == move) > 0;
      }
     public int Attack
     {

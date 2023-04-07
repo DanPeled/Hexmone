@@ -14,7 +14,7 @@ public class MobileControls : MonoBehaviour
     public GameObject dpad;
     public List<GameObject> buttons;
     public bool active;
-    public Rect mobileViewPort = new Rect(0.15f, 0.3f, 0.7f, 0.7f);
+    public Rect mobileViewPort = new Rect(0.15f, 0.25f, 0.7f, 0.7f);
     public Rect defaultViewPort = new Rect(0, 0, 1, 1);
     public Rect currentViewPort;
 

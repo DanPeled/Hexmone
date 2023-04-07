@@ -9,8 +9,9 @@ public class ItemSlotUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
     public float height => rectTransform.rect.height;
-    public void SetData(ItemSlot itemSlot){
+    public void SetData(ItemSlot itemSlot)
+    {
         nameText.text = itemSlot.item.name;
-        countText.text = $"X {itemSlot.count}";
+        countText.text = $"{itemSlot.count}";
     }
 }

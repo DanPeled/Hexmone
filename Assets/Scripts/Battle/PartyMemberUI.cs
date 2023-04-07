@@ -5,7 +5,7 @@ using TMPro;
 public class PartyMemberUI : MonoBehaviour
 {
     public TextMeshProUGUI nameText,
-        lvlText;
+        lvlText, messageText;
     public HPBar hpBar;
     Creature _creature;
 
@@ -13,8 +13,9 @@ public class PartyMemberUI : MonoBehaviour
     {
         this._creature = creature;
         UpdateData();
+        SetMessage("");
+
         _creature.OnHPChanged += UpdateData;
-        
     }
     void UpdateData(){
 
@@ -23,6 +24,9 @@ public class PartyMemberUI : MonoBehaviour
 
         hpBar.SetHP((float)_creature.HP, _creature.maxHealth);
         StartCoroutine(hpBar.SetHPSmooth((float)_creature.HP));
+    }
+    public void SetMessage(string msg){
+        messageText.text = msg;
     }
     public void SetSelected(bool selected)
     {

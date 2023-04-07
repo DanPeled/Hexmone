@@ -43,13 +43,18 @@ public class DialogManager : MonoBehaviour
         isTyping = false;
         dialogText.text = line;
     }
-    public IEnumerator ShowDialogText(string text, bool waitForInput=true){
+    public IEnumerator ShowDialogText(string text, bool waitForInput=true, bool autoClose=true){
         isTyping = true;
         dialogBox.SetActive(true);
         yield return TypeDialog(text);
         if (waitForInput){
             yield return new WaitUntil(() => InputSystem.instance.action.isClicked());
         }
+        if (autoClose){
+            CloseDialog();
+        }
+    }
+    public void CloseDialog(){
         dialogBox.SetActive(false);
         isTyping = false;
     }

@@ -34,6 +34,7 @@ public class CreatureBase : ScriptableObject
     public int speed;
     [SerializeField]
     public List<LearnableMove> learnableMoves = new List<LearnableMove>();
+    public List<MoveBase> learnableByItems = new List<MoveBase>();
     [SerializeField]
     public int catchRate = 225;
     [SerializeField]

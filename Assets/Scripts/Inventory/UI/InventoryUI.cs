@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 public class InventoryUI : MonoBehaviour
 {
     List<ItemSlotUI> slotUIs;
@@ -19,6 +20,8 @@ public class InventoryUI : MonoBehaviour
     const int itemsInViewport = 8;
     public Image upArrow, downArrow;
     InventoryUIState state;
+    MoveBase moveToLearn;
+    public MoveSelectionUI moveSelectionUI;
     Action<ItemBase> onItemUsed;
     void Awake()
     {
@@ -95,7 +98,7 @@ public class InventoryUI : MonoBehaviour
                 UpdateItemSelection();
             if (InputSystem.instance.action.isClicked())
             {
-                ItemSelected();
+                StartCoroutine(ItemSelected());
             }
             else if (InputSystem.instance.back.isClicked())
             {
@@ -116,32 +119,127 @@ public class InventoryUI : MonoBehaviour
             };
             partyScreen.HandleUpdate(onSelected, onBackPartyScreen);
         }
+        else if (state == InventoryUIState.MoveToForget)
+        {
+
+            Action<int> onMoveSelected = (int moveIndex) =>
+            {
+                StartCoroutine(onMoveToForgetSelected(moveIndex));
+            };
+
+
+            moveSelectionUI.HandleMoveSelection(onMoveSelected);
+        }
     }
-    void ItemSelected(){
-        if (selectedCategory == (int)ItemCategory.Hexoballs){
+    IEnumerator ItemSelected()
+    {
+        state = InventoryUIState.Busy;
+        var item = inventory.GetItem(selectedItem, selectedCategory);
+        if (GameController.instance.state == GameState.Battle)
+        {
+            // In a battle
+            if (!item.CanUseInBattle)
+            {
+                // dont allow to use item
+                yield return DialogManager.instance.ShowDialogText($"This item cannot be used in battle");
+                state = InventoryUIState.ItemSelection;
+                yield break;
+            }
+        }
+        else
+        {
+            // outside a battle
+            if (!item.CanUseOutsideBattle)
+            {
+                // dont allow to use item
+                yield return DialogManager.instance.ShowDialogText($"This item cannot be used outside battle");
+                state = InventoryUIState.ItemSelection;
+                yield break;
+            }
+
+        }
+
+        if (selectedCategory == (int)ItemCategory.Hexoballs)
+        {
             // Hexoball
             StartCoroutine(UseItem());
-        } else {
+        }
+        else
+        {
             OpenPartyScreen();
+
+            if (item is TMItem){
+                // Show if the tm is usable
+                partyScreen.ShowIfTmIsUsable(item as TMItem);
+            } 
         }
     }
     IEnumerator UseItem()
     {
         state = InventoryUIState.Busy;
+
+        yield return HandleTMItems();
+
         var usedItem = inventory.UseItem(selectedItem, partyScreen.SelectedMember, selectedCategory);
         if (usedItem != null)
         {
-            if (!(usedItem is HexoballItem))
+            if (usedItem is RecoveryItem)
                 yield return DialogManager.instance.ShowDialogText($"The player used {usedItem.name} ");
             onItemUsed?.Invoke(usedItem);
         }
         else
         {
-            yield return DialogManager.instance.ShowDialogText($"It won't have any effect!");
+            if (usedItem is RecoveryItem)
+                yield return DialogManager.instance.ShowDialogText($"It won't have any effect!");
         }
         ClosePartyScreen();
 
     }
+
+    IEnumerator HandleTMItems()
+    {
+        var tmItem = inventory.GetItem(selectedItem, selectedCategory) as TMItem;
+        if (tmItem == null)
+        {
+            yield break;
+        }
+        var creature = partyScreen.SelectedMember;
+
+        if (creature.HasMove(tmItem.move))
+        {
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.creatureName} already knows {tmItem.move.name}");
+            yield break;
+        }
+        if (!tmItem.CanBeTaught(creature))
+        {
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.creatureName} can't learn {tmItem.move.name}");
+            yield break;
+        }
+        if (creature.moves.Count < creature._base.maxNumberOfMoves)
+        {
+
+            creature.LearnMove(tmItem.move);
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.creatureName} learned {tmItem.move.moveName}");
+        }
+        else
+        {
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.creatureName} is trying to learn {tmItem.move.moveName}");
+            yield return DialogManager.instance.ShowDialogText($"But it cannot learn more than 4 moves");
+            yield return ChooseMoveToForget(creature, tmItem.move);
+            yield return new WaitUntil(() => state != InventoryUIState.MoveToForget);
+        }
+
+    }
+    IEnumerator ChooseMoveToForget(Creature creature, MoveBase newMove)
+    {
+        state = InventoryUIState.Busy;
+        yield return DialogManager.instance.ShowDialogText($"Choose a move you want to forget", autoClose: false);
+        moveSelectionUI.gameObject.SetActive(true);
+        moveSelectionUI.SetMoveData(creature.moves.Select(x => x.base_).ToList(), newMove);
+        moveToLearn = newMove;
+        state = InventoryUIState.MoveToForget;
+    }
+
     void UpdateItemSelection()
     {
         var slots = inventory.GetSlotsByCategory(selectedCategory);
@@ -203,10 +301,34 @@ public class InventoryUI : MonoBehaviour
     void ClosePartyScreen()
     {
         state = InventoryUIState.ItemSelection;
+
+        partyScreen.ClearMemberSlotMessages();
         partyScreen.gameObject.SetActive(false);
+    }
+    IEnumerator onMoveToForgetSelected(int moveIndex)
+    {
+        var creature = partyScreen.SelectedMember;
+        moveSelectionUI.gameObject.SetActive(false);
+
+        DialogManager.instance.CloseDialog();
+        if (moveIndex == 4)
+        {
+            // Dont learn the new move
+            yield return (DialogManager.instance.ShowDialogText($"{creature._base.creatureName} did not learn {moveToLearn.moveName}"));
+        }
+        else
+        {
+            // forget the selected move and learn new move
+            var selectedMove = creature.moves[moveIndex].base_;
+            yield return (DialogManager.instance.ShowDialogText($"{creature._base.creatureName} forgot {selectedMove.moveName} and learned {moveToLearn.moveName}"));
+
+            creature.moves[moveIndex] = new Move(moveToLearn);
+        }
+        moveToLearn = null;
+        state = InventoryUIState.ItemSelection;
     }
 }
 public enum InventoryUIState
 {
-    ItemSelection, PartySelection, Busy
+    ItemSelection, PartySelection, Busy, MoveToForget
 }
