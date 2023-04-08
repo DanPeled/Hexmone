@@ -22,18 +22,16 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
     {
         this.originalPos = transform.position;
     }
-    public void Interact()
+    public IEnumerator Interact(Transform initiator = null)
     {
         if (!battleLost)
         {
-            StartCoroutine(DialogManager.instance.ShowDialog(dialog, () =>
-            {
+            yield return (DialogManager.instance.ShowDialog(dialog));
                 GameController.instance.StartTrainerBattle(this);
-            }));
         }
         else
         {
-            StartCoroutine(DialogManager.instance.ShowDialog(dialogAfterBattle));
+            yield return (DialogManager.instance.ShowDialog(dialogAfterBattle));
         }
     }
     public IEnumerator TriggerTrainerBattle(Player player)
@@ -52,10 +50,7 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
 
         //Show dialog
         Player.instance.ShowDialog();
-        StartCoroutine(DialogManager.instance.ShowDialog(dialog, () =>
-        {
-            GameController.instance.StartTrainerBattle(this);
-        }));
+        yield return (DialogManager.instance.ShowDialog(dialog));
     }
     public void BattleLost()
     {

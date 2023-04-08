@@ -63,6 +63,29 @@ public class Inventory : MonoBehaviour
     {
         return FindObjectOfType<Player>().GetComponent<Inventory>();
     }
+    public void AddItem(ItemBase item, int count=1){
+        var category = (int)GetCategoryFromItem(item);
+        var currentSlots = GetSlotsByCategory(category);
+
+        var itemSlot = currentSlots.FirstOrDefault(slot => slot.item == item);
+        if (itemSlot != null){
+            itemSlot.count+=count;
+        } else {
+            currentSlots.Add(new ItemSlot() {
+                item = item,
+                count = count
+            });
+        }
+        onUpdated?.Invoke();
+
+    }
+    public ItemCategory GetCategoryFromItem(ItemBase item){
+        if (item is RecoveryItem){
+            return ItemCategory.Items;
+        } else if (item is HexoballItem){
+            return ItemCategory.Hexoballs;
+        } else return ItemCategory.Tms;
+    }
 
 }
 [System.Serializable]

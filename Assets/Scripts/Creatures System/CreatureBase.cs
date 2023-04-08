@@ -96,7 +96,7 @@ public enum CreatureType
     Steel,
     Fairy,
     Food,
-    Diffrent
+    Sound
 }
 
 public enum Stat

@@ -1,3 +1,4 @@
+using System.Collections;
 using System;
 using UnityEngine;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ public class NotificationTriggerController : MonoBehaviour, Interactable
     void Update()
     {
     }
-    public void Interact(){
+    public IEnumerator Interact(Transform initiator=null){
         var time = DateTime.Now.ToString("HH:mm:ss");
         Dialog dialog = new Dialog(time);
-        StartCoroutine(DialogManager.instance.ShowDialog((!showTime ? this.dialog : dialog), null));
+        yield return DialogManager.instance.ShowDialog((!showTime ? this.dialog : dialog));
     }
 }

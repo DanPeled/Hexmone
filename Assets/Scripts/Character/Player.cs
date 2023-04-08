@@ -136,14 +136,14 @@ public class Player : MonoBehaviour, ISavable
         if (InputSystem.instance.action.isClicked())
         {
             ShowDialog();
-            Interact(interactObject);
+            StartCoroutine(Interact(interactObject));
         }
     }
-    void Interact(GameObject obj)
+    IEnumerator Interact(GameObject obj)
     {
         if (collidingInteractable)
         {
-            obj.GetComponent<Interactable>()?.Interact();
+            yield return obj.GetComponent<Interactable>()?.Interact(transform);
         }
     }
     void FixedUpdate()

@@ -19,72 +19,60 @@ public class DialogManager : MonoBehaviour
         instance = this;
     }
     Dialog dialog;
-    public bool isTyping;
-    public IEnumerator ShowDialog(Dialog dialog, Action onEnd = null)
+    public IEnumerator ShowDialog(Dialog dialog)
     {
-        this.onEnd = onEnd;
         yield return new WaitForEndOfFrame();
         OnShowDialog?.Invoke();
         this.dialog = dialog;
-
         dialogBox.SetActive(true);
-        SetDialog(dialog.lines[0]);
+        foreach (var line in dialog.lines)
+        {
+            yield return TypeDialog(line);
+            yield return new WaitUntil(() => InputSystem.instance.action.isClicked());
+        }
+        dialogBox.SetActive(false);
     }
     public IEnumerator TypeDialog(string line)
     {
         yield return new WaitForEndOfFrame();
         dialogText.text = " ";
-        isTyping = true;
         foreach (var letter in line.ToCharArray())
         {
             dialogText.text += letter;
             yield return new WaitForSeconds(1f / lettersPerSecond);
         }
-        isTyping = false;
-        dialogText.text = line;
+        OnShowDialog?.Invoke();
     }
-    public IEnumerator ShowDialogText(string text, bool waitForInput=true, bool autoClose=true){
-        isTyping = true;
+    public IEnumerator ShowDialogText(string text, bool waitForInput = true, bool autoClose = true)
+    {
+        OnShowDialog?.Invoke();
         dialogBox.SetActive(true);
         yield return TypeDialog(text);
-        if (waitForInput){
+        if (waitForInput)
+        {
             yield return new WaitUntil(() => InputSystem.instance.action.isClicked());
         }
-        if (autoClose){
+        if (autoClose)
+        {
             CloseDialog();
         }
     }
-    public void CloseDialog(){
+    public void CloseDialog()
+    {
         dialogBox.SetActive(false);
-        isTyping = false;
+        OnCloseDialog?.Invoke();
     }
-    public void SetDialog(string line){
-        isTyping = true;
+    public void SetDialog(string line)
+    {
         this.dialogText.text = line;
-        isTyping = false;
     }
     public void HandleUpdate()
     {
-        if (InputSystem.instance.action.isClicked())
-        {
-            currentLine++;
-            if (currentLine < dialog.lines.Count)
-            {
-                SetDialog(dialog.lines[currentLine]);
-            }
-            else
-            {
-                currentLine = 0;
-                dialogBox.SetActive(false);
-                OnCloseDialog?.Invoke();
-                GameController.instance.state = GameState.FreeRoam;
-                onEnd?.Invoke();
-            }
-        }
+        
     }
     void Update()
     {
         if (dialog != null)
-        SetDialog(dialog.lines[currentLine]);
+            SetDialog(dialog.lines[currentLine]);
     }
 }

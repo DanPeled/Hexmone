@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public GameState state;
+    public GameState state, prevState;
     public BattleSystem battleSystem;
     public Player player;
     public static GameController instance;
@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(false);
         DialogManager.instance.OnShowDialog += () =>
         {
+            prevState=  state;
             state = GameState.Dialog;
         };
 
@@ -31,7 +32,7 @@ public class GameController : MonoBehaviour
         {
             if (state == GameState.Dialog)
             {
-                state = GameState.FreeRoam;
+                state = prevState;
             }
         };
         menu.onBack += () =>

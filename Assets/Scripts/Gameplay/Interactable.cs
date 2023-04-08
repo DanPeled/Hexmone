@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
 public interface Interactable
 {
-    void Interact();
+    IEnumerator Interact(Transform initiator=null);
 }

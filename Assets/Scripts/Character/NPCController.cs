@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 public class NPCController : MonoBehaviour, Interactable
@@ -32,8 +33,10 @@ public class NPCController : MonoBehaviour, Interactable
         }
 
     }
-    public void Interact(){
-        StartCoroutine(DialogManager.instance.ShowDialog(dialog, null));
+    public IEnumerator Interact(Transform initiator = null){
+        yield return (DialogManager.instance.ShowDialog(dialog));
+        idleTimer = 0f;
+        state = NPCState.Idle;
     }
 }
 public enum NPCState{
