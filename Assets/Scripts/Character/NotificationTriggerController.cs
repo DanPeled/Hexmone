@@ -13,7 +13,8 @@ public class NotificationTriggerController : MonoBehaviour, Interactable
     void Update()
     {
     }
-    public IEnumerator Interact(Transform initiator=null){
+    public IEnumerator Interact(Transform initiator = null)
+    {
         var time = DateTime.Now.ToString("HH:mm:ss");
         Dialog dialog = new Dialog(time);
         yield return DialogManager.instance.ShowDialog((!showTime ? this.dialog : dialog));

@@ -7,7 +7,6 @@ public class ImageReplacementSystem : MonoBehaviour
     public Sprite missingTexture;
     void Start()
     {
-        ReplaceImages();
     }
     void Update()
     {
@@ -35,8 +34,8 @@ public class ImageReplacementSystem : MonoBehaviour
         }
         foreach (var spriteRenderer in FindObjectsOfType<SpriteRenderer>())
         {
-            if (spriteRenderer.GetComponent<SpriteRenderer>() != null &&
-             spriteRenderer.gameObject.activeInHierarchy && spriteRenderer.GetComponentInParent<Player>() == null && spriteRenderer.GetComponentInParent<TrainerController>() == null && spriteRenderer.GetComponentInParent<NPCController>() == null && !spriteRenderer.gameObject.name.StartsWith("Hexoball"))
+            if (spriteRenderer.GetComponent<SpriteRenderer>() != null && spriteRenderer.sprite == null &&
+             spriteRenderer.gameObject.activeInHierarchy)
             {
                 spriteRenderer.GetComponent<SpriteRenderer>().sprite = missingTexture;
             }

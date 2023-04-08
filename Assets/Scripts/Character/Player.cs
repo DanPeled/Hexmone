@@ -251,6 +251,14 @@ public class Player : MonoBehaviour, ISavable
             this.interactObject = other.gameObject;
         }
     }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.GetComponent<Interactable>() != null)
+        {
+            this.collidingInteractable = true;
+            this.interactObject = other.gameObject;
+        }
+    }
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "Door")

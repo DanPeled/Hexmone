@@ -61,6 +61,7 @@ public class DialogManager : MonoBehaviour
     {
         dialogBox.SetActive(false);
         OnCloseDialog?.Invoke();
+        GameController.instance.state = GameState.FreeRoam;
     }
     public void SetDialog(string line)
     {
@@ -74,5 +75,8 @@ public class DialogManager : MonoBehaviour
     {
         if (dialog != null)
             SetDialog(dialog.lines[currentLine]);
+        if (dialogBox != null &&!dialogBox.activeInHierarchy){
+            GameController.instance.state = GameState.FreeRoam;
+        }
     }
 }

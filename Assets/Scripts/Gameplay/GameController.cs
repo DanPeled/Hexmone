@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(false);
         DialogManager.instance.OnShowDialog += () =>
         {
-            prevState=  state;
+            prevState = state;
             state = GameState.Dialog;
         };
 
@@ -32,7 +32,8 @@ public class GameController : MonoBehaviour
         {
             if (state == GameState.Dialog)
             {
-                state = prevState;
+                state = state = GameState.FreeRoam;
+
             }
         };
         menu.onBack += () =>
@@ -93,15 +94,22 @@ public class GameController : MonoBehaviour
         {
             menu.HandleUpdate();
 
-        } else if (state == GameState.PartyScreen){
-            Action onSelected = () => {
+        }
+        else if (state == GameState.PartyScreen)
+        {
+            Action onSelected = () =>
+            {
                 //TODO:  Go to Summary Screen
-            }; Action onBack = () => {
+                
+            }; Action onBack = () =>
+            {
                 partyScreen.gameObject.SetActive(false);
                 state = GameState.FreeRoam;
             };
             partyScreen.HandleUpdate(onSelected, onBack);
-        } else if (state == GameState.Bag){
+        }
+        else if (state == GameState.Bag)
+        {
             Action onBack = () =>
             {
                 inventoryUI.gameObject.SetActive(false);
