@@ -9,8 +9,9 @@ using System.Linq;
 
 public class Player : MonoBehaviour, ISavable
 {
-    public Sprite sprite;
+    [Header("Vars")]
     public string playerName;
+    public float runSpeed = 20.0f;
     public enum FacingDir
     {
         forward,
@@ -18,29 +19,34 @@ public class Player : MonoBehaviour, ISavable
         left,
         right
     };
+    public bool isMoving;
     FacingDir facingDir;
     public static Player instance;
-    Rigidbody2D body;
-    public Camera mainCam;
-    public List<Camera> cameras;
-    public int camIndex;
     float horizontal;
     float vertical;
-    public bool isMoving;
     float moveLimiter = 0.7f;
-    public RoomSystem roomSys;
-    private CharacterAnimator anim;
-    public float runSpeed = 20.0f;
-    public GameObject notificationBar,
-        battleSystem;
-    string notification;
     public bool colldingDoor, collidingInteractable;
+    public int camIndex;
+    string notification;
+
     Door doorObject;
     GameObject interactObject;
     Coroutine lastRoutine = null;
     public bool playerActive = true;
-    public GameController gameController;
     public static Rect viewPort;
+
+    [Header("Refrences")]
+    public GameController gameController;
+    public GameObject notificationBar,
+           battleSystem;
+    public Sprite sprite;
+    public RoomSystem roomSys;
+    private CharacterAnimator anim;
+    Rigidbody2D body;
+
+    [Header("Cameras")]
+    public List<Camera> cameras;
+    public Camera mainCam;
 
     void Awake()
     {

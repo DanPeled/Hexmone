@@ -5,18 +5,26 @@ using UnityEngine.UI;
 using System.Linq;
 public class MobileControls : MonoBehaviour
 {
-    Canvas canvas;
-    public static MobileControls i;
-    public bool action, back, start, up, down, left, right;
-    public static bool isMobilePersisted = false; // Static variable to persist the isMobile state across scene changes
-    public bool isMobile;
-    public MobileButton actionBtn, backBtn, upBtn, downBtn, leftBtn, rightBtn, startBtn;
-    public GameObject dpad;
-    public List<GameObject> buttons;
-    public bool active;
+    [Header("View ports")]
     public Rect mobileViewPort = new Rect(0.15f, 0.25f, 0.7f, 0.7f);
     public Rect defaultViewPort = new Rect(0, 0, 1, 1);
     public Rect currentViewPort;
+
+    public static bool isMobilePersisted = false; // Static variable to persist the isMobile state across scene changes
+    [Header("Vars")]
+    public bool isMobile;
+    public bool active;
+    public bool action, back, start, up, down, left, right;
+
+    [Header("Refrences")]
+    public MobileButton actionBtn;
+    public MobileButton backBtn, upBtn, downBtn, leftBtn, rightBtn, startBtn;
+    public GameObject dpad;
+    public List<GameObject> buttons;
+
+    Canvas canvas;
+    public static MobileControls i;
+
 
     void SetUp()
     {
@@ -80,7 +88,8 @@ public class MobileControls : MonoBehaviour
     {
         StartCoroutine(Back());
     }
-    public void pStart(){
+    public void pStart()
+    {
         StartCoroutine(Start_());
     }
     public IEnumerator Action()
@@ -89,7 +98,8 @@ public class MobileControls : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         this.action = false;
     }
-    public IEnumerator Start_(){
+    public IEnumerator Start_()
+    {
         this.start = true;
         yield return new WaitForSeconds(0.1f);
         this.start = false;

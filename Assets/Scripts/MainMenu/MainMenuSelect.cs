@@ -66,7 +66,7 @@ public class MainMenuSelect : MonoBehaviour
     }
     public void Settings()
     {
-
+        // todo: implement settings
     }
     public void Quit()
     {

@@ -5,31 +5,46 @@ using TMPro;
 using UnityEngine.UI;
 public class WorldEditor : MonoBehaviour
 {
+    [Range(1, 100)]
+    public float brushSize = 1f;
+    public WorldEditorMode mode;
+    [Header("Refrences")]
     public Tilemap tilemap;
     public GameObject playerPrefab;
     public static TileBase selectedTile;
-    public float zoomChange, smoothChange, minSize, maxSize;
-    public static bool isHoveringButton;
     public static WorldEditor i;
-    public float speed = 0.05f;
-    public WorldEditorMode mode;
     public Slider slider;
     public TextMeshProUGUI brushSizeText;
-    [Range(1,100)]
-    public float brushSize = 1f;
+
+    [Header("Vars")]
+    public float zoomChange;
+    public float smoothChange, minSize, maxSize;
+    public static bool isHoveringButton;
+    public float movementSpeed = 0.05f;
+
 
     void Awake()
     {
         i = this;
     }
+
     void Start()
     {
-        
+
+    }
+
+    public void Clear()
+    {
+        tilemap.ClearAllTiles();
     }
     void Update()
     {
         brushSizeText.text = Mathf.FloorToInt(slider.value).ToString();
-        brushSize = slider.value;
+        if (brushSize != slider.value)
+        {
+            brushSize = Mathf.FloorToInt(brushSize);
+            slider.value = brushSize;
+        }
         if (mode == WorldEditorMode.Draw)
         {
             if (Input.GetMouseButton(0))
@@ -104,19 +119,19 @@ public class WorldEditor : MonoBehaviour
 
         if (InputSystem.instance.up.isPressed())
         {
-            Camera.main.transform.position += new Vector3(0, speed);
+            Camera.main.transform.position += new Vector3(0, movementSpeed);
         }
         if (InputSystem.instance.down.isPressed())
         {
-            Camera.main.transform.position -= new Vector3(0, speed);
+            Camera.main.transform.position -= new Vector3(0, movementSpeed);
         }
         if (InputSystem.instance.left.isPressed())
         {
-            Camera.main.transform.position -= new Vector3(speed, 0);
+            Camera.main.transform.position -= new Vector3(movementSpeed, 0);
         }
         if (InputSystem.instance.right.isPressed())
         {
-            Camera.main.transform.position += new Vector3(speed, 0);
+            Camera.main.transform.position += new Vector3(movementSpeed, 0);
         }
     }
     private bool isFilling = false;
