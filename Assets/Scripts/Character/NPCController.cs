@@ -10,12 +10,14 @@ public class NPCController : MonoBehaviour, Interactable
     NPCState state;
     float idleTimer = 0f;
     public Character character;
+    ItemGiver itemGiver;
 
     SpriteAnimator spriteAnimator;
     void Start()
     {
         spriteAnimator = new SpriteAnimator(sprites, GetComponentInChildren<SpriteRenderer>());
         character = GetComponent<Character>();
+        itemGiver = GetComponent<ItemGiver>();
         spriteAnimator.Start();
     }
     void Update()
@@ -34,9 +36,14 @@ public class NPCController : MonoBehaviour, Interactable
 
     }
     public IEnumerator Interact(Transform initiator = null){
-        yield return (DialogManager.instance.ShowDialog(dialog));
         idleTimer = 0f;
         state = NPCState.Idle;
+        if (itemGiver != null && itemGiver.CanBeGiven()){
+            yield return itemGiver.GiveItem(initiator.GetComponent<Player>());
+        } else{
+            yield return (DialogManager.instance.ShowDialog(dialog));
+
+        }
     }
 }
 public enum NPCState{

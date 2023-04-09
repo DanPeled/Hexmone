@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-public class Pickup : MonoBehaviour, Interactable
+public class Pickup : MonoBehaviour, Interactable, ISavable
 {
     public ItemBase item;
     public bool used;
@@ -12,8 +12,19 @@ public class Pickup : MonoBehaviour, Interactable
             used = true;
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
+            var player = initiator.GetComponent<Player>();
+            yield return DialogManager.instance.ShowDialogText($"{player.playerName } found {item.name}");
+        }
+    }
+    public object CaptureState(){
+        return used;
+    }
+    public void RestoreState(object state){
+        used = (bool)state;
 
-            yield return DialogManager.instance.ShowDialogText($"Player found {item.name}");
+        if (used){
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }

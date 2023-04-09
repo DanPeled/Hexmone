@@ -7,7 +7,7 @@ public enum ItemCategory
 {
     Items, Hexoballs, Tms
 }
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, ISavable
 {
 
     public List<ItemSlot> slots;
@@ -63,15 +63,20 @@ public class Inventory : MonoBehaviour
     {
         return FindObjectOfType<Player>().GetComponent<Inventory>();
     }
-    public void AddItem(ItemBase item, int count=1){
+    public void AddItem(ItemBase item, int count = 1)
+    {
         var category = (int)GetCategoryFromItem(item);
         var currentSlots = GetSlotsByCategory(category);
 
         var itemSlot = currentSlots.FirstOrDefault(slot => slot.item == item);
-        if (itemSlot != null){
-            itemSlot.count+=count;
-        } else {
-            currentSlots.Add(new ItemSlot() {
+        if (itemSlot != null)
+        {
+            itemSlot.count += count;
+        }
+        else
+        {
+            currentSlots.Add(new ItemSlot()
+            {
                 item = item,
                 count = count
             });
@@ -79,18 +84,72 @@ public class Inventory : MonoBehaviour
         onUpdated?.Invoke();
 
     }
-    public ItemCategory GetCategoryFromItem(ItemBase item){
-        if (item is RecoveryItem){
+    public ItemCategory GetCategoryFromItem(ItemBase item)
+    {
+        if (item is RecoveryItem)
+        {
             return ItemCategory.Items;
-        } else if (item is HexoballItem){
+        }
+        else if (item is HexoballItem)
+        {
             return ItemCategory.Hexoballs;
-        } else return ItemCategory.Tms;
+        }
+        else return ItemCategory.Tms;
     }
+    public object CaptureState()
+    {
+        var saveData = new InventorySaveData()
+        {
+            items = slots.Select(i => i.GetSaveData()).ToList(),
+            hexoballs = hexoballsSlots.Select(i => i.GetSaveData()).ToList(),
+            tms = tmSlots.Select(i => i.GetSaveData()).ToList(),
+        };
+        return saveData;
+    }
+    public void RestoreState(object state)
+    {
+        var saveData = (InventorySaveData)state;
+        slots = saveData.items.Select(i => new ItemSlot(i)).ToList();
+        hexoballsSlots = saveData.hexoballs.Select(i => new ItemSlot(i)).ToList();
+        tmSlots = saveData.tms.Select(i => new ItemSlot(i)).ToList();
 
+        onUpdated?.Invoke();
+        allSlots = new List<List<ItemSlot>>() { slots, hexoballsSlots, tmSlots };
+
+    }
 }
 [System.Serializable]
 public class ItemSlot
 {
     public ItemBase item;
     public int count;
+    public ItemSlot()
+    {
+
+    }
+    public ItemSlot(ItemSaveData saveData)
+    {
+        item = ItemDB.GetItemByName(saveData.name);
+        count = saveData.count;
+    }
+    public ItemSaveData GetSaveData()
+    {
+        var saveData = new ItemSaveData()
+        {
+            name = item.name,
+            count = count
+        };
+        return saveData;
+    }
+}
+[System.Serializable]
+public class ItemSaveData
+{
+    public string name;
+    public int count;
+}
+[System.Serializable]
+public class InventorySaveData
+{
+    public List<ItemSaveData> items, hexoballs, tms;
 }

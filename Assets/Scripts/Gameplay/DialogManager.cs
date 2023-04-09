@@ -56,6 +56,7 @@ public class DialogManager : MonoBehaviour
         {
             CloseDialog();
         }
+        OnCloseDialog?.Invoke();
     }
     public void CloseDialog()
     {
@@ -69,13 +70,14 @@ public class DialogManager : MonoBehaviour
     }
     public void HandleUpdate()
     {
-        
+
     }
     void Update()
     {
         if (dialog != null)
             SetDialog(dialog.lines[currentLine]);
-        if (dialogBox != null &&!dialogBox.activeInHierarchy){
+        if (dialogBox != null && !dialogBox.activeInHierarchy)
+        {
             GameController.instance.state = GameState.FreeRoam;
         }
     }

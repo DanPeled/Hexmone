@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 941050631977307282}
   - component: {fileID: 941050631977307290}
   - component: {fileID: -6212534951846652446}
+  - component: {fileID: 6348608732335773463}
   m_Layer: 7
   m_Name: NPC
   m_TagString: Untagged
@@ -229,7 +230,7 @@ Transform:
   - {fileID: 941050630851586333}
   - {fileID: 941050630863881896}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &941050631977307294
 Rigidbody2D:
@@ -379,3 +380,16 @@ MonoBehaviour:
   movementPattern: []
   timeBetweenPatterns: 0
   character: {fileID: 0}
+--- !u!114 &6348608732335773463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941050631977307283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4881f89f8b930e34489bbb86116ccd4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: 
