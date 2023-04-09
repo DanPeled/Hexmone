@@ -15,4 +15,5 @@ MonoBehaviour:
   name: TM01
   description: Teaches Super Sonic to a creature
   icon: {fileID: -544928011, guid: fe8b3b8c350e3cc469e970338fc48e9e, type: 3}
-  move: {fileID: 11400000, guid: 2acdf53e041490b40bbb6e1f39d34a22, type: 2}
+  move: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
+  isHM: 0
