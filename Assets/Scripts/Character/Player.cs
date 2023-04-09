@@ -238,6 +238,7 @@ public class Player : MonoBehaviour, ISavable
     {
         battleSystem.SetActive(true);
     }
+    IPlayerTriggerable currentlyInTrigger;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Door")
@@ -249,6 +250,16 @@ public class Player : MonoBehaviour, ISavable
         {
             this.collidingInteractable = true;
             this.interactObject = other.gameObject;
+        } if (other.gameObject.GetComponent<IPlayerTriggerable>() != null){
+            if (other.gameObject.GetComponent<IPlayerTriggerable>() == currentlyInTrigger && !other.gameObject.GetComponent<IPlayerTriggerable>().TriggerRepeatedly){
+                return;
+            }
+            other.gameObject.GetComponent<IPlayerTriggerable>().OnPlayerTriggered(this);
+            currentlyInTrigger = other.gameObject.GetComponent<IPlayerTriggerable>();
+            return;
+        }
+        if (other.gameObject.GetComponent<IPlayerTriggerable>() != currentlyInTrigger){
+            currentlyInTrigger = null;
         }
     }
     void OnCollisionEnter2D(Collision2D other)

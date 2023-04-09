@@ -42,15 +42,24 @@ public class Inventory : MonoBehaviour, ISavable
         {
             if (!item.isReusable)
             {
-                RemoveItem(item, selectedCategory);
+                RemoveItem(item);
             }
             return item;
         }
         return null;
     }
-    public void RemoveItem(ItemBase item, int selectedCategory)
+    public bool HasItem(ItemBase item)
     {
-        var currentSlots = GetSlotsByCategory(selectedCategory);
+        var category = (int)GetCategoryFromItem(item);
+
+        var currentSlots = GetSlotsByCategory(category);
+        return currentSlots.Exists(slot => slot.item == item);
+    }
+    public void RemoveItem(ItemBase item)
+    {
+        var category = (int)GetCategoryFromItem(item);
+
+        var currentSlots = GetSlotsByCategory(category);
         var itemSlot = currentSlots.First(slot => slot.item == item);
         itemSlot.count--;
         if (itemSlot.count == 0)
