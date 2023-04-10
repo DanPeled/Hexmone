@@ -45,10 +45,13 @@ public class MainMenuSelect : MonoBehaviour
                     Play();
                     break;
                 case 1:
-                    // Settings
+                    // World Editor
+                    WorldEditor();
                     break;
                 case 2:
-                    // Quit
+                    // Settings
+                    break;
+                case 3:
                     Quit();
                     break;
             }
@@ -63,6 +66,10 @@ public class MainMenuSelect : MonoBehaviour
     {
         cover.gameObject.SetActive(true);
         SceneManager.LoadScene("world");
+    }
+    public void WorldEditor(){
+        cover.gameObject.SetActive(true);
+        SceneManager.LoadScene("WorldEditor");
     }
     public void Settings()
     {

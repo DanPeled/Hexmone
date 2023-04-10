@@ -42,6 +42,7 @@ public class WorldEditor : MonoBehaviour
         brushSizeText.text = Mathf.FloorToInt(slider.value).ToString();
         if (brushSize != slider.value)
         {
+            brushSize = slider.value;
             brushSize = Mathf.FloorToInt(brushSize);
             slider.value = brushSize;
         }
