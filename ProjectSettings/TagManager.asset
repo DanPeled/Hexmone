@@ -9,6 +9,7 @@ TagManager:
   - LevelLoader
   - LongGrass
   - FOV
+  - TallGrassBlock
   layers:
   - Default
   - TransparentFX

@@ -249,9 +249,14 @@ public class Player : MonoBehaviour, ISavable
         {
             this.collidingInteractable = true;
             this.interactObject = other.gameObject;
-        } if (other.gameObject.GetComponent<IPlayerTriggerable>() != null){
+        }
+        if (other.gameObject.GetComponent<IPlayerTriggerable>() != null)
+        {
             other.gameObject.GetComponent<IPlayerTriggerable>().OnPlayerTriggered(this);
-            return;
+        }
+        if (other.gameObject.tag.Equals("TallGrassBlock"))
+        {
+            transform.position = new Vector2(71.84f, -51.6f);
         }
     }
     void OnCollisionEnter2D(Collision2D other)
@@ -273,6 +278,10 @@ public class Player : MonoBehaviour, ISavable
             this.collidingInteractable = false;
             lastRoutine = StartCoroutine(removeNotification());
         }
+        if (other.gameObject.GetComponent<IPlayerTriggerable>() != null)
+        {
+            other.GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
     public void OnTriggerStay2D(Collider2D other)
     {
@@ -291,6 +300,10 @@ public class Player : MonoBehaviour, ISavable
                     TV();
                 }
                 break;
+        }
+        if (other.gameObject.tag == "TallGrassBlock")
+        {
+            transform.position = new Vector2(71.84f, -51.6f);
         }
     }
     public void OnMoveOver(GameObject other)
