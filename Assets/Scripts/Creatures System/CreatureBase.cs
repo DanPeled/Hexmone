@@ -9,7 +9,7 @@ using TMPro;
 public class CreatureBase : ScriptableObject
 {
     [SerializeField]
-    public string creatureName, description;
+    public string name, description;
     [SerializeField]
     public int maxHealth;
     [SerializeField]
@@ -43,6 +43,7 @@ public class CreatureBase : ScriptableObject
     public GrowthRate growthRate;
     [SerializeField]
     public int maxNumberOfMoves = 4;
+    public List<Evolution> evolutions;
     public int GetExpForLevel(int level)
     {
         if (growthRate == GrowthRate.Fast)
@@ -64,7 +65,13 @@ public class CreatureBase : ScriptableObject
         return -1;
     }
 }
-
+[System.Serializable]
+public class Evolution
+{
+    public CreatureBase evolvesInto;
+    public int requiredLevel;
+    public EvolutionItem requiredItem;
+}
 [System.Serializable]
 public class LearnableMove
 {

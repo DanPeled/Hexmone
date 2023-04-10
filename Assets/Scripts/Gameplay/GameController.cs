@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public GameState state, prevState;
+    public GameState state, prevState, stateBeforeEvolution;
     public BattleSystem battleSystem;
     public Player player;
     public static GameController instance;
@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
         MovesDB.Init();
         CreatureDB.Init();
         ItemDB.Init();
+        QuestDB.Init();
     }
     void Start()
     {
@@ -42,7 +43,14 @@ public class GameController : MonoBehaviour
             state = GameState.FreeRoam;
         };
         menu.onMenuSelected += onMenuSelected;
-
+        EvolutionManager.instance.onStartEvolution += () => {
+            stateBeforeEvolution = state;
+            state = GameState.Evolution;
+        };
+        EvolutionManager.instance.onCompleteEvolution += () => {
+            partyScreen.SetPartyData();
+            state = stateBeforeEvolution;
+        };
     }
     TrainerController trainer;
     public void StartBattle()
@@ -101,7 +109,7 @@ public class GameController : MonoBehaviour
             Action onSelected = () =>
             {
                 //TODO:  Go to Summary Screen
-                
+
             }; Action onBack = () =>
             {
                 partyScreen.gameObject.SetActive(false);
@@ -129,8 +137,12 @@ public class GameController : MonoBehaviour
             trainer.BattleLost();
             trainer = null;
         }
+        partyScreen.SetPartyData();
         state = GameState.FreeRoam;
         battleSystem.gameObject.SetActive(false);
+
+        var playerParty = player.GetComponent<CreaturesParty>();
+        StartCoroutine(playerParty.CheckForEvolutions());
     }
     void onMenuSelected(int selected)
     {
@@ -165,5 +177,5 @@ public enum GameState
 {
     Battle,
     FreeRoam,
-    Dialog, Menu, Paused, CutScene, PartyScreen, Bag
+    Dialog, Menu, Paused, CutScene, PartyScreen, Bag, Evolution
 }

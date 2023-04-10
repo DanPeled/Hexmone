@@ -8,5 +8,4 @@ public class StoryItem : MonoBehaviour, IPlayerTriggerable
         player.playerActive = false;
         StartCoroutine(DialogManager.instance.ShowDialog(dialog));
     }
-    public bool TriggerRepeatedly => false;
 }

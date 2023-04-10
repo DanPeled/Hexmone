@@ -11,12 +11,12 @@ public class CreatureGiver : MonoBehaviour
     public IEnumerator GiveCreature(Player player)
     {
         yield return DialogManager.instance.ShowDialog(dialog);
-        
+
         creature.Init();
         player.GetComponent<CreaturesParty>().AddCreature(creature);
 
         used = true;
-        string dialogText = $"{player.playerName} recived {creature._base.creatureName}";
+        string dialogText = $"{player.playerName} recived {creature._base.name}";
 
         yield return DialogManager.instance.ShowDialogText(dialogText);
     }

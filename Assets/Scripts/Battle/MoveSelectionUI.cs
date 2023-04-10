@@ -12,9 +12,9 @@ public class MoveSelectionUI : MonoBehaviour
     {
         for (int i = 0; i < currentMoves.Count; i++)
         {
-            moveTexts[i].text = currentMoves[i].moveName;
+            moveTexts[i].text = currentMoves[i].name;
         }
-        moveTexts[currentMoves.Count].text = newMove.moveName;
+        moveTexts[currentMoves.Count].text = newMove.name;
     }
     public void HandleMoveSelection(Action<int> onSelected)
     {

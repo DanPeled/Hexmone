@@ -87,7 +87,7 @@ public class BattleSystem : MonoBehaviour
             dialogBox.SetMoveNames(playerUnit.creature.moves);
 
             yield return dialogBox.TypeDialog(
-                $"A Wild {enemyUnit.creature._base.creatureName} Appeared",
+                $"A Wild {enemyUnit.creature._base.name} Appeared",
                 dialogBox.dialogText
             );
         }
@@ -111,14 +111,14 @@ public class BattleSystem : MonoBehaviour
             enemyUnit.gameObject.SetActive(true);
             var enemyCreature = trainerParty.GetHealthyCreature();
             enemyUnit.Setup(enemyCreature);
-            yield return dialogBox.TypeDialog($"{trainer.trainerName} sent out {enemyCreature._base.creatureName}");
+            yield return dialogBox.TypeDialog($"{trainer.trainerName} sent out {enemyCreature._base.name}");
 
             // Send out first creature of the player
             playerImage.gameObject.SetActive(false);
             playerUnit.gameObject.SetActive(true);
             var playerCreature = playerParty.GetHealthyCreature();
             playerUnit.Setup(playerCreature);
-            yield return dialogBox.TypeDialog($"Go {playerCreature._base.creatureName}!");
+            yield return dialogBox.TypeDialog($"Go {playerCreature._base.name}!");
             dialogBox.SetMoveNames(playerUnit.creature.moves);
 
         }
@@ -162,7 +162,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator AboutToUse(Creature newCreature)
     {
         battleState = BattleState.Busy;
-        yield return dialogBox.TypeDialog($"{trainer.trainerName} is about to use {newCreature._base.creatureName}. Do you want to change creature?");
+        yield return dialogBox.TypeDialog($"{trainer.trainerName} is about to use {newCreature._base.name}. Do you want to change creature?");
         battleState = BattleState.AboutToUse;
         dialogBox.ToggleChoiceBox(true);
     }
@@ -272,7 +272,7 @@ public class BattleSystem : MonoBehaviour
         string usedText = sourceUnit.isPlayerUnit ? "" : "Enemy";
         if (battleState != BattleState.BattleOver)
         yield return dialogBox.TypeDialog(
-            $"{usedText} {sourceUnit.creature._base.creatureName} Used {move.base_.moveName}",
+            $"{usedText} {sourceUnit.creature._base.name} Used {move.base_.name}",
             dialogBox.dialogText
         );
 
@@ -327,7 +327,7 @@ public class BattleSystem : MonoBehaviour
         else
         {
             yield return dialogBox.TypeDialog(
-                $"{sourceUnit.creature._base.creatureName}'s attack missed",
+                $"{sourceUnit.creature._base.name}'s attack missed",
                 dialogBox.dialogText
             );
         }
@@ -430,14 +430,14 @@ public class BattleSystem : MonoBehaviour
         if (!faintedUnit.isPlayerUnit)
         {
             yield return dialogBox.TypeDialog(
-                $"The Enemy {faintedUnit.creature._base.creatureName} Fainted",
+                $"The Enemy {faintedUnit.creature._base.name} Fainted",
                 dialogBox.dialogText
             );
         }
         else
         {
             yield return dialogBox.TypeDialog(
-                $"Your {faintedUnit.creature._base.creatureName} Fainted",
+                $"Your {faintedUnit.creature._base.name} Fainted",
                 dialogBox.dialogText
             );
         }
@@ -452,13 +452,13 @@ public class BattleSystem : MonoBehaviour
 
             int expGain = Mathf.FloorToInt((expYield * enemyLvl * trainerBonus) / 7);
             playerUnit.creature.exp += expGain;
-            yield return dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} gained {expGain} exp");
+            yield return dialogBox.TypeDialog($"{playerUnit.creature._base.name} gained {expGain} exp");
             yield return playerUnit.hud.SetExpSmooth();
             // Check lvl up
             while (playerUnit.creature.CheckForLevelUp())
             {
                 playerUnit.hud.SetLevel();
-                yield return dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} grew to level {playerUnit.creature.level}");
+                yield return dialogBox.TypeDialog($"{playerUnit.creature._base.name} grew to level {playerUnit.creature.level}");
 
                 //Try to learn new move
                 var newMove = playerUnit.creature.GetLearnableMoveAtCurrLevel();
@@ -467,13 +467,13 @@ public class BattleSystem : MonoBehaviour
                     if (playerUnit.creature.moves.Count < playerUnit.creature._base.maxNumberOfMoves)
                     {
                         playerUnit.creature.LearnMove(newMove.moveBase);
-                        yield return dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} learned {newMove.moveBase.moveName}");
+                        yield return dialogBox.TypeDialog($"{playerUnit.creature._base.name} learned {newMove.moveBase.name}");
                         dialogBox.SetMoveNames(playerUnit.creature.moves);
                     }
                     else
                     {
                         // Option to forget move
-                        yield return dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} is trying to learn {newMove.moveBase.moveName}");
+                        yield return dialogBox.TypeDialog($"{playerUnit.creature._base.name} is trying to learn {newMove.moveBase.name}");
                         yield return dialogBox.TypeDialog($"But it cannot learn more than {playerUnit.creature._base.maxNumberOfMoves} moves");
                         yield return ChooseMoveToForget(playerUnit.creature, newMove.moveBase);
                         yield return new WaitUntil(() => battleState != BattleState.MoveToForget);
@@ -595,13 +595,13 @@ public class BattleSystem : MonoBehaviour
                     if (moveIndex == 4)
                     {
                         // Dont learn the new move
-                        StartCoroutine(dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} did not learn {moveToLearn.moveName}"));
+                        StartCoroutine(dialogBox.TypeDialog($"{playerUnit.creature._base.name} did not learn {moveToLearn.name}"));
                     }
                     else
                     {
                         // forget the selected move and learn new move
                         var selectedMove = playerUnit.creature.moves[moveIndex].base_;
-                        StartCoroutine(dialogBox.TypeDialog($"{playerUnit.creature._base.creatureName} forgot {selectedMove.moveName} and learned {moveToLearn.moveName}"));
+                        StartCoroutine(dialogBox.TypeDialog($"{playerUnit.creature._base.name} forgot {selectedMove.name} and learned {moveToLearn.name}"));
 
                         playerUnit.creature.moves[moveIndex] = new Move(moveToLearn);
                     }
@@ -756,7 +756,7 @@ public class BattleSystem : MonoBehaviour
     {
         string winningText = playerIsWinner
             ? "Player"
-            : $"Enemy {enemyUnit.creature._base.creatureName}";
+            : $"Enemy {enemyUnit.creature._base.name}";
         yield return dialogBox.TypeDialog($"{winningText} Has Won");
         gameObject.SetActive(false);
     }
@@ -824,7 +824,7 @@ public class BattleSystem : MonoBehaviour
         if (playerUnit.creature.HP > 0)
         {
             yield return dialogBox.TypeDialog(
-                $"Come back {playerUnit.creature._base.creatureName}",
+                $"Come back {playerUnit.creature._base.name}",
                 dialogBox.dialogText
             );
             playerUnit.PlayFaintAnimation();
@@ -835,7 +835,7 @@ public class BattleSystem : MonoBehaviour
 
         dialogBox.SetMoveNames(newCreature.moves);
         yield return dialogBox.TypeDialog(
-            $"Go {newCreature._base.creatureName}!",
+            $"Go {newCreature._base.name}!",
             dialogBox.dialogText
         );
         playerUnit.image.color = playerUnit.originalColor;
@@ -853,7 +853,7 @@ public class BattleSystem : MonoBehaviour
         var nextCreature = trainerParty.GetHealthyCreature();
         battleState = BattleState.Busy;
         enemyUnit.Setup(nextCreature);
-        yield return dialogBox.TypeDialog($"{trainer.trainerName} send out {nextCreature._base.creatureName}");
+        yield return dialogBox.TypeDialog($"{trainer.trainerName} send out {nextCreature._base.name}");
 
         battleState = BattleState.RunningTurn;
     }
@@ -884,11 +884,11 @@ public class BattleSystem : MonoBehaviour
         if (shakeCount == 4)
         {
             // Creature is caught
-            yield return dialogBox.TypeDialog($"{enemyUnit.creature._base.creatureName} was caught");
+            yield return dialogBox.TypeDialog($"{enemyUnit.creature._base.name} was caught");
             yield return hexoball.DOFade(0, 1.5f).WaitForCompletion();
 
             playerParty.AddCreature(enemyUnit.creature);
-            yield return dialogBox.TypeDialog($"{enemyUnit.creature._base.creatureName} has been added to your party");
+            yield return dialogBox.TypeDialog($"{enemyUnit.creature._base.name} has been added to your party");
 
             Destroy(hexoball);
             BattleOver(true);
@@ -901,7 +901,7 @@ public class BattleSystem : MonoBehaviour
             yield return enemyUnit.PlayBreakOutAnimation();
             if (shakeCount < 2)
             {
-                yield return dialogBox.TypeDialog($"{enemyUnit.creature._base.creatureName} broke free");
+                yield return dialogBox.TypeDialog($"{enemyUnit.creature._base.name} broke free");
             }
             else
             {

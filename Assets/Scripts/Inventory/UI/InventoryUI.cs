@@ -168,10 +168,11 @@ public class InventoryUI : MonoBehaviour
         {
             OpenPartyScreen();
 
-            if (item is TMItem){
+            if (item is TMItem)
+            {
                 // Show if the tm is usable
                 partyScreen.ShowIfTmIsUsable(item as TMItem);
-            } 
+            }
         }
     }
     IEnumerator UseItem()
@@ -179,7 +180,23 @@ public class InventoryUI : MonoBehaviour
         state = InventoryUIState.Busy;
 
         yield return HandleTMItems();
-
+        var item = inventory.GetItem(selectedItem, selectedCategory);
+        var creature = partyScreen.SelectedMember;
+        // handle evolution items
+        if (item is EvolutionItem)
+        {
+            var evo = creature.CheckForEvolution(item);
+            if (evo != null)
+            {
+                yield return EvolutionManager.instance.Evolve(creature, evo);
+            }
+            else
+            {
+                yield return DialogManager.instance.ShowDialogText($"It won't have any effect!");
+                ClosePartyScreen();
+                yield break;
+            }
+        }
         var usedItem = inventory.UseItem(selectedItem, partyScreen.SelectedMember, selectedCategory);
         if (usedItem != null)
         {
@@ -207,23 +224,23 @@ public class InventoryUI : MonoBehaviour
 
         if (creature.HasMove(tmItem.move))
         {
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.creatureName} already knows {tmItem.move.name}");
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.name} already knows {tmItem.move.name}");
             yield break;
         }
         if (!tmItem.CanBeTaught(creature))
         {
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.creatureName} can't learn {tmItem.move.name}");
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.name} can't learn {tmItem.move.name}");
             yield break;
         }
         if (creature.moves.Count < creature._base.maxNumberOfMoves)
         {
 
             creature.LearnMove(tmItem.move);
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.creatureName} learned {tmItem.move.moveName}");
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.name} learned {tmItem.move.name}");
         }
         else
         {
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.creatureName} is trying to learn {tmItem.move.moveName}");
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.name} is trying to learn {tmItem.move.name}");
             yield return DialogManager.instance.ShowDialogText($"But it cannot learn more than 4 moves");
             yield return ChooseMoveToForget(creature, tmItem.move);
             yield return new WaitUntil(() => state != InventoryUIState.MoveToForget);
@@ -314,13 +331,13 @@ public class InventoryUI : MonoBehaviour
         if (moveIndex == 4)
         {
             // Dont learn the new move
-            yield return (DialogManager.instance.ShowDialogText($"{creature._base.creatureName} did not learn {moveToLearn.moveName}"));
+            yield return (DialogManager.instance.ShowDialogText($"{creature._base.name} did not learn {moveToLearn.name}"));
         }
         else
         {
             // forget the selected move and learn new move
             var selectedMove = creature.moves[moveIndex].base_;
-            yield return (DialogManager.instance.ShowDialogText($"{creature._base.creatureName} forgot {selectedMove.moveName} and learned {moveToLearn.moveName}"));
+            yield return (DialogManager.instance.ShowDialogText($"{creature._base.name} forgot {selectedMove.name} and learned {moveToLearn.name}"));
 
             creature.moves[moveIndex] = new Move(moveToLearn);
         }

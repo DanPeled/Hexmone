@@ -27,7 +27,7 @@ public class Creature
     }
     public void Init()
     {
-        moves =  new List<Move>();
+        moves = new List<Move>();
         // Generate Moves
         foreach (var move in _base.learnableMoves)
         {
@@ -57,8 +57,10 @@ public class Creature
         stats.Add(Stat.SpAttack, Mathf.FloorToInt((this._base.spAttack * level) / 100f) + 5);
         stats.Add(Stat.SpDefense, Mathf.FloorToInt((this._base.spDefense * level) / 100f) + 5);
         stats.Add(Stat.Speed, Mathf.FloorToInt((this._base.speed * level) / 100f) + 5);
-
+        int oldHP = maxHealth;
         this.maxHealth = Mathf.FloorToInt((this._base.maxHealth * level) / 100f + 10);
+        if (oldHP != 0)
+            HP += maxHealth - oldHP;
     }
     void ResetStatBoost()
     {
@@ -103,7 +105,7 @@ public class Creature
             this.statBoosts[stat] = Mathf.Clamp(this.statBoosts[stat] + boost, -6, 6);
             string change = boost > 0 ? "rose" : "fell";
 
-            statusChanges.Enqueue($"{_base.creatureName}'s {stat} {change}!");
+            statusChanges.Enqueue($"{_base.name}'s {stat} {change}!");
 
             Debug.Log($"{stat} Has been boosted to {this.statBoosts[stat]}");
         }
@@ -114,7 +116,7 @@ public class Creature
 
         status = ConditionDB.conditions[conditionID];
         status?.onStart?.Invoke(this);
-        statusChanges.Enqueue($"{_base.creatureName} {status.startMessage}");
+        statusChanges.Enqueue($"{_base.name} {status.startMessage}");
 
         OnStatusChanged?.Invoke();
     }
@@ -129,29 +131,35 @@ public class Creature
 
         volatileStatus = ConditionDB.conditions[conditionID];
         volatileStatus?.onStart?.Invoke(this);
-        statusChanges.Enqueue($"{_base.creatureName} {volatileStatus.startMessage}");
+        statusChanges.Enqueue($"{_base.name} {volatileStatus.startMessage}");
     }
     public void CureVolatileStatus()
     {
         volatileStatus = null;
     }
-    public bool CheckForLevelUp(){
-        if (exp > _base.GetExpForLevel(level + 1)){
+    public bool CheckForLevelUp()
+    {
+        if (exp > _base.GetExpForLevel(level + 1))
+        {
             level++;
+            CalculateStats();
             return true;
         }
         return false;
     }
-    public LearnableMove GetLearnableMoveAtCurrLevel(){
+    public LearnableMove GetLearnableMoveAtCurrLevel()
+    {
         return _base.learnableMoves.Where(x => x.level == this.level).FirstOrDefault();
     }
-    public void LearnMove(MoveBase moveToLearn) {
+    public void LearnMove(MoveBase moveToLearn)
+    {
         if (moves.Count > this._base.maxNumberOfMoves) return;
         moves.Add(new Move(moveToLearn));
-     }
-    public bool HasMove(MoveBase move){
+    }
+    public bool HasMove(MoveBase move)
+    {
         return this.moves.Count(m => m.base_ == move) > 0;
-     }
+    }
     public int Attack
     {
         get { return GetStat(Stat.Attack); }
@@ -247,16 +255,20 @@ public class Creature
         ResetStatBoost();
     }
 
-    public Creature(CreatureSaveData saveData){
+    public Creature(CreatureSaveData saveData)
+    {
 
-        _base = CreatureDB.GetCreatureByName(saveData.name);
-        this.HP= saveData.hp;
+        _base = CreatureDB.GetObjectByName(saveData.name);
+        this.HP = saveData.hp;
         this.level = saveData.level;
         this.exp = saveData.exp;
 
-        if (saveData.statusId != null){
+        if (saveData.statusId != null)
+        {
             status = ConditionDB.conditions[saveData.statusId.Value];
-        } else  {
+        }
+        else
+        {
             status = null;
         }
 
@@ -267,9 +279,11 @@ public class Creature
         ResetStatBoost();
         volatileStatus = null;
     }
-    public CreatureSaveData GetSaveData(){
-        var saveData = new CreatureSaveData(){
-            name = this._base.creatureName,
+    public CreatureSaveData GetSaveData()
+    {
+        var saveData = new CreatureSaveData()
+        {
+            name = this._base.name,
             hp = this.HP,
             level = this.level,
             exp = this.exp,
@@ -277,6 +291,24 @@ public class Creature
             moves = moves.Select(p => p.GetSaveData()).ToList()
         };
         return saveData;
+    }
+    public Evolution CheckForEvolution()
+    {
+        return _base.evolutions.FirstOrDefault(e => e.requiredLevel <= level);
+    }
+    public Evolution CheckForEvolution(ItemBase item)
+    {
+        return _base.evolutions.FirstOrDefault(e => e.requiredItem == item);
+    }
+    public void Evolve(Evolution evolution)
+    {
+        _base = evolution.evolvesInto;
+        CalculateStats();
+    }
+    public void Heal()
+    {
+        HP = maxHealth;
+        OnHPChanged?.Invoke();
     }
 }
 
@@ -287,7 +319,8 @@ public class DamageDetails
     public float TypeEffectiveness { get; set; }
 }
 [System.Serializable]
-public class CreatureSaveData{
+public class CreatureSaveData
+{
     public string name;
     public int hp, level, exp;
     public ConditionID? statusId;

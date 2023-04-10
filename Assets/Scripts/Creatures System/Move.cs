@@ -12,14 +12,14 @@ public class Move
     }
     public Move(MoveSaveData saveData)
     {
-        base_ = MovesDB.GetMoveByName(saveData.name);
+        base_ = MovesDB.GetObjectByName(saveData.name);
         PP = saveData.pp;
     }
     public MoveSaveData GetSaveData()
     {
         var saveData = new MoveSaveData()
         {
-            name = base_.moveName,
+            name = base_.name,
             pp = PP
         };
         return saveData;

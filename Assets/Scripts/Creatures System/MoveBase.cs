@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Move", menuName = "Creatures/Create New Move")]
 public class MoveBase : ScriptableObject
 {
-    public string moveName;
+    public string name;
     public string description;
     public CreatureType type;
     public int power,

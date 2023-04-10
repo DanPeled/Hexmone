@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
-public class NPCController : MonoBehaviour, Interactable
+public class NPCController : MonoBehaviour, Interactable, ISavable
 {
-    public Dialog dialog;
+    [Header("Quests")]
     public QuestBase questToStart, questToComplete;
+
+    [Header("Movement")]
     public List<Sprite> sprites;
     public List<Vector2> movementPattern;
     public float timeBetweenPatterns;
@@ -12,10 +14,13 @@ public class NPCController : MonoBehaviour, Interactable
     float idleTimer = 0f;
     public Character character;
     ItemGiver itemGiver;
+    Healer healer;
     CreatureGiver creatureGiver;
     SpriteAnimator spriteAnimator;
 
     Quest activeQuest;
+    public Dialog dialog;
+
     void Start()
     {
         spriteAnimator = new SpriteAnimator(sprites, GetComponentInChildren<SpriteRenderer>());
@@ -23,6 +28,7 @@ public class NPCController : MonoBehaviour, Interactable
         itemGiver = GetComponent<ItemGiver>();
         spriteAnimator.Start();
         creatureGiver = GetComponent<CreatureGiver>();
+        healer = GetComponent<Healer>();
     }
     void Update()
     {
@@ -46,7 +52,8 @@ public class NPCController : MonoBehaviour, Interactable
     {
         idleTimer = 0f;
         state = NPCState.Idle;
-        if (questToComplete != null){
+        if (questToComplete != null)
+        {
             var quest = new Quest(questToComplete);
             yield return quest.CompleteQuest();
             questToComplete = null;
@@ -54,7 +61,9 @@ public class NPCController : MonoBehaviour, Interactable
         if (itemGiver != null && itemGiver.CanBeGiven())
         {
             yield return itemGiver.GiveItem(initiator.GetComponent<Player>());
-        } else if (creatureGiver != null && creatureGiver.CanBeGiven()){
+        }
+        else if (creatureGiver != null && creatureGiver.CanBeGiven())
+        {
             yield return creatureGiver.GiveCreature(initiator.GetComponent<Player>());
         }
         else if (questToStart != null)
@@ -63,7 +72,8 @@ public class NPCController : MonoBehaviour, Interactable
             yield return activeQuest.StartQuest();
             questToStart = null;
 
-            if (activeQuest.CanBeCompleted()){
+            if (activeQuest.CanBeCompleted())
+            {
                 yield return activeQuest.CanBeCompleted();
                 activeQuest = null;
             }
@@ -80,12 +90,41 @@ public class NPCController : MonoBehaviour, Interactable
                 yield return DialogManager.instance.ShowDialog(activeQuest.Base.InProgressDialog);
             }
         }
+        else if (healer != null)
+        {
+            yield return healer.Heal(initiator, dialog);
+        }
         else
         {
             yield return (DialogManager.instance.ShowDialog(dialog));
 
         }
     }
+    public object CaptureState()
+    {
+        var saveData = new NPCQuestSaveData();
+        saveData.activeQuest = activeQuest?.GetSaveData();
+        if (questToStart != null)
+            saveData.questToStart = (new Quest(questToStart)).GetSaveData();
+        if (questToComplete != null)
+            saveData.questToComplete = (new Quest(questToComplete)).GetSaveData();
+        return saveData;
+    }
+    public void RestoreState(object state)
+    {
+        var saveData = state as NPCQuestSaveData;
+        if (saveData != null)
+        {
+            activeQuest = (saveData.activeQuest != null) ? new Quest(saveData.activeQuest) : null;
+            questToStart = (saveData.questToStart != null) ? new Quest(saveData.questToStart).Base : null;
+            questToComplete = (saveData.questToComplete != null) ? new Quest(saveData.questToComplete).Base : null;
+        }
+    }
+}
+[System.Serializable]
+public class NPCQuestSaveData
+{
+    public QuestSaveData activeQuest, questToStart, questToComplete;
 }
 public enum NPCState
 {

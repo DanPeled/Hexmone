@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+[System.Serializable]
 public class Quest
 {
     public QuestBase Base { get; private set; }
@@ -13,6 +13,9 @@ public class Quest
     {
         status = QuestStatus.Started;
         yield return DialogManager.instance.ShowDialog(Base.startDialog);
+
+        var questList = QuestList.GetQuestList();
+        questList.AddQuest(this);
     }
     public IEnumerator CompleteQuest()
     {
@@ -28,6 +31,8 @@ public class Quest
             inv.AddItem(Base.rewardItem);
             yield return DialogManager.instance.ShowDialogText($"{Player.instance.playerName} recived {Base.rewardItem.name}");
         }
+        var questList = QuestList.GetQuestList();
+        questList.AddQuest(this);
     }
     public bool CanBeCompleted()
     {
@@ -39,6 +44,26 @@ public class Quest
         }
         return true;
     }
+    public QuestSaveData GetSaveData()
+    {
+        var saveData = new QuestSaveData()
+        {
+            name = Base.name,
+            status = this.status
+        };
+        return saveData;
+    }
+    public Quest(QuestSaveData saveData)
+    {
+        Base = QuestDB.GetObjectByName(saveData.name);
+        status = saveData.status;
+    }
+}
+[System.Serializable]
+public class QuestSaveData
+{
+    public string name;
+    public QuestStatus status;
 }
 public enum QuestStatus
 {

@@ -1,7 +1,8 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using System.Linq;
 using System;
+using System.Collections.Generic;
 
 public class CreaturesParty : MonoBehaviour
 {
@@ -38,5 +39,17 @@ public class CreaturesParty : MonoBehaviour
     }
     public static CreaturesParty GetPlayerParty(){
         return FindObjectOfType<Player>().GetComponent<CreaturesParty>();
+    }
+    public IEnumerator CheckForEvolutions(){
+        foreach(var creature in creatures){
+            var evolution = creature.CheckForEvolution();
+            if (evolution != null){
+                yield return EvolutionManager.instance.Evolve(creature, evolution);
+            }
+        }
+        onUpdated?.Invoke();
+    }
+    public void PartyUpdated(){
+        onUpdated?.Invoke();
     }
 }

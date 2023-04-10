@@ -95,7 +95,7 @@ public class Inventory : MonoBehaviour, ISavable
     }
     public ItemCategory GetCategoryFromItem(ItemBase item)
     {
-        if (item is RecoveryItem)
+        if (item is RecoveryItem || item is EvolutionItem)
         {
             return ItemCategory.Items;
         }
@@ -138,7 +138,7 @@ public class ItemSlot
     }
     public ItemSlot(ItemSaveData saveData)
     {
-        item = ItemDB.GetItemByName(saveData.name);
+        item = ItemDB.GetObjectByName(saveData.name);
         count = saveData.count;
     }
     public ItemSaveData GetSaveData()

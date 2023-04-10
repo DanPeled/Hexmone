@@ -4,7 +4,7 @@ using UnityEngine;
 public class TMItem : ItemBase{
     public MoveBase move;
     public bool isHM;
-    public override string Name => base.Name + $": {move.moveName}";
+    public override string Name => base.Name + $": {move.name}";
 
     public override bool Use(Creature creature){
         // Learning move is handled from inventory ui, if it was learned return true
