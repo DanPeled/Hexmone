@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c37b734f4f68de549b2f0bf957824970, type: 3}
-  m_Name: SuperPotion
+  m_Name: ParpayaBerry
   m_EditorClassIdentifier: 
-  name: Super Potion
-  description: Recovers the health of a creature by 50 points.
-  icon: {fileID: 59089355, guid: 3d75210aac800f64094a1ca30e3f8c16, type: 3}
-  hpAmount: 50
+  name: Parpaya Berry
+  description: Cures paralasis.
+  icon: {fileID: 1145790329, guid: 3d75210aac800f64094a1ca30e3f8c16, type: 3}
+  hpAmount: 0
   restoreMaxHp: 0
   ppAmount: 0
   restoreMaxPP: 0
-  status: 0
+  status: 4
   recoverAllStatus: 0
   revive: 0
   maxRevive: 0

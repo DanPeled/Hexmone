@@ -40334,17 +40334,9 @@ PrefabInstance:
       propertyPath: battleSystem
       value: 
       objectReference: {fileID: 1217344145}
-    - target: {fileID: 1803905776, guid: 14a281c2d8350fc4ab09a1dd0218eec0, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -135.375
-      objectReference: {fileID: 0}
     - target: {fileID: 1957002288, guid: 14a281c2d8350fc4ab09a1dd0218eec0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -186.92497
-      objectReference: {fileID: 0}
-    - target: {fileID: 2879749413988696323, guid: 14a281c2d8350fc4ab09a1dd0218eec0, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -126.319824
+      value: -186.92499
       objectReference: {fileID: 0}
     - target: {fileID: 2986243126068877872, guid: 14a281c2d8350fc4ab09a1dd0218eec0, type: 3}
       propertyPath: m_Name
@@ -40362,10 +40354,6 @@ PrefabInstance:
       propertyPath: cameras.Array.data[1]
       value: 
       objectReference: {fileID: 1144789342}
-    - target: {fileID: 4655166214772538809, guid: 14a281c2d8350fc4ab09a1dd0218eec0, type: 3}
-      propertyPath: m_ScreenMatchMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5148154066181992935, guid: 14a281c2d8350fc4ab09a1dd0218eec0, type: 3}
       propertyPath: m_RootOrder
       value: 0

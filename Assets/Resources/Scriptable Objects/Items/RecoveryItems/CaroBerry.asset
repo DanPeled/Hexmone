@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c37b734f4f68de549b2f0bf957824970, type: 3}
-  m_Name: Potion
+  m_Name: CaroBerry
   m_EditorClassIdentifier: 
-  name: Potion
-  description: Recovers the health of a creature by 20 points.
-  icon: {fileID: 79059057, guid: 3d75210aac800f64094a1ca30e3f8c16, type: 3}
-  hpAmount: 20
+  name: Caro berry
+  description: Recovers the health of a creature by 50 points.
+  icon: {fileID: 59089355, guid: 3d75210aac800f64094a1ca30e3f8c16, type: 3}
+  hpAmount: 50
   restoreMaxHp: 0
   ppAmount: 0
   restoreMaxPP: 0

@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c37b734f4f68de549b2f0bf957824970, type: 3}
-  m_Name: Max Potion
+  m_Name: ColdcumberBerry
   m_EditorClassIdentifier: 
-  name: Max Potion
-  description: Recovers the health of a creature fully.
-  icon: {fileID: 1145790329, guid: 3d75210aac800f64094a1ca30e3f8c16, type: 3}
+  name: Coldcumber Berry
+  description: Cures freeze.
+  icon: {fileID: 79059057, guid: 3d75210aac800f64094a1ca30e3f8c16, type: 3}
   hpAmount: 0
-  restoreMaxHp: 1
+  restoreMaxHp: 0
   ppAmount: 0
   restoreMaxPP: 0
-  status: 0
+  status: 5
   recoverAllStatus: 0
   revive: 0
   maxRevive: 0
