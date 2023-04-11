@@ -11,7 +11,7 @@ public class MainMenuSelect : MonoBehaviour
     public LevelLoader levelLoader;
     public GameObject[] buttons;
     public bool isMobile;
-    public GameObject cover;
+    public GameObject cover, playMenu, normalMenu;
     void Start()
     {
         cover.SetActive(false);
@@ -42,18 +42,15 @@ public class MainMenuSelect : MonoBehaviour
             {
                 case 0:
                     // Play
-                    Play();
+                    PlayMenu();
                     break;
                 case 1:
-                    // World Editor
-                    WorldEditor();
+                    //todo: settings
                     break;
                 case 2:
-                    // Settings
-                    break;
-                case 3:
                     Quit();
                     break;
+
             }
         }
         for (int i = 0; i < buttons.Length; i++)
@@ -61,13 +58,18 @@ public class MainMenuSelect : MonoBehaviour
             buttons[i].GetComponentInChildren<TextMeshProUGUI>().color = i == currentAction ? GlobalSettings.i.highlightedColor : Color.black;
         }
     }
-
+    public void PlayMenu()
+    {
+        playMenu.SetActive(true);
+        normalMenu.SetActive(false); 
+    }
     public void Play()
     {
         cover.gameObject.SetActive(true);
         SceneManager.LoadScene("world");
     }
-    public void WorldEditor(){
+    public void WorldEditor()
+    {
         cover.gameObject.SetActive(true);
         SceneManager.LoadScene("WorldEditor");
     }

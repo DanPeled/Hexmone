@@ -55,13 +55,13 @@ public class Inventory : MonoBehaviour, ISavable
         var currentSlots = GetSlotsByCategory(category);
         return currentSlots.Exists(slot => slot.item == item);
     }
-    public void RemoveItem(ItemBase item)
+    public void RemoveItem(ItemBase item, int count=1)
     {
         var category = (int)GetCategoryFromItem(item);
 
         var currentSlots = GetSlotsByCategory(category);
         var itemSlot = currentSlots.First(slot => slot.item == item);
-        itemSlot.count--;
+        itemSlot.count -= count;
         if (itemSlot.count == 0)
         {
             currentSlots.Remove(itemSlot);
@@ -126,6 +126,18 @@ public class Inventory : MonoBehaviour, ISavable
         allSlots = new List<List<ItemSlot>>() { slots, hexoballsSlots, tmSlots };
 
     }
+    public int GetItemCount(ItemBase item)
+    {
+        int category = (int)GetCategoryFromItem(item);
+        var currentSlots = GetSlotsByCategory(category);
+        var itemSlot = currentSlots.FirstOrDefault(slot => slot.item == item);
+
+        if (itemSlot != null)
+        {
+            return itemSlot.count;
+        }
+        else return 0;
+    }
 }
 [System.Serializable]
 public class ItemSlot
@@ -150,6 +162,7 @@ public class ItemSlot
         };
         return saveData;
     }
+
 }
 [System.Serializable]
 public class ItemSaveData
