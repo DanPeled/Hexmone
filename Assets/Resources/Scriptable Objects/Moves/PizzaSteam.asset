@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518a5f20f0acf054194f0c22ef17edc5, type: 3}
   m_Name: PizzaSteam
   m_EditorClassIdentifier: 
-  moveName: PizzaSteam
+  name: Pizza Steam
   description: 
   type: 18
   power: 50

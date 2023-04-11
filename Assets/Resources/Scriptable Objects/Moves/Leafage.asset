@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 518a5f20f0acf054194f0c22ef17edc5, type: 3}
-  m_Name: Sing
+  m_Name: Leafage
   m_EditorClassIdentifier: 
-  moveName: Sing
-  description: 
-  type: 9
-  power: 0
+  name: Leafage
+  description: Shoots a few leaves at the opponent
+  type: 4
+  power: 30
   accuracy: 100
   pp: 20
-  category: 2
+  priority: 0
+  alwaysHits: 1
+  category: 0
   effects:
     boosts: []
-    status: 3
+    status: 0
+    volatileStatus: 0
+  secondaryEffects: []
   target: 0

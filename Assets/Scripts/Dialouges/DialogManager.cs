@@ -9,6 +9,7 @@ public class DialogManager : MonoBehaviour
     public Action OnShowDialog;
     public Action OnCloseDialog;
     public GameObject dialogBox;
+    public ChoiceBox choiceBox;
     public TextMeshProUGUI dialogText;
     public int lettersPerSecond;
     public static DialogManager instance;
@@ -19,9 +20,9 @@ public class DialogManager : MonoBehaviour
         instance = this;
     }
     Dialog dialog;
-    public IEnumerator ShowDialog(Dialog dialog)
+    public IEnumerator ShowDialog(Dialog dialog, List<string> choices=null, Action<int> onActionSelected=null)
     {
-        yield return new WaitForEndOfFrame();
+        //yield return new WaitForEndOfFrame();
         OnShowDialog?.Invoke();
         this.dialog = dialog;
         dialogBox.SetActive(true);
@@ -30,7 +31,11 @@ public class DialogManager : MonoBehaviour
             yield return TypeDialog(line);
             yield return new WaitUntil(() => InputSystem.instance.action.isClicked());
         }
+        if (choices != null && choices.Count > 1){
+            yield return choiceBox.ShowChoices(choices, onActionSelected);
+        }
         dialogBox.SetActive(false);
+        OnCloseDialog?.Invoke();
     }
     public IEnumerator TypeDialog(string line)
     {
@@ -43,7 +48,7 @@ public class DialogManager : MonoBehaviour
         }
         OnShowDialog?.Invoke();
     }
-    public IEnumerator ShowDialogText(string text, bool waitForInput = true, bool autoClose = true)
+    public IEnumerator ShowDialogText(string text, bool waitForInput = true, bool autoClose = true, List<string> choices = null, Action<int> onChoiceSelected = null)
     {
         OnShowDialog?.Invoke();
         dialogBox.SetActive(true);
@@ -52,10 +57,15 @@ public class DialogManager : MonoBehaviour
         {
             yield return new WaitUntil(() => InputSystem.instance.action.isClicked());
         }
+        if (choices != null && choices.Count > 1)
+        {
+            yield return choiceBox.ShowChoices(choices, onChoiceSelected);
+        }
         if (autoClose)
         {
             CloseDialog();
         }
+        
         OnCloseDialog?.Invoke();
     }
     public void CloseDialog()

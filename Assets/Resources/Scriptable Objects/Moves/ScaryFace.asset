@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 518a5f20f0acf054194f0c22ef17edc5, type: 3}
-  m_Name: Tackle
+  m_Name: ScaryFace
   m_EditorClassIdentifier: 
-  name: Tackle
-  description: 
-  type: 0
-  power: 40
+  name: Scary Face
+  description: Makes a face to scare the target and make them not be able to escape
+  type: 15
+  power: 0
   accuracy: 100
-  pp: 20
+  pp: 15
   priority: 0
-  alwaysHits: 0
+  alwaysHits: 1
   category: 0
   effects:
     boosts: []
-    status: 0
+    status: 4
     volatileStatus: 0
   secondaryEffects: []
   target: 0

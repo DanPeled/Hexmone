@@ -28,7 +28,7 @@ public class ConditionDB
                     {
                         creature.DecreaseHP(creature.maxHealth / 8);
                         creature.statusChanges.Enqueue(
-                            $"{creature._base.name} hurt itself due to poison"
+                            $"{creature._base.Name} hurt itself due to poison"
                         );
                     }
                 }
@@ -43,7 +43,7 @@ public class ConditionDB
                     {
                         creature.DecreaseHP(creature.maxHealth / 16);
                         creature.statusChanges.Enqueue(
-                            $"{creature._base.name} hurt itself due to burn"
+                            $"{creature._base.Name} hurt itself due to burn"
                         );
                     }
                 }
@@ -59,7 +59,7 @@ public class ConditionDB
                         if (UnityEngine.Random.Range(1, 5) == 1)
                         {
                             creature.statusChanges.Enqueue(
-                                $"{creature._base.name}'s paralyzed and can't move"
+                                $"{creature._base.Name}'s paralyzed and can't move"
                             );
                             return false;
                         }
@@ -79,7 +79,7 @@ public class ConditionDB
                         {
                             creature.CureStatus();
                             creature.statusChanges.Enqueue(
-                                $"{creature._base.name}'s not frozen anymore"
+                                $"{creature._base.Name}'s not frozen anymore"
                             );
                             return true;
                         }
@@ -105,13 +105,13 @@ public class ConditionDB
                         {
                             creature.CureStatus();
                             creature.statusChanges.Enqueue(
-                                $"{creature._base.name} woke up!"
+                                $"{creature._base.Name} woke up!"
                             );
                             return true;
                         }
                         creature.statusTime--;
                         creature.statusChanges.Enqueue(
-                            $"{creature._base.name} is sleeping"
+                            $"{creature._base.Name} is sleeping"
                         );
                         return false;
                     }
@@ -136,7 +136,7 @@ public class ConditionDB
                         {
                             creature.CureVolatileStatus();
                             creature.statusChanges.Enqueue(
-                                $"{creature._base.name} kicked out of confusion!"
+                                $"{creature._base.Name} kicked out of confusion!"
                             );
                             return true;
                         }
@@ -148,7 +148,7 @@ public class ConditionDB
                         }
                         // Hurt By Confusion
                         creature.statusChanges.Enqueue(
-                            $"{creature._base.name} is confused"
+                            $"{creature._base.Name} is confused"
                         );
                         creature.DecreaseHP(creature.maxHealth / 8);
                         creature.statusChanges.Enqueue($"It hurt itself due to confusion");

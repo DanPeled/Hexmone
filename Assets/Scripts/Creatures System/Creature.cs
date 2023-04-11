@@ -105,7 +105,7 @@ public class Creature
             this.statBoosts[stat] = Mathf.Clamp(this.statBoosts[stat] + boost, -6, 6);
             string change = boost > 0 ? "rose" : "fell";
 
-            statusChanges.Enqueue($"{_base.name}'s {stat} {change}!");
+            statusChanges.Enqueue($"{_base.Name}'s {stat} {change}!");
 
             Debug.Log($"{stat} Has been boosted to {this.statBoosts[stat]}");
         }
@@ -116,7 +116,7 @@ public class Creature
 
         status = ConditionDB.conditions[conditionID];
         status?.onStart?.Invoke(this);
-        statusChanges.Enqueue($"{_base.name} {status.startMessage}");
+        statusChanges.Enqueue($"{_base.Name} {status.startMessage}");
 
         OnStatusChanged?.Invoke();
     }
@@ -131,7 +131,7 @@ public class Creature
 
         volatileStatus = ConditionDB.conditions[conditionID];
         volatileStatus?.onStart?.Invoke(this);
-        statusChanges.Enqueue($"{_base.name} {volatileStatus.startMessage}");
+        statusChanges.Enqueue($"{_base.Name} {volatileStatus.startMessage}");
     }
     public void CureVolatileStatus()
     {
@@ -308,6 +308,7 @@ public class Creature
     public void Heal()
     {
         HP = maxHealth;
+        CureStatus();
         OnHPChanged?.Invoke();
     }
 }

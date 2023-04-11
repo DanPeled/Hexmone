@@ -12,18 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e79a054c7486ef40a083eda26e6127f, type: 3}
   m_Name: Broxor
   m_EditorClassIdentifier: 
-  creatureName: Broxor
+  name: Broxor
   description: 
-  maxHealth: 340
-  type1: 4
-  type2: 6
-  damage: 155
   frontSprite: {fileID: 21300000, guid: 6c12fb5d05a284b479b8c2cc8eb7dcf3, type: 3}
   backSprite: {fileID: 21300000, guid: d0f3b65676a45c649938b7eaf17e3dc4, type: 3}
+  type1: 4
+  type2: 6
+  maxHealth: 340
+  damage: 155
   defense: 80
   spAttack: 200
   spDefense: 90
   speed: 90
+  catchRate: 225
+  expYield: 216
+  growthRate: 1
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
     level: 0
@@ -31,7 +34,6 @@ MonoBehaviour:
     level: 0
   - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
     level: 3
-  catchRate: 225
-  expYield: 0
-  growthRate: 0
+  learnableByItems: []
+  evolutions: []
   maxNumberOfMoves: 4

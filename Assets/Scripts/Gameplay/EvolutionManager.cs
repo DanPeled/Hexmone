@@ -17,7 +17,7 @@ public class EvolutionManager : MonoBehaviour
         onStartEvolution?.Invoke();
         evolutionUI.SetActive(true);
         creatureImage.sprite = creature._base.frontSprite;
-        yield return DialogManager.instance.ShowDialogText($"{creature._base.name} is evolving");
+        yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} is evolving");
 
         
         var oldCreature = creature._base;
@@ -25,7 +25,7 @@ public class EvolutionManager : MonoBehaviour
 
         creature.Evolve(evolution);
         creatureImage.sprite = creature._base.frontSprite;
-        yield return DialogManager.instance.ShowDialogText($"{oldCreature.name} evolved into {creature._base.name}");
+        yield return DialogManager.instance.ShowDialogText($"{oldCreature.Name} evolved into {creature._base.Name}");
 
 
         evolutionUI.SetActive(false);

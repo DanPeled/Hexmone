@@ -43,14 +43,18 @@ public class GameController : MonoBehaviour
             state = GameState.FreeRoam;
         };
         menu.onMenuSelected += onMenuSelected;
-        EvolutionManager.instance.onStartEvolution += () => {
+        EvolutionManager.instance.onStartEvolution += () =>
+        {
             stateBeforeEvolution = state;
             state = GameState.Evolution;
         };
-        EvolutionManager.instance.onCompleteEvolution += () => {
+        EvolutionManager.instance.onCompleteEvolution += () =>
+        {
             partyScreen.SetPartyData();
             state = stateBeforeEvolution;
         };
+        ShopController.i.onStart += () => state = GameState.Shop;
+        ShopController.i.onFinish += () => state = GameState.FreeRoam;
     }
     TrainerController trainer;
     public void StartBattle()
@@ -125,6 +129,8 @@ public class GameController : MonoBehaviour
                 state = GameState.FreeRoam;
             };
             inventoryUI.HandleUpdate(onBack);
+        } else if (state == GameState.Shop){
+            ShopController.i.HandleUpdate();
         }
 
 
@@ -177,5 +183,5 @@ public enum GameState
 {
     Battle,
     FreeRoam,
-    Dialog, Menu, Paused, CutScene, PartyScreen, Bag, Evolution
+    Dialog, Menu, Paused, CutScene, PartyScreen, Bag, Evolution, Shop
 }

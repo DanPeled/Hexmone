@@ -12,28 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e79a054c7486ef40a083eda26e6127f, type: 3}
   m_Name: Leafu
   m_EditorClassIdentifier: 
-  creatureName: Leafu
+  name: Leafu
   description: 
-  maxHealth: 120
-  type1: 4
-  type2: 6
-  damage: 95
   frontSprite: {fileID: 21300000, guid: 7bc22deec58b94241bc473a1f88886f9, type: 3}
   backSprite: {fileID: 21300000, guid: e3c95a52aee13204fb630b314935dd2e, type: 3}
+  type1: 4
+  type2: 6
+  maxHealth: 120
+  damage: 95
   defense: 70
   spAttack: 100
   spDefense: 55
   speed: 85
-  learnableMoves:
-  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
-    level: 0
-  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
-    level: 0
-  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
-    level: 3
-  - moveBase: {fileID: 11400000, guid: 16b58ac7a0dcea44093e23734f5ee58b, type: 2}
-    level: 51
   catchRate: 225
   expYield: 119
   growthRate: 1
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 1d8a368423a616d4e8f3fb4729cda63c, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 4803aad8e91da774891b0cee38cac1ff, type: 2}
+    level: 10
+  - moveBase: {fileID: 11400000, guid: 3026b69e796c2e24ca9bcfa068639ec6, type: 2}
+    level: 30
+  learnableByItems: []
+  evolutions:
+  - evolvesInto: {fileID: 11400000, guid: a242f4036c87dca4580b8e1915f02253, type: 2}
+    requiredLevel: 35
+    requiredItem: {fileID: 0}
   maxNumberOfMoves: 4

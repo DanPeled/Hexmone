@@ -135,6 +135,12 @@ public class InventoryUI : MonoBehaviour
     {
         state = InventoryUIState.Busy;
         var item = inventory.GetItem(selectedItem, selectedCategory);
+        if (GameController.instance.state == GameState.Shop)
+        {
+            onItemUsed?.Invoke(item);
+            state = InventoryUIState.ItemSelection;
+            yield break;
+        }
         if (GameController.instance.state == GameState.Battle)
         {
             // In a battle
@@ -224,23 +230,23 @@ public class InventoryUI : MonoBehaviour
 
         if (creature.HasMove(tmItem.move))
         {
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.name} already knows {tmItem.move.name}");
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} already knows {tmItem.move.name}");
             yield break;
         }
         if (!tmItem.CanBeTaught(creature))
         {
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.name} can't learn {tmItem.move.name}");
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} can't learn {tmItem.move.name}");
             yield break;
         }
         if (creature.moves.Count < creature._base.maxNumberOfMoves)
         {
 
             creature.LearnMove(tmItem.move);
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.name} learned {tmItem.move.name}");
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} learned {tmItem.move.name}");
         }
         else
         {
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.name} is trying to learn {tmItem.move.name}");
+            yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} is trying to learn {tmItem.move.name}");
             yield return DialogManager.instance.ShowDialogText($"But it cannot learn more than 4 moves");
             yield return ChooseMoveToForget(creature, tmItem.move);
             yield return new WaitUntil(() => state != InventoryUIState.MoveToForget);
@@ -331,13 +337,13 @@ public class InventoryUI : MonoBehaviour
         if (moveIndex == 4)
         {
             // Dont learn the new move
-            yield return (DialogManager.instance.ShowDialogText($"{creature._base.name} did not learn {moveToLearn.name}"));
+            yield return (DialogManager.instance.ShowDialogText($"{creature._base.Name} did not learn {moveToLearn.name}"));
         }
         else
         {
             // forget the selected move and learn new move
             var selectedMove = creature.moves[moveIndex].base_;
-            yield return (DialogManager.instance.ShowDialogText($"{creature._base.name} forgot {selectedMove.name} and learned {moveToLearn.name}"));
+            yield return (DialogManager.instance.ShowDialogText($"{creature._base.Name} forgot {selectedMove.name} and learned {moveToLearn.name}"));
 
             creature.moves[moveIndex] = new Move(moveToLearn);
         }

@@ -26,7 +26,7 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
     {
         if (!battleLost)
         {
-            yield return (DialogManager.instance.ShowDialog(dialog));
+            //yield return (DialogManager.instance.ShowDialog(dialog));
                 GameController.instance.StartTrainerBattle(this);
         }
         else

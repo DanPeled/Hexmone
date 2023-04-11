@@ -17,7 +17,7 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     Healer healer;
     CreatureGiver creatureGiver;
     SpriteAnimator spriteAnimator;
-
+    Merchant merchant;
     Quest activeQuest;
     public Dialog dialog;
 
@@ -29,6 +29,7 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         spriteAnimator.Start();
         creatureGiver = GetComponent<CreatureGiver>();
         healer = GetComponent<Healer>();
+        merchant = GetComponent<Merchant>();
     }
     void Update()
     {
@@ -93,6 +94,8 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         else if (healer != null)
         {
             yield return healer.Heal(initiator, dialog);
+        } else if (merchant != null){
+            yield return merchant.Trade();
         }
         else
         {

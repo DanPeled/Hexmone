@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 518a5f20f0acf054194f0c22ef17edc5, type: 3}
-  m_Name: Tackle
+  m_Name: VineStrike
   m_EditorClassIdentifier: 
-  name: Tackle
+  name: Vine Strike
   description: 
-  type: 0
-  power: 40
-  accuracy: 100
-  pp: 20
+  type: 4
+  power: 80
+  accuracy: 90
+  pp: 15
   priority: 0
   alwaysHits: 0
   category: 0

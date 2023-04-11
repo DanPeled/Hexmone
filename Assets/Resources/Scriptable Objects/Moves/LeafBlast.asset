@@ -10,16 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 518a5f20f0acf054194f0c22ef17edc5, type: 3}
-  m_Name: ThunderWave
+  m_Name: LeafBlast
   m_EditorClassIdentifier: 
-  moveName: Thunder Wave
+  name: Leaf Blast
   description: 
-  type: 8
-  power: 0
+  type: 4
+  power: 95
   accuracy: 100
-  pp: 20
-  category: 2
+  pp: 10
+  priority: 0
+  alwaysHits: 1
+  category: 0
   effects:
     boosts: []
-    status: 4
+    status: 0
+    volatileStatus: 0
+  secondaryEffects:
+  - boosts:
+    - stat: 4
+      boost: -1
+    status: 0
+    volatileStatus: 0
+    chance: 2
+    target: 0
   target: 0

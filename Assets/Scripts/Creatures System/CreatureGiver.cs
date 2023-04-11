@@ -16,7 +16,7 @@ public class CreatureGiver : MonoBehaviour
         player.GetComponent<CreaturesParty>().AddCreature(creature);
 
         used = true;
-        string dialogText = $"{player.playerName} recived {creature._base.name}";
+        string dialogText = $"{player.playerName} recived {creature._base.Name}";
 
         yield return DialogManager.instance.ShowDialogText(dialogText);
     }

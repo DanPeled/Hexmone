@@ -26,8 +26,9 @@ public class BattleDialogBox : MonoBehaviour
 
     public IEnumerator TypeDialog(string dialog, TextMeshProUGUI dialogText)
     {
-        dialogText.text = "";
-        yield return new WaitForSeconds(0.01f);
+        dialogText.text = " ";
+        yield return new WaitForSeconds(0.03f);
+        dialogText.text = " ";
 
         foreach (var letter in dialog.ToCharArray())
         {

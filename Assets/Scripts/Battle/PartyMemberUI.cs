@@ -19,7 +19,7 @@ public class PartyMemberUI : MonoBehaviour
     }
     void UpdateData(){
 
-        nameText.text = _creature._base.name;
+        nameText.text = _creature._base.Name;
         lvlText.text = $"Lvl {_creature.level}";
 
         hpBar.SetHP((float)_creature.HP, _creature.maxHealth);

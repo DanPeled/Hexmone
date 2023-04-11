@@ -5,6 +5,8 @@ public class ItemBase : ScriptableObject
     public string name;
     public string description;
     public Sprite icon;
+    public float price;
+    public bool isSellable;
     public virtual string Name => name;
     public virtual bool Use(Creature creature){
         return false;

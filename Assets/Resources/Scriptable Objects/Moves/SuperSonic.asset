@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518a5f20f0acf054194f0c22ef17edc5, type: 3}
   m_Name: SuperSonic
   m_EditorClassIdentifier: 
-  moveName: Super Sonic
+  name: Super Sonic
   description: 
   type: 8
   power: 0
   accuracy: 100
   pp: 20
+  priority: 0
+  alwaysHits: 0
   category: 2
   effects:
     boosts: []
     status: 0
     volatileStatus: 6
+  secondaryEffects: []
   target: 0

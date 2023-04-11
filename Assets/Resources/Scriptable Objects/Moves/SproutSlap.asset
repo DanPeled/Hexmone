@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518a5f20f0acf054194f0c22ef17edc5, type: 3}
   m_Name: SproutSlap
   m_EditorClassIdentifier: 
-  moveName: Sprout Slap
+  name: Sprout Slap
   description: 
   type: 6
   power: 20

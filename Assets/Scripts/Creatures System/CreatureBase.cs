@@ -8,42 +8,37 @@ using TMPro;
 [CreateAssetMenu(fileName = "Creature", menuName = "Creatures/ Create New Creature")]
 public class CreatureBase : ScriptableObject
 {
-    [SerializeField]
     public string name, description;
-    [SerializeField]
-    public int maxHealth;
-    [SerializeField]
-    public const int moveAmount = 3;
-    [SerializeField]
-    public CreatureType type1;
-    [SerializeField]
-    public CreatureType type2;
-    [SerializeField]
-    public int damage;
-    [SerializeField]
+    [Header("Sprites")]
     public Sprite frontSprite;
-    [SerializeField]
     public Sprite backSprite;
-    [SerializeField]
+
+    [Header("Types")]
+    public CreatureType type1;
+    public CreatureType type2;
+
+    [Header("Stats")]
+    public int maxHealth;
+    public const int moveAmount = 3;
+    public int damage;
     public int defense;
-    [SerializeField]
     public int spAttack;
-    [SerializeField]
     public int spDefense;
-    [SerializeField]
     public int speed;
-    [SerializeField]
+    public int catchRate = 225;
+    public int expYield;
+    public GrowthRate growthRate;
+
+    [Header("Moves")]
     public List<LearnableMove> learnableMoves = new List<LearnableMove>();
     public List<MoveBase> learnableByItems = new List<MoveBase>();
-    [SerializeField]
-    public int catchRate = 225;
-    [SerializeField]
-    public int expYield;
-    [SerializeField]
-    public GrowthRate growthRate;
-    [SerializeField]
-    public int maxNumberOfMoves = 4;
+
+    [Header("Evolutions")]
     public List<Evolution> evolutions;
+
+    [HideInInspector]
+    public int maxNumberOfMoves = 4;
+    public string Name { get { return name; } }
     public int GetExpForLevel(int level)
     {
         if (growthRate == GrowthRate.Fast)
