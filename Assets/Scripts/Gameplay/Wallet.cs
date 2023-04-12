@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-public class Wallet : MonoBehaviour
+public class Wallet : MonoBehaviour, ISavable
 {
     public float money;
     public event Action onMoneyChanged;
@@ -9,11 +9,26 @@ public class Wallet : MonoBehaviour
     {
         i = this;
     }
-    public void AddMoney(float amount){
+    public void AddMoney(float amount)
+    {
         money += amount;
         onMoneyChanged?.Invoke();
-    } public void TakeMoney(float amount){
+    }
+    public void TakeMoney(float amount)
+    {
         money -= amount;
         onMoneyChanged?.Invoke();
+    }
+    public bool HasMoney(float amount)
+    {
+        return amount <= money;
+    }
+    public object CaptureState()
+    {
+        return money;
+    }
+    public void RestoreState(object state)
+    {
+        money = (float)state;
     }
 }

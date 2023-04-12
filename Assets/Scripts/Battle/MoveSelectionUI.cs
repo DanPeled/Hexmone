@@ -18,17 +18,17 @@ public class MoveSelectionUI : MonoBehaviour
     }
     public void HandleMoveSelection(Action<int> onSelected)
     {
-        if (InputSystem.instance.down.isClicked())
+        if (InputSystem.down.isClicked())
         {
             currentSelection++;
         }
-        else if (InputSystem.instance.up.isClicked())
+        else if (InputSystem.up.isClicked())
         {
             currentSelection--;
         }
         currentSelection = Mathf.Clamp(currentSelection, 0, 4);
         UpdateMoveSelection(currentSelection);
-        if (InputSystem.instance.action.isClicked()){
+        if (InputSystem.action.isClicked()){
             onSelected?.Invoke(currentSelection);
         }
     }

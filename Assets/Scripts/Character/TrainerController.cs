@@ -11,6 +11,7 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
     public string trainerName;
     Character character;
     Vector2 originalPos;
+    public AudioClip trainerAppearClip;
 
     //State
     public bool battleLost = false;
@@ -27,7 +28,9 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
         if (!battleLost)
         {
             //yield return (DialogManager.instance.ShowDialog(dialog));
-                GameController.instance.StartTrainerBattle(this);
+            AudioManager.i.PlayMusic(trainerAppearClip);
+
+            GameController.instance.StartTrainerBattle(this);
         }
         else
         {
@@ -36,6 +39,7 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
     }
     public IEnumerator TriggerTrainerBattle(Player player)
     {
+        AudioManager.i.PlayMusic(trainerAppearClip);
         player.playerActive = false;
         player.isMoving = false;
         // Show exclamation

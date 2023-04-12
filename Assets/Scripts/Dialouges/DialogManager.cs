@@ -29,7 +29,7 @@ public class DialogManager : MonoBehaviour
         foreach (var line in dialog.lines)
         {
             yield return TypeDialog(line);
-            yield return new WaitUntil(() => InputSystem.instance.action.isClicked());
+            yield return new WaitUntil(() => InputSystem.action.isClicked());
         }
         if (choices != null && choices.Count > 1){
             yield return choiceBox.ShowChoices(choices, onActionSelected);
@@ -55,7 +55,7 @@ public class DialogManager : MonoBehaviour
         yield return TypeDialog(text);
         if (waitForInput)
         {
-            yield return new WaitUntil(() => InputSystem.instance.action.isClicked());
+            yield return new WaitUntil(() => InputSystem.action.isClicked());
         }
         if (choices != null && choices.Count > 1)
         {

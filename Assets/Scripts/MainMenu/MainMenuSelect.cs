@@ -25,18 +25,18 @@ public class MainMenuSelect : MonoBehaviour
     {
 
         // Action change
-        if (InputSystem.instance.down.isClicked())
+        if (InputSystem.down.isClicked())
         {
             currentAction++;
         }
-        else if (InputSystem.instance.up.isClicked())
+        else if (InputSystem.up.isClicked())
         {
             currentAction--;
         }
         currentAction = Mathf.Clamp(currentAction, 0, buttons.Length - 1);
 
         // action handeling
-        if (InputSystem.instance.action.isClicked())
+        if (InputSystem.action.isClicked())
         {
             switch (currentAction)
             {

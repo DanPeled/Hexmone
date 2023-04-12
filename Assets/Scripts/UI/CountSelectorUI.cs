@@ -27,11 +27,11 @@ public class CountSelectorUI : MonoBehaviour
     void Update()
     {
         int prevCount = currentCount;
-        if (InputSystem.instance.up.isClicked())
+        if (InputSystem.up.isClicked())
         {
             currentCount++;
         }
-        else if (InputSystem.instance.down.isClicked())
+        else if (InputSystem.down.isClicked())
         {
             currentCount--;
         }
@@ -42,7 +42,7 @@ public class CountSelectorUI : MonoBehaviour
         {
             SetValues();
         }
-        if (InputSystem.instance.action.isClicked()){
+        if (InputSystem.action.isClicked()){
             selected = true;
         }
     }

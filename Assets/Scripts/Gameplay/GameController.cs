@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public InventoryUI inventoryUI;
     private void Awake()
     {
+        instance = this;
         menu = GetComponent<MenuController>();
         this.player = GameObject.FindObjectOfType<Player>();
         ConditionDB.Init();
@@ -97,7 +98,7 @@ public class GameController : MonoBehaviour
         {
 
             player.playerActive = true;
-            if (InputSystem.instance.start.isClicked())
+            if (InputSystem.start.isClicked())
             {
                 menu.OpenMenu();
                 state = GameState.Menu;
@@ -148,7 +149,10 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(false);
 
         var playerParty = player.GetComponent<CreaturesParty>();
-        StartCoroutine(playerParty.CheckForEvolutions());
+        bool hasEvolutions = playerParty.CheckForEvolutions();
+        if (hasEvolutions)
+        StartCoroutine(playerParty.RunEvolutions());
+        // else AudioManager.i.PlayMusic(); // play main music
     }
     void onMenuSelected(int selected)
     {
@@ -176,6 +180,11 @@ public class GameController : MonoBehaviour
                 state = GameState.FreeRoam;
                 break;
         }
+    }
+    public void MoveCamera(Vector2 moveOffset){
+        LevelLoader.i.Load();
+        player.cameras[player.camIndex].transform.position += new Vector3(moveOffset.x, moveOffset.y);
+
     }
 }
 

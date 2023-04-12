@@ -68,19 +68,19 @@ public class PartyScreen : MonoBehaviour
     public void HandleUpdate(Action onSelected, Action onBack)
     {
         var prevSelection = currentMember;
-        if (InputSystem.instance.right.isClicked())
+        if (InputSystem.right.isClicked())
         {
             currentMember++;
         }
-        else if (InputSystem.instance.left.isClicked())
+        else if (InputSystem.left.isClicked())
         {
             currentMember--;
         }
-        else if (InputSystem.instance.down.isClicked())
+        else if (InputSystem.down.isClicked())
         {
             currentMember += 2;
         }
-        else if (InputSystem.instance.up.isClicked())
+        else if (InputSystem.up.isClicked())
         {
             currentMember -= 2;
         }
@@ -88,11 +88,11 @@ public class PartyScreen : MonoBehaviour
         if (currentMember != prevSelection)
             UpdateMemberSelection(currentMember);
 
-        if (InputSystem.instance.action.isClicked())
+        if (InputSystem.action.isClicked())
         {
             onSelected?.Invoke();
         }
-        else if (InputSystem.instance.back.isClicked())
+        else if (InputSystem.back.isClicked())
         {
             onBack?.Invoke();
         }

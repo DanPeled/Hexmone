@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System;
 public class EvolutionManager : MonoBehaviour
 {
+    public AudioClip evolutionMusic;
     public GameObject evolutionUI;
     public Image creatureImage;
     public static EvolutionManager instance;
@@ -16,6 +17,7 @@ public class EvolutionManager : MonoBehaviour
     {
         onStartEvolution?.Invoke();
         evolutionUI.SetActive(true);
+        AudioManager.i.PlayMusic(evolutionMusic);
         creatureImage.sprite = creature._base.frontSprite;
         yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} is evolving");
 

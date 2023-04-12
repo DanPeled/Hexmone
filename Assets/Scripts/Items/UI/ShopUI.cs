@@ -14,12 +14,16 @@ public class ShopUI : MonoBehaviour
     int selectedItem = 0;
     const int itemsInViewport = 8;
     RectTransform itemListRect;
+    Action<ItemBase> onItemSelected;
+    Action onBack;
     void Awake()
     {
         itemListRect = itemList.GetComponent<RectTransform>();
     }
-    public void Show(List<ItemBase> items)
+    public void Show(List<ItemBase> items, Action<ItemBase> onItemSelected, Action onBack)
     {
+        this.onItemSelected = onItemSelected;
+        this.onBack= onBack;
         this.items = items;
         gameObject.SetActive(true);
 
@@ -29,11 +33,11 @@ public class ShopUI : MonoBehaviour
     public void HandleUpdate()
     {
         var prevSelection = selectedItem;
-        if (InputSystem.instance.down.isClicked())
+        if (InputSystem.down.isClicked())
         {
             selectedItem++;
         }
-        else if (InputSystem.instance.up.isClicked())
+        else if (InputSystem.up.isClicked())
         {
             selectedItem--;
         }
@@ -41,6 +45,11 @@ public class ShopUI : MonoBehaviour
         if (prevSelection != selectedItem)
         {
             UpdateItemList();
+        }
+        if (InputSystem.action.isClicked()){
+            onItemSelected?.Invoke(items[selectedItem]);
+        } else if (InputSystem.back.isClicked()){
+            onBack?.Invoke();
         }
     }
     public void UpdateItemList()
@@ -101,5 +110,8 @@ public class ShopUI : MonoBehaviour
         upArrow.gameObject.SetActive(showUpArrow);
         bool showDownArrow = selectedItem + 4 < slotUIs.Count;
         downArrow.gameObject.SetActive(showDownArrow);
+    }
+    public void Close(){
+        gameObject.SetActive(false);
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class InputSystem : MonoBehaviour
 {
-    public Toggle up = new Toggle(),
+    public static Toggle up = new Toggle(),
         down = new Toggle(),
         left = new Toggle(),
         right = new Toggle(),
@@ -11,10 +11,10 @@ public class InputSystem : MonoBehaviour
         select = new Toggle(),
         start = new Toggle();
     public bool isMobile;
-    public static InputSystem instance;
+    public static InputSystem i;
     void Update()
     {
-        instance = this;
+        i = this;
         // Normal Controls
         if (MobileControls.i == null && !isMobile)
         {

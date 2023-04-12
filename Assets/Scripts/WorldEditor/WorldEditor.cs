@@ -118,19 +118,19 @@ public class WorldEditor : MonoBehaviour
         }
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minSize, maxSize);
 
-        if (InputSystem.instance.up.isPressed())
+        if (InputSystem.up.isPressed())
         {
             Camera.main.transform.position += new Vector3(0, movementSpeed);
         }
-        if (InputSystem.instance.down.isPressed())
+        if (InputSystem.down.isPressed())
         {
             Camera.main.transform.position -= new Vector3(0, movementSpeed);
         }
-        if (InputSystem.instance.left.isPressed())
+        if (InputSystem.left.isPressed())
         {
             Camera.main.transform.position -= new Vector3(movementSpeed, 0);
         }
-        if (InputSystem.instance.right.isPressed())
+        if (InputSystem.right.isPressed())
         {
             Camera.main.transform.position += new Vector3(movementSpeed, 0);
         }

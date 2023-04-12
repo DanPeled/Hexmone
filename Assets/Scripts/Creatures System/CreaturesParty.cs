@@ -40,7 +40,10 @@ public class CreaturesParty : MonoBehaviour
     public static CreaturesParty GetPlayerParty(){
         return FindObjectOfType<Player>().GetComponent<CreaturesParty>();
     }
-    public IEnumerator CheckForEvolutions(){
+    public bool CheckForEvolutions(){
+        return creatures.Any(p => p.CheckForEvolution() != null);
+    }
+    public IEnumerator RunEvolutions(){
         foreach(var creature in creatures){
             var evolution = creature.CheckForEvolution();
             if (evolution != null){

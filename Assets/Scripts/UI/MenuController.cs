@@ -25,11 +25,11 @@ public class MenuController : MonoBehaviour
     public void HandleUpdate()
     {
         int prevSelection = selectedItem;
-        if (InputSystem.instance.down.isClicked())
+        if (InputSystem.down.isClicked())
         {
             selectedItem++;
         }
-        else if (InputSystem.instance.up.isClicked())
+        else if (InputSystem.up.isClicked())
         {
             selectedItem--;
         }
@@ -37,10 +37,10 @@ public class MenuController : MonoBehaviour
         if (prevSelection != selectedItem)
             UpdateItemSelection();
 
-        if(InputSystem.instance.action.isClicked()){
+        if(InputSystem.action.isClicked()){
             onMenuSelected?.Invoke(selectedItem);
             CloseMenu();
-        } else if (InputSystem.instance.back.isClicked()){
+        } else if (InputSystem.back.isClicked()){
             onBack?.Invoke();
             CloseMenu();
         }

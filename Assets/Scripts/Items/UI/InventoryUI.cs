@@ -62,19 +62,19 @@ public class InventoryUI : MonoBehaviour
         {
             int prevSelection = selectedItem;
             int prevCategory = selectedCategory;
-            if (InputSystem.instance.down.isClicked())
+            if (InputSystem.down.isClicked())
             {
                 selectedItem++;
             }
-            else if (InputSystem.instance.up.isClicked())
+            else if (InputSystem.up.isClicked())
             {
                 selectedItem--;
             }
-            else if (InputSystem.instance.right.isClicked())
+            else if (InputSystem.right.isClicked())
             {
                 selectedCategory++;
             }
-            else if (InputSystem.instance.left.isClicked())
+            else if (InputSystem.left.isClicked())
             {
                 selectedCategory--;
             }
@@ -96,11 +96,11 @@ public class InventoryUI : MonoBehaviour
             }
             else if (prevSelection != selectedItem)
                 UpdateItemSelection();
-            if (InputSystem.instance.action.isClicked())
+            if (InputSystem.action.isClicked())
             {
                 StartCoroutine(ItemSelected());
             }
-            else if (InputSystem.instance.back.isClicked())
+            else if (InputSystem.back.isClicked())
             {
                 onBack?.Invoke();
             }

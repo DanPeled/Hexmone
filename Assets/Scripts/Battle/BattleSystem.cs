@@ -28,15 +28,17 @@ public enum BattleAction
 
 public class BattleSystem : MonoBehaviour
 {
+    [Header("Music")]
+    public AudioClip wildBattleMusic;
+    public AudioClip trainerBattleMusic, battleVictoryMusic;
+    [Header("Refrences")]
+    public InventoryUI inventoryUI;
     public BattleUnit playerUnit,
          enemyUnit;
 
     public BattleDialogBox dialogBox;
     public PartyScreen partyScreen;
     public MoveSelectionUI moveSelectionUI;
-    public BattleState battleState;
-    public int currentAction,
-        currentMove;
     bool actionPossible = false;
     public Image playerImage, trainerImage;
 
@@ -52,22 +54,29 @@ public class BattleSystem : MonoBehaviour
     public GameObject hexoballSprite;
     int escapeAttempts;
     MoveBase moveToLearn;
-    public InventoryUI inventoryUI;
+    [Header("Vars")]
+    public BattleState battleState;
+    public int currentAction,
+        currentMove;
+
     public void StartBattle(CreaturesParty playerParty, Creature wildCreature)
     {
-        this.playerParty = playerParty;
-        this.wildCreature = wildCreature;
         player = playerParty.GetComponent<Player>();
         player.playerActive = false;
+        this.playerParty = playerParty;
+        this.wildCreature = wildCreature;
+        isTrainerBattle = false;
+        AudioManager.i.PlayMusic(wildBattleMusic);
         StartCoroutine(SetupBattle());
     }
     public void StartTrainerBattle(CreaturesParty playerParty, CreaturesParty trainerParty)
     {
+        player = playerParty.GetComponent<Player>();
+        player.playerActive = false;
         this.playerParty = playerParty;
         this.trainerParty = trainerParty;
         isTrainerBattle = true;
-
-        player = playerParty.GetComponent<Player>();
+        AudioManager.i.PlayMusic(trainerBattleMusic);
         trainer = trainerParty.GetComponent<TrainerController>();
         StartCoroutine(SetupBattle());
     }
@@ -146,7 +155,8 @@ public class BattleSystem : MonoBehaviour
         dialogBox.ToggleActionSelector(true);
         yield return null;
     }
-    void OpenBag(){
+    void OpenBag()
+    {
         battleState = BattleState.Bag;
         inventoryUI.gameObject.SetActive(true);
     }
@@ -271,10 +281,10 @@ public class BattleSystem : MonoBehaviour
         move.PP--;
         string usedText = sourceUnit.isPlayerUnit ? "" : "Enemy";
         if (battleState != BattleState.BattleOver)
-        yield return dialogBox.TypeDialog(
-            $"{usedText} {sourceUnit.creature._base.Name} Used {move.base_.name}",
-            dialogBox.dialogText
-        );
+            yield return dialogBox.TypeDialog(
+                $"{usedText} {sourceUnit.creature._base.Name} Used {move.base_.name}",
+                dialogBox.dialogText
+            );
 
         if (CheckIfMoveHits(move, sourceUnit.creature, targetUnit.creature))
         {
@@ -445,6 +455,13 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (!faintedUnit.isPlayerUnit)
         {
+
+            bool battleWon = true;
+            if (isTrainerBattle){
+                battleWon = trainerParty.GetHealthyCreature() == null;
+            } if (battleWon){
+                AudioManager.i.PlayMusic(battleVictoryMusic);
+            }
             // Exp gain
             int expYield = faintedUnit.creature._base.expYield;
             int enemyLvl = faintedUnit.creature.level;
@@ -611,18 +628,21 @@ public class BattleSystem : MonoBehaviour
                 moveSelectionUI.HandleMoveSelection(onMoveSelected);
                 break;
             case BattleState.Bag:
-                Action onBack = () => {
+                Action onBack = () =>
+                {
                     inventoryUI.gameObject.SetActive(false);
                     battleState = BattleState.ActionSelection;
                 };
-                Action<ItemBase> onItemUsed = (ItemBase itemUsed) => {
+                Action<ItemBase> onItemUsed = (ItemBase itemUsed) =>
+                {
                     StartCoroutine(this.OnItemUsed(itemUsed));
                 };
                 inventoryUI.HandleUpdate(onBack, onItemUsed);
                 break;
         }
     }
-    IEnumerator OnItemUsed(ItemBase usedItem){
+    IEnumerator OnItemUsed(ItemBase usedItem)
+    {
         battleState = BattleState.Busy;
         inventoryUI.gameObject.SetActive(false);
 
@@ -635,13 +655,13 @@ public class BattleSystem : MonoBehaviour
     }
     void HandleAboutToUse()
     {
-        if (InputSystem.instance.up.isClicked() || InputSystem.instance.down.isClicked())
+        if (InputSystem.up.isClicked() || InputSystem.down.isClicked())
         {
             aboutToUseChoice = !aboutToUseChoice;
         }
         dialogBox.UpdateChoiceBoxSelection(aboutToUseChoice);
 
-        if (InputSystem.instance.action.isClicked())
+        if (InputSystem.action.isClicked())
         {
             dialogBox.ToggleChoiceBox(false);
             dialogBox.choiceBox.SetActive(false);
@@ -657,7 +677,7 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(SendNextTrainerCreature());
             }
         }
-        else if (InputSystem.instance.back.isClicked())
+        else if (InputSystem.back.isClicked())
         {
             dialogBox.ToggleChoiceBox(false);
             StartCoroutine(SendNextTrainerCreature());
@@ -665,19 +685,19 @@ public class BattleSystem : MonoBehaviour
     }
     public void HandleActionSelection()
     {
-        if (InputSystem.instance.right.isClicked())
+        if (InputSystem.right.isClicked())
         {
             currentAction++;
         }
-        else if (InputSystem.instance.left.isClicked())
+        else if (InputSystem.left.isClicked())
         {
             currentAction--;
         }
-        else if (InputSystem.instance.down.isClicked())
+        else if (InputSystem.down.isClicked())
         {
             currentAction += 2;
         }
-        else if (InputSystem.instance.up.isClicked())
+        else if (InputSystem.up.isClicked())
         {
             currentAction -= 2;
         }
@@ -685,7 +705,7 @@ public class BattleSystem : MonoBehaviour
         currentAction = Mathf.Clamp(currentAction, 0, 3);
         dialogBox.UpdateActionSelection(currentAction);
 
-        if (InputSystem.instance.action.isClicked() && this.actionPossible)
+        if (InputSystem.action.isClicked() && this.actionPossible)
         {
             if (currentAction == 0)
             {
@@ -712,26 +732,26 @@ public class BattleSystem : MonoBehaviour
 
     void HandleMoveSelection()
     {
-        if (InputSystem.instance.right.isClicked())
+        if (InputSystem.right.isClicked())
         {
             currentMove++;
         }
-        else if (InputSystem.instance.left.isClicked())
+        else if (InputSystem.left.isClicked())
         {
             currentMove--;
         }
-        else if (InputSystem.instance.down.isClicked())
+        else if (InputSystem.down.isClicked())
         {
             currentMove += 2;
         }
-        else if (InputSystem.instance.up.isClicked())
+        else if (InputSystem.up.isClicked())
         {
             currentMove -= 2;
         }
 
         currentMove = Mathf.Clamp(currentMove, 0, playerUnit.creature.moves.Count - 1);
         dialogBox.UpdateMoveSelection(currentMove, playerUnit.creature.moves[currentMove]);
-        if (InputSystem.instance.action.isClicked())
+        if (InputSystem.action.isClicked())
         {
             var move = playerUnit.creature.moves[currentMove];
             if (move.PP <= 0)
@@ -742,7 +762,7 @@ public class BattleSystem : MonoBehaviour
             dialogBox.ToggleDialogText(true);
             StartCoroutine(RunTurns(BattleAction.Move));
         }
-        else if (InputSystem.instance.back.isClicked())
+        else if (InputSystem.back.isClicked())
         {
             dialogBox.ToggleMoveSelector(false);
             dialogBox.ToggleDialogText(true);
@@ -819,7 +839,7 @@ public class BattleSystem : MonoBehaviour
 
     }
 
-    public IEnumerator SwitchCreature(Creature newCreature, bool isTrainerAboutToUse=false)
+    public IEnumerator SwitchCreature(Creature newCreature, bool isTrainerAboutToUse = false)
     {
         if (playerUnit.creature.HP > 0)
         {
@@ -839,13 +859,16 @@ public class BattleSystem : MonoBehaviour
             dialogBox.dialogText
         );
         playerUnit.image.color = playerUnit.originalColor;
-        if (isTrainerAboutToUse){
+        if (isTrainerAboutToUse)
+        {
             StartCoroutine(SendNextTrainerCreature());
 
-        } else {
+        }
+        else
+        {
             battleState = BattleState.RunningTurn;
         }
-        
+
     }
 
     IEnumerator SendNextTrainerCreature()
@@ -915,7 +938,7 @@ public class BattleSystem : MonoBehaviour
     int TryToCatchCreature(Creature creature, HexoballItem hexoball)
     {
         float a = (3 * creature.maxHealth * creature.HP) *
-         creature._base.catchRate *hexoball.catchRateModifier * ConditionDB.GetStatusBonus(creature.status) / (3 * creature.maxHealth);
+         creature._base.catchRate * hexoball.catchRateModifier * ConditionDB.GetStatusBonus(creature.status) / (3 * creature.maxHealth);
         if (a >= 255)
         {
             return 4;

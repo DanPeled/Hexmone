@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-
 [CreateAssetMenu(fileName = "Move", menuName = "Creatures/Create New Move")]
 public class MoveBase : ScriptableObject
 {

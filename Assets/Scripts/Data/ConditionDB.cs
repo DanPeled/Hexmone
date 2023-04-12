@@ -157,16 +157,22 @@ public class ConditionDB
                 }
             }
         };
-        public static float GetStatusBonus(Condition condition){
-            if (condition == null){
-                return 1f;
-            } else if (condition.iD == ConditionID.slp || condition.iD == ConditionID.frz){
-                return 2f;
-            } else if (condition.iD == ConditionID.par || condition.iD == ConditionID.psn || condition.iD == ConditionID.brn){
-                return 1.5f;
-            }
+    public static float GetStatusBonus(Condition condition)
+    {
+        if (condition == null)
+        {
             return 1f;
         }
+        else if (condition.iD == ConditionID.slp || condition.iD == ConditionID.frz)
+        {
+            return 2f;
+        }
+        else if (condition.iD == ConditionID.par || condition.iD == ConditionID.psn || condition.iD == ConditionID.brn)
+        {
+            return 1.5f;
+        }
+        return 1f;
+    }
 }
 
 public enum ConditionID

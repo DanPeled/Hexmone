@@ -1,5 +1,5 @@
 using UnityEngine;
-
+[System.Serializable]
 public class ItemBase : ScriptableObject
 {
     public string name;

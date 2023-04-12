@@ -52,7 +52,6 @@ public class Player : MonoBehaviour, ISavable
     {
         mainCam = Camera.main;
         anim = GetComponent<CharacterAnimator>();
-        battleSystem = FindObjectOfType<BattleSystem>().gameObject;
         gameController = FindObjectOfType<GameController>();
     }
 
@@ -65,13 +64,15 @@ public class Player : MonoBehaviour, ISavable
         this.roomSys.levelLoader = GameObject
             .FindGameObjectWithTag("LevelLoader")
             .GetComponent<LevelLoader>();
+        battleSystem = FindObjectOfType<BattleSystem>().gameObject;
+
 
     }
     void Update()
     {
         notificationBar.transform.parent.gameObject.GetComponent<Canvas>().worldCamera = cameras[camIndex];
         instance = this;
-        if (colldingDoor && InputSystem.instance.action.isClicked())
+        if (colldingDoor && InputSystem.action.isClicked())
         {
             Door(doorObject.gameObject);
         }
@@ -86,8 +87,8 @@ public class Player : MonoBehaviour, ISavable
         {
             this.GetComponent<BoxCollider2D>().enabled = true;
             // Gives a value between -1 and 1
-            horizontal = InputSystem.instance.right.isPressed() ? 1 : (InputSystem.instance.left.isPressed() ? -1 : 0);  // -1 is left
-            vertical = InputSystem.instance.up.isPressed() ? 1 : (InputSystem.instance.down.isPressed() ? -1 : 0); // -1 is down
+            horizontal = InputSystem.right.isPressed() ? 1 : (InputSystem.left.isPressed() ? -1 : 0);  // -1 is left
+            vertical = InputSystem.up.isPressed() ? 1 : (InputSystem.down.isPressed() ? -1 : 0); // -1 is down
         }
         else
         {
@@ -133,7 +134,7 @@ public class Player : MonoBehaviour, ISavable
         }
         #endregion
         anim.isMoving = isMoving;
-        if (InputSystem.instance.action.isClicked())
+        if (InputSystem.action.isClicked())
         {
             ShowDialog();
             StartCoroutine(Interact(interactObject));
@@ -164,7 +165,7 @@ public class Player : MonoBehaviour, ISavable
         switch (other.gameObject.tag)
         {
             case "TV":
-                if (InputSystem.instance.action.isClicked() || active)
+                if (InputSystem.action.isClicked() || active)
                 {
                     TV();
                 }
@@ -289,13 +290,13 @@ public class Player : MonoBehaviour, ISavable
         switch (other.gameObject.tag)
         {
             case "Door":
-                if (InputSystem.instance.action.isClicked())
+                if (InputSystem.action.isClicked())
                 {
                     Door(other.gameObject);
                 }
                 break;
             case "TV":
-                if (InputSystem.instance.action.isClicked() || active)
+                if (InputSystem.action.isClicked() || active)
                 {
                     TV();
                 }

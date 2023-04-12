@@ -34,11 +34,11 @@ public class ChoiceBox : MonoBehaviour
     }
     void Update()
     {
-        if (InputSystem.instance.down.isClicked())
+        if (InputSystem.down.isClicked())
         {
             currentChoice++;
         }
-        else if (InputSystem.instance.up.isClicked())
+        else if (InputSystem.up.isClicked())
         {
             currentChoice--;
         }
@@ -47,7 +47,7 @@ public class ChoiceBox : MonoBehaviour
         {
             choiceTexts[i].SetSelected(i == currentChoice);
         }
-        if (InputSystem.instance.action.isClicked()){
+        if (InputSystem.action.isClicked()){
             choiceSelected = true;
         }
     }

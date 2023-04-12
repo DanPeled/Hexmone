@@ -5,6 +5,9 @@ using UnityEngine;
 public enum ShopState { menu, buying, selling, busy }
 public class ShopController : MonoBehaviour
 {
+    [Header("Camera offset")]
+    public Vector2 shopCameraOffset;
+
     [Header("Refrences")]
     public InventoryUI inventoryUI;
     public WalletUI walletUI;
@@ -43,9 +46,10 @@ public class ShopController : MonoBehaviour
         {
             case 0:
                 //Buy
-                state = ShopState.buying;
+                GameController.instance.MoveCamera(shopCameraOffset);
                 walletUI.Show();
-                shopUI.Show(this.merchant.items);
+                shopUI.Show(this.merchant.items, (selectedItem) => StartCoroutine(BuyItem(selectedItem)), OnBackFromBuying);
+                state = ShopState.buying;
                 break;
             case 1:
                 //Sell
@@ -118,5 +122,42 @@ public class ShopController : MonoBehaviour
         }
         walletUI.Close();
         state = ShopState.selling;
+    }
+    IEnumerator BuyItem(ItemBase item)
+    {
+        state = ShopState.busy;
+
+        yield return DialogManager.instance.ShowDialogText("How many would you like to buy?", waitForInput: false, autoClose: false);
+        int countToBuy = 1;
+        yield return countSelectorUI.ShowSelector(100, item.price, (selectedCount) => countToBuy = selectedCount);
+        DialogManager.instance.CloseDialog();
+
+        float totalPrice = item.price * (float)countToBuy;
+        if (Wallet.i.HasMoney(totalPrice))
+        {
+            int selectedChoice = 0;
+            yield return DialogManager.instance.ShowDialogText($"That will be {totalPrice}",
+             waitForInput: false, choices: new List<string>() { "Yes", "No" },
+              onChoiceSelected: choiceIndex => selectedChoice = choiceIndex);
+            if (selectedChoice == 0)
+            {
+                // yes
+                inv.AddItem(item, countToBuy);
+                Wallet.i.TakeMoney(totalPrice);
+                yield return DialogManager.instance.ShowDialogText($"Thank you for shopping with us");
+            }
+        }
+        else
+        {
+            yield return DialogManager.instance.ShowDialogText($"You don't have enough money for that");
+        }
+        state = ShopState.buying;
+    }
+    void OnBackFromBuying()
+    {
+        GameController.instance.MoveCamera(-shopCameraOffset);
+        shopUI.Close();
+        walletUI.Close();
+        StartCoroutine(StartMenuState());
     }
 }

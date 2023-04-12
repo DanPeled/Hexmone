@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e79a054c7486ef40a083eda26e6127f, type: 3}
+  m_Name: Crust-Acean
+  m_EditorClassIdentifier: 
+  name: Crust-Acean
+  description: 
+  frontSprite: {fileID: 21300000, guid: a187ba6f37932984d8b9c3bb5f17c36a, type: 3}
+  backSprite: {fileID: 21300000, guid: 9e6834366723e4448ac68d51e495cf5a, type: 3}
+  type1: 2
+  type2: 18
+  maxHealth: 120
+  damage: 60
+  defense: 110
+  spAttack: 80
+  spDefense: 110
+  speed: 80
+  catchRate: 225
+  expYield: 200
+  growthRate: 1
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 136c05322a49e11448c43881a720160c, type: 2}
+    level: 5
+  - moveBase: {fileID: 11400000, guid: 1ca11b1e3ab001f47aa31a241f44ef2d, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 50c9284fe1ba3fe48b765dc039f5c30e, type: 2}
+    level: 10
+  learnableByItems: []
+  evolutions: []
+  maxNumberOfMoves: 4

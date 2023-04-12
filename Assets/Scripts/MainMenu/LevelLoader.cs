@@ -11,7 +11,7 @@ public class LevelLoader : MonoBehaviour
     public static string lastScene;
     public GameObject loadingScreen;
     public static LevelLoader i;
-    public void Load(Room targetRoom)
+    public void Load(Room targetRoom=null)
     {
         transform.GetChild(0).gameObject.SetActive(true);
         StartCoroutine(LoadAnim("Transition", targetRoom));
@@ -31,7 +31,8 @@ public class LevelLoader : MonoBehaviour
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(scene, LoadSceneMode.Additive);
-        player.transform.position = targetRoom.roomPosition;
+        if (targetRoom != null)
+            player.transform.position = targetRoom.roomPosition;
 
         foreach (var levelLoader in GameObject.FindObjectsOfType<LevelLoader>())
         {
