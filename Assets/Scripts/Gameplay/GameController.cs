@@ -21,6 +21,10 @@ public class GameController : MonoBehaviour
         ItemDB.Init();
         QuestDB.Init();
     }
+    public void PauseGame(bool state)
+    {
+        this.state = state ? GameState.Paused : GameState.FreeRoam;
+    }
     void Start()
     {
         partyScreen.Init();
@@ -127,10 +131,14 @@ public class GameController : MonoBehaviour
             Action onBack = () =>
             {
                 inventoryUI.gameObject.SetActive(false);
+                inventoryUI.UpdateItemList();
+
                 state = GameState.FreeRoam;
             };
             inventoryUI.HandleUpdate(onBack);
-        } else if (state == GameState.Shop){
+        }
+        else if (state == GameState.Shop)
+        {
             ShopController.i.HandleUpdate();
         }
 
@@ -151,7 +159,7 @@ public class GameController : MonoBehaviour
         var playerParty = player.GetComponent<CreaturesParty>();
         bool hasEvolutions = playerParty.CheckForEvolutions();
         if (hasEvolutions)
-        StartCoroutine(playerParty.RunEvolutions());
+            StartCoroutine(playerParty.RunEvolutions());
         // else AudioManager.i.PlayMusic(); // play main music
     }
     void onMenuSelected(int selected)
@@ -167,6 +175,7 @@ public class GameController : MonoBehaviour
             case 1:
                 // Bag
                 inventoryUI.gameObject.SetActive(true);
+                inventoryUI.UpdateItemList();
                 state = GameState.Bag;
                 break;
             case 2:
@@ -181,7 +190,8 @@ public class GameController : MonoBehaviour
                 break;
         }
     }
-    public void MoveCamera(Vector2 moveOffset){
+    public void MoveCamera(Vector2 moveOffset)
+    {
         LevelLoader.i.Load();
         player.cameras[player.camIndex].transform.position += new Vector3(moveOffset.x, moveOffset.y);
 

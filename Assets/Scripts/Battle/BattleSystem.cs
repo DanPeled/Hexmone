@@ -159,6 +159,7 @@ public class BattleSystem : MonoBehaviour
     {
         battleState = BattleState.Bag;
         inventoryUI.gameObject.SetActive(true);
+        inventoryUI.UpdateItemList();
     }
     public void OpenPartyScreen()
     {
@@ -289,8 +290,11 @@ public class BattleSystem : MonoBehaviour
         if (CheckIfMoveHits(move, sourceUnit.creature, targetUnit.creature))
         {
             sourceUnit.PlayAttackAnimation();
+            AudioManager.i.PlaySFX(move.base_.sound);
+
             yield return new WaitForSeconds(1f);
             targetUnit.PlayHitAnimation();
+            AudioManager.i.PlaySFX(AudioId.Hit);
 
             if (move.base_.category == MoveCategory.Status)
             {
@@ -630,6 +634,7 @@ public class BattleSystem : MonoBehaviour
             case BattleState.Bag:
                 Action onBack = () =>
                 {
+        inventoryUI.UpdateItemList();
                     inventoryUI.gameObject.SetActive(false);
                     battleState = BattleState.ActionSelection;
                 };
@@ -638,6 +643,7 @@ public class BattleSystem : MonoBehaviour
                     StartCoroutine(this.OnItemUsed(itemUsed));
                 };
                 inventoryUI.HandleUpdate(onBack, onItemUsed);
+                inventoryUI.UpdateItemList();
                 break;
         }
     }

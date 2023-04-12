@@ -20,7 +20,7 @@ public class DialogManager : MonoBehaviour
         instance = this;
     }
     Dialog dialog;
-    public IEnumerator ShowDialog(Dialog dialog, List<string> choices=null, Action<int> onActionSelected=null)
+    public IEnumerator ShowDialog(Dialog dialog, List<string> choices = null, Action<int> onActionSelected = null)
     {
         //yield return new WaitForEndOfFrame();
         OnShowDialog?.Invoke();
@@ -31,7 +31,8 @@ public class DialogManager : MonoBehaviour
             yield return TypeDialog(line);
             yield return new WaitUntil(() => InputSystem.action.isClicked());
         }
-        if (choices != null && choices.Count > 1){
+        if (choices != null && choices.Count > 1)
+        {
             yield return choiceBox.ShowChoices(choices, onActionSelected);
         }
         dialogBox.SetActive(false);
@@ -52,6 +53,8 @@ public class DialogManager : MonoBehaviour
     {
         OnShowDialog?.Invoke();
         dialogBox.SetActive(true);
+        AudioManager.i.PlaySFX(AudioId.UISelect);
+
         yield return TypeDialog(text);
         if (waitForInput)
         {
@@ -65,7 +68,7 @@ public class DialogManager : MonoBehaviour
         {
             CloseDialog();
         }
-        
+
         OnCloseDialog?.Invoke();
     }
     public void CloseDialog()
@@ -86,7 +89,7 @@ public class DialogManager : MonoBehaviour
     {
         if (dialog != null)
             SetDialog(dialog.lines[currentLine]);
-        if (dialogBox != null && !dialogBox.activeInHierarchy)
+        if (dialogBox != null && !dialogBox.activeInHierarchy && GameController.instance.state != GameState.Battle && GameController.instance.state != GameState.Dialog)
         {
             GameController.instance.state = GameState.FreeRoam;
         }

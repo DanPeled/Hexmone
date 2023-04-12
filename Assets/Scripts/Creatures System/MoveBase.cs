@@ -5,15 +5,20 @@ public class MoveBase : ScriptableObject
 {
     public string name;
     public string description;
+    [Header("Stats")]
     public CreatureType type;
     public int power,
         accuracy,
         pp, priority;
     public bool alwaysHits;
     public MoveCategory category;
+    [Header("Effects")]
     public MoveEffects effects;
     public List<SecondaryEffects> secondaryEffects;
+    [Header("Target")]
     public MoveTarget target;
+    [Header("SFX")]
+    public AudioClip sound;
 }
 
 [System.Serializable]

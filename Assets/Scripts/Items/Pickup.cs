@@ -13,6 +13,7 @@ public class Pickup : MonoBehaviour, Interactable, ISavable
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
             var player = initiator.GetComponent<Player>();
+            AudioManager.i.PlaySFX(AudioId.ItemObtained, true);
             yield return DialogManager.instance.ShowDialogText($"{player.playerName } found {item.name}");
         }
     }

@@ -339,8 +339,9 @@ public class Player : MonoBehaviour, ISavable
     {
         if (inView && trainer != null && playerActive)
         {
-            yield return trainer.TriggerTrainerBattle(this);
             trainer.fov.SetActive(false);
+            yield return trainer.TriggerTrainerBattle(this);
+            yield break;
         }
     }
     public void SwitchCamera(int camIndex)

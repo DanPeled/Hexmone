@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 public class NotificationTriggerController : MonoBehaviour, Interactable
 {
-    public Dialog dialog;
+    public string dialog;
     public bool showTime;
     void Start()
     {
@@ -16,7 +16,6 @@ public class NotificationTriggerController : MonoBehaviour, Interactable
     public IEnumerator Interact(Transform initiator = null)
     {
         var time = DateTime.Now.ToString("HH:mm:ss");
-        Dialog dialog = new Dialog(time);
-        yield return DialogManager.instance.ShowDialog((!showTime ? this.dialog : dialog));
+        yield return DialogManager.instance.ShowDialogText((!showTime ? this.dialog : time));
     }
 }

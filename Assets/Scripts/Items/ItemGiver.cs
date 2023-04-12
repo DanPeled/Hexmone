@@ -5,18 +5,20 @@ public class ItemGiver : MonoBehaviour, ISavable
 {
     public ItemBase item;
     public int count = 1;
-    public Dialog dialog;
+    public string dialog;
 
 
     bool used = false;
 
     public IEnumerator GiveItem(Player player)
     {
-        yield return DialogManager.instance.ShowDialog(dialog);
+        yield return DialogManager.instance.ShowDialogText(dialog);
 
         player.GetComponent<Inventory>().AddItem(item, count);
 
         used = true;
+        AudioManager.i.PlaySFX(AudioId.ItemObtained, true);
+
         string dialogText = $"{player.playerName} recived {item.name}";
         if (count > 1)
         {

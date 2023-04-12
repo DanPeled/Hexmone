@@ -3,6 +3,9 @@ using UnityEngine;
 using System.Collections.Generic;
 public class NPCController : MonoBehaviour, Interactable, ISavable
 {
+    [Header("Dialog")]
+    public string dialog;
+
     [Header("Quests")]
     public QuestBase questToStart, questToComplete;
 
@@ -19,7 +22,6 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     SpriteAnimator spriteAnimator;
     Merchant merchant;
     Quest activeQuest;
-    public Dialog dialog;
 
     void Start()
     {
@@ -99,7 +101,7 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         }
         else
         {
-            yield return (DialogManager.instance.ShowDialog(dialog));
+            yield return (DialogManager.instance.ShowDialogText(dialog));
 
         }
     }

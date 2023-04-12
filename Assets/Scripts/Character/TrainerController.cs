@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TrainerController : MonoBehaviour, Interactable, ISavable
 {
-    public Dialog dialog, dialogAfterBattle;
+    public string dialog, dialogAfterBattle;
     public GameObject exclamation, fov;
     public Sprite sprite;
     public string trainerName;
@@ -25,36 +25,38 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
     }
     public IEnumerator Interact(Transform initiator = null)
     {
-        if (!battleLost)
+        if (!battleLost && FindObjectOfType<Player>().GetComponent<CreaturesParty>().GetHealthyCreature() != null)
         {
             //yield return (DialogManager.instance.ShowDialog(dialog));
             AudioManager.i.PlayMusic(trainerAppearClip);
-
             GameController.instance.StartTrainerBattle(this);
         }
         else
         {
-            yield return (DialogManager.instance.ShowDialog(dialogAfterBattle));
+            yield return (DialogManager.instance.ShowDialogText(dialogAfterBattle));
         }
     }
     public IEnumerator TriggerTrainerBattle(Player player)
     {
-        AudioManager.i.PlayMusic(trainerAppearClip);
-        player.playerActive = false;
-        player.isMoving = false;
-        // Show exclamation
-        exclamation.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        exclamation.SetActive(false);
-        // Walk to player
-        var diff = player.transform.position - transform.position;
-        var moveVec = diff - diff.normalized;
-        moveVec = new Vector3(Mathf.Round(moveVec.x), Mathf.Round(moveVec.y));
-        StartCoroutine(character.Move(moveVec));
+        if (player.GetComponent<CreaturesParty>().GetHealthyCreature() != null)
+        {
+            AudioManager.i.PlayMusic(trainerAppearClip);
+            player.playerActive = false;
+            player.isMoving = false;
+            // Show exclamation
+            exclamation.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            exclamation.SetActive(false);
+            // Walk to player
+            var diff = player.transform.position - transform.position;
+            var moveVec = diff - diff.normalized;
+            moveVec = new Vector3(Mathf.Round(moveVec.x), Mathf.Round(moveVec.y));
+            StartCoroutine(character.Move(moveVec));
 
-        //Show dialog
-        Player.instance.ShowDialog();
-        yield return (DialogManager.instance.ShowDialog(dialog));
+            //Show dialog
+            yield return (DialogManager.instance.ShowDialogText($"{dialog}"));
+            GameController.instance.StartTrainerBattle(this);
+        }
     }
     public void BattleLost()
     {

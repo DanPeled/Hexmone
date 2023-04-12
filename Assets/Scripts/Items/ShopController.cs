@@ -55,6 +55,7 @@ public class ShopController : MonoBehaviour
                 //Sell
                 state = ShopState.selling;
                 inventoryUI.gameObject.SetActive(true);
+                inventoryUI.UpdateItemList();
                 break;
             case 2:
                 //Quit
@@ -75,6 +76,8 @@ public class ShopController : MonoBehaviour
     }
     void onBackFromSelling()
     {
+        inventoryUI.UpdateItemList();
+
         inventoryUI.gameObject.SetActive(false);
         StartCoroutine(StartMenuState());
     }

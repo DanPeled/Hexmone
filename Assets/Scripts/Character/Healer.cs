@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Healer : MonoBehaviour
 {
-    public IEnumerator Heal(Transform playerTransform, Dialog dialog)
+    public IEnumerator Heal(Transform playerTransform, string dialog)
     {
         int selectedChoice = 0;
         yield return DialogManager.instance.ShowDialogText("You look tired! Would you like to rest here?", choices: new List<string>() { "Yes", "No" }, onChoiceSelected: (choiceIndex) => selectedChoice = choiceIndex);
