@@ -145,6 +145,9 @@ public class Player : MonoBehaviour, ISavable
         if (collidingInteractable)
         {
             yield return obj.GetComponent<Interactable>()?.Interact(transform);
+            collidingInteractable = false;
+            interactObject = null;
+            yield break;
         }
     }
     void FixedUpdate()
@@ -194,8 +197,8 @@ public class Player : MonoBehaviour, ISavable
         if (lastRoutine != null)
             StopCoroutine(lastRoutine);
         active = false;
-        if (other.gameObject.GetComponent<Interactable>() != null)
-            lastRoutine = StartCoroutine(removeNotification());
+        // if (other.gameObject.GetComponent<Interactable>() != null)
+            // lastRoutine = StartCoroutine(removeNotification());
     }
 
     #endregion
@@ -262,10 +265,24 @@ public class Player : MonoBehaviour, ISavable
     }
     void OnCollisionEnter2D(Collision2D other)
     {
+        // if (other.gameObject.GetComponent<SurfableWater>() != null)
+        // {
+        //     anim.isSurfing = true;
+        //     other.gameObject.GetComponent<CompositeCollider2D>().isTrigger = anim.isSurfing;
+        // }
         if (other.gameObject.GetComponent<Interactable>() != null)
         {
             this.collidingInteractable = true;
             this.interactObject = other.gameObject;
+        }
+    }
+    void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.GetComponent<Interactable>() != null)
+        {
+            this.collidingInteractable = false;
+            this.interactObject = null;
+            lastRoutine = StartCoroutine(removeNotification());
         }
     }
     void OnTriggerExit2D(Collider2D other)
@@ -277,12 +294,16 @@ public class Player : MonoBehaviour, ISavable
         if (other.gameObject.GetComponent<Interactable>() != null)
         {
             this.collidingInteractable = false;
+            this.interactObject = null;
             lastRoutine = StartCoroutine(removeNotification());
         }
         if (other.gameObject.GetComponent<IPlayerTriggerable>() != null)
         {
             other.GetComponent<BoxCollider2D>().enabled = true;
         }
+        // if (other.gameObject.GetComponent<SurfableWater>() != null){
+        //     anim.isSurfing = false;
+        // }
     }
     public void OnTriggerStay2D(Collider2D other)
     {

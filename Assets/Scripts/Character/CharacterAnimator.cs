@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    public List<Sprite> walkDownSprites, walkUpSprites, walkLeftSprites, walkRightSprites;
+    public List<Sprite> walkDownSprites, walkUpSprites, walkLeftSprites, walkRightSprites, surfingSprites;
     // Prameters
     public float moveX, moveY;
-    public bool isMoving, wasPrevioslyMoving;
+    public bool isMoving, wasPrevioslyMoving, isSurfing;
 
     // States
     SpriteAnimator walkDownAnim,
@@ -31,6 +31,7 @@ public class CharacterAnimator : MonoBehaviour
     void Update()
     {
         var prevAnim = currentAnim;
+        if (!isSurfing){
         if (moveX > 0)
         {
             currentAnim = walkRightAnim;
@@ -51,6 +52,7 @@ public class CharacterAnimator : MonoBehaviour
             currentAnim = walkDownAnim;
             moveX = 0;
         }
+        
         if (currentAnim != prevAnim)
         {
             currentAnim.Start();
@@ -59,6 +61,17 @@ public class CharacterAnimator : MonoBehaviour
         if (!isMoving)
         {
             spriteRenderer.sprite = currentAnim.frames[0];
+        }}
+        else {
+            if (moveX > 0){
+                spriteRenderer.sprite = surfingSprites[2];
+            } else if (moveX < 0){
+                spriteRenderer.sprite = surfingSprites[3];
+            } else if (moveY > 0){
+                spriteRenderer.sprite = surfingSprites[1];
+            } else if (moveY < 0){
+                spriteRenderer.sprite = surfingSprites[0];
+            }
         }
         wasPrevioslyMoving = isMoving;
     }

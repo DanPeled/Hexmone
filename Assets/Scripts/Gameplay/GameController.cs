@@ -190,6 +190,14 @@ public class GameController : MonoBehaviour
                 break;
         }
     }
+    public void StartCutsceneState()
+    {
+        state = GameState.CutScene;
+    }
+    public void StartFreeRoamState()
+    {
+        state = GameState.FreeRoam;
+    }
     public void MoveCamera(Vector2 moveOffset)
     {
         LevelLoader.i.Load();

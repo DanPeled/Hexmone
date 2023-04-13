@@ -51,6 +51,11 @@ public class DialogManager : MonoBehaviour
     }
     public IEnumerator ShowDialogText(string text, bool waitForInput = true, bool autoClose = true, List<string> choices = null, Action<int> onChoiceSelected = null)
     {
+        // if (dialogBox.gameObject.activeInHierarchy){
+        //     dialogBox.SetActive(false);
+        //     CloseDialog();
+        // }
+        dialogText.text = "";
         OnShowDialog?.Invoke();
         dialogBox.SetActive(true);
         AudioManager.i.PlaySFX(AudioId.UISelect);
@@ -68,7 +73,7 @@ public class DialogManager : MonoBehaviour
         {
             CloseDialog();
         }
-
+        CloseDialog();
         OnCloseDialog?.Invoke();
     }
     public void CloseDialog()
