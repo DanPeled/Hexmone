@@ -8,10 +8,14 @@ public class CreaturesParty : MonoBehaviour
 {
     public event Action onUpdated;
     public List<Creature> creatures;
-    public List<Creature> Creatures {
-        get {
+    public List<Creature> Creatures
+    {
+        get
+        {
             return creatures;
-        } set {
+        }
+        set
+        {
             creatures = value;
             onUpdated?.Invoke();
         }
@@ -29,30 +33,52 @@ public class CreaturesParty : MonoBehaviour
     {
         return Creatures.Where(x => x.HP > 0).FirstOrDefault();
     }
-    public void AddCreature(Creature newCreature){
-        if (Creatures.Count < 6){
+    public void AddCreature(Creature newCreature)
+    {
+        if (Creatures.Count < 6)
+        {
             Creatures.Add(newCreature);
             onUpdated?.Invoke();
-        } else {
+        }
+        else
+        {
             // TODO: Add the to the PC
         }
     }
-    public static CreaturesParty GetPlayerParty(){
+    public static CreaturesParty GetPlayerParty()
+    {
         return FindObjectOfType<Player>().GetComponent<CreaturesParty>();
     }
-    public bool CheckForEvolutions(){
+    public bool CheckForEvolutions()
+    {
         return creatures.Any(p => p.CheckForEvolution() != null);
     }
-    public IEnumerator RunEvolutions(){
-        foreach(var creature in creatures){
+    public IEnumerator RunEvolutions()
+    {
+        foreach (var creature in creatures)
+        {
             var evolution = creature.CheckForEvolution();
-            if (evolution != null){
+            if (evolution != null)
+            {
                 yield return EvolutionManager.instance.Evolve(creature, evolution);
             }
         }
         onUpdated?.Invoke();
     }
-    public void PartyUpdated(){
+    public void PartyUpdated()
+    {
         onUpdated?.Invoke();
+    }
+    public string GetPartyDiscordStatus()
+    {
+        string[] names = creatures.Select(c => c._base.name).ToArray();
+        int[] lvls = creatures.Select(c => c.level).ToArray();
+        string res = "";
+        for (int i = 0; i < creatures.Count; i++)
+        {
+            string text = (names[i] != names[0] ? "," : "") + names[i] + $" lvl {lvls[i]}";
+            res += $"{text}";
+        }
+        return res;
     }
 }

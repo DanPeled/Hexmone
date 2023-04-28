@@ -101,7 +101,8 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         }
         else
         {
-            yield return (DialogManager.instance.ShowDialogText(dialog));
+            if (CreaturesParty.GetPlayerParty().GetHealthyCreature() == null) yield break;
+            yield return (DialogManager.instance.ShowDialogText(dialog, autoClose: false));
 
         }
     }

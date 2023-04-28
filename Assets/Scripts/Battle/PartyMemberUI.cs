@@ -25,6 +25,7 @@ public class PartyMemberUI : MonoBehaviour
         lvlText.text = $"Lvl {_creature.level}";
 
         hpBar.SetHP((float)_creature.HP, _creature.maxHealth);
+        if (gameObject.activeInHierarchy)
         StartCoroutine(hpBar.SetHPSmooth((float)_creature.HP));
     }
     public void SetMessage(string msg)

@@ -10,6 +10,7 @@ public class MapAreaEditor : Editor
         var mapArea = (MapArea)target;
         var style = new GUIStyle();
         style.fontStyle = FontStyle.Bold;
+        style.normal.textColor = Color.white;
         GUILayout.Label($"Total Chance = {mapArea.totalChance}", style);
         if (mapArea.totalChance != 100)
             EditorGUILayout.HelpBox("The total chance is not 100", MessageType.Error);

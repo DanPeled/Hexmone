@@ -25,10 +25,12 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
     }
     public IEnumerator Interact(Transform initiator = null)
     {
-        if (!battleLost && FindObjectOfType<Player>().GetComponent<CreaturesParty>().GetHealthyCreature() != null)
+        if (CreaturesParty.GetPlayerParty().GetHealthyCreature() == null) { yield break; }
+        else if (!battleLost && FindObjectOfType<Player>().GetComponent<CreaturesParty>().GetHealthyCreature() != null)
         {
             //yield return (DialogManager.instance.ShowDialog(dialog));
             AudioManager.i.PlayMusic(trainerAppearClip);
+            DialogManager.instance.dialogBox.SetActive(false);
             GameController.instance.StartTrainerBattle(this);
         }
         else

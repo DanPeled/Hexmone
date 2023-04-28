@@ -37,8 +37,7 @@ public class Player : MonoBehaviour, ISavable
 
     [Header("Refrences")]
     public GameController gameController;
-    public GameObject notificationBar,
-           battleSystem;
+    public GameObject notificationBar;
     public Sprite sprite;
     public RoomSystem roomSys;
     private CharacterAnimator anim;
@@ -63,8 +62,7 @@ public class Player : MonoBehaviour, ISavable
             .FindGameObjectWithTag("LevelLoader")
             .GetComponent<LevelLoader>();
         StartCoroutine(roomSys.ChangeRoom(roomSys.startingRoom, this.gameObject));
-        battleSystem = FindObjectOfType<BattleSystem>().gameObject;
-        battleSystem.SetActive(false);
+        GameController.instance.battleSystem.gameObject.SetActive(false);
     }
     void Update()
     {
@@ -121,7 +119,7 @@ public class Player : MonoBehaviour, ISavable
         }
         else
         {
-            this.GetComponent<BoxCollider2D>().enabled = false;
+            // this.GetComponent<BoxCollider2D>().enabled = false;
             horizontal = 0;
             vertical = 0;
         }
@@ -163,7 +161,7 @@ public class Player : MonoBehaviour, ISavable
         }
         #endregion
         anim.isMoving = isMoving;
-        if (InputSystem.action.isClicked())
+        if (InputSystem.action.isClicked() && interactObject != null)
         {
             ShowDialog();
             StartCoroutine(Interact(interactObject));
@@ -219,7 +217,7 @@ public class Player : MonoBehaviour, ISavable
             StopCoroutine(lastRoutine);
         }
         string timeOnly = DateTime.Now.ToString("h:mm:ss tt");
-        lastRoutine = StartCoroutine(notify($"{timeOnly}"));
+        // lastRoutine = StartCoroutine(notify($"{timeOnly}"));
     }
     void OnCollisionExit2D(Collision2D other)
     {
@@ -231,16 +229,16 @@ public class Player : MonoBehaviour, ISavable
     }
 
     #endregion
-    public IEnumerator notify(string notification)
-    {
-        this.notification = notification;
-        this.notificationBar.GetComponentInChildren<TextMeshProUGUI>().text = notification;
-        while (notificationBar.transform.localPosition.y < -350)
-        {
-            this.notificationBar.transform.localPosition += new Vector3(0, 50, 0);
-            yield return new WaitForSeconds(0.05f);
-        }
-    }
+    //public IEnumerator notify(string notification)
+    // {
+    //     this.notification = notification;
+    //     this.notificationBar.GetComponentInChildren<TextMeshProUGUI>().text = notification;
+    //     while (notificationBar.transform.localPosition.y < -350)
+    //     {
+    //         this.notificationBar.transform.localPosition += new Vector3(0, 50, 0);
+    //         yield return new WaitForSeconds(0.05f);
+    //     }
+    // }
     public IEnumerator notify()
     {
         while (notificationBar.transform.localPosition.y < -130)
@@ -252,24 +250,17 @@ public class Player : MonoBehaviour, ISavable
     }
     public void ShowDialog()
     {
-        var rectTransform = notificationBar.GetComponent<RectTransform>();
-        rectTransform.localPosition = new Vector3(notificationBar.transform.localPosition.x, -130, 0);
+        notificationBar.SetActive(true);
     }
 
-    public IEnumerator removeNotification()
+    public void removeNotification()
     {
-        var rectTransform = notificationBar.GetComponent<RectTransform>();
-
-        while (rectTransform.localPosition.y > -720)
-        {
-            rectTransform.localPosition -= new Vector3(0, 50, 0);
-            yield return new WaitForSeconds(0.05f);
-        }
+        notificationBar.SetActive(false);
     }
 
     public void EnterBattle()
     {
-        battleSystem.SetActive(true);
+        GameController.instance.battleSystem.gameObject.SetActive(true);
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -311,7 +302,7 @@ public class Player : MonoBehaviour, ISavable
         {
             this.collidingInteractable = false;
             this.interactObject = null;
-            lastRoutine = StartCoroutine(removeNotification());
+            // lastRoutine = (removeNotification());
         }
     }
     void OnTriggerExit2D(Collider2D other)
@@ -324,7 +315,7 @@ public class Player : MonoBehaviour, ISavable
         {
             this.collidingInteractable = false;
             this.interactObject = null;
-            lastRoutine = StartCoroutine(removeNotification());
+            removeNotification();
         }
         if (other.gameObject.GetComponent<IPlayerTriggerable>() != null)
         {
@@ -368,6 +359,7 @@ public class Player : MonoBehaviour, ISavable
     }
     public IEnumerator CheckForEncounters(bool touchingLongGrass)
     {
+        if (!playerActive) yield break;
         int rnd = UnityEngine.Random.Range(1, 1000);
         if (touchingLongGrass)
         {
@@ -379,7 +371,7 @@ public class Player : MonoBehaviour, ISavable
                     new Room(transform.position, "Transition")
                 );
                 yield return new WaitForSeconds(1);
-                battleSystem.SetActive(true);
+                GameController.instance.battleSystem.gameObject.SetActive(true);
                 SwitchCamera(1);
                 gameController.StartBattle();
             }
