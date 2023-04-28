@@ -59,14 +59,12 @@ public class Player : MonoBehaviour, ISavable
     {
         roomSys = new RoomSystem(roomSys.startingRoom);
         body = GetComponent<Rigidbody2D>();
-        roomSys.ChangeRoom(roomSys.startingRoom, this.gameObject);
-        battleSystem.SetActive(false);
         this.roomSys.levelLoader = GameObject
             .FindGameObjectWithTag("LevelLoader")
             .GetComponent<LevelLoader>();
+        StartCoroutine(roomSys.ChangeRoom(roomSys.startingRoom, this.gameObject));
         battleSystem = FindObjectOfType<BattleSystem>().gameObject;
-
-
+        battleSystem.SetActive(false);
     }
     void Update()
     {
@@ -87,8 +85,39 @@ public class Player : MonoBehaviour, ISavable
         {
             this.GetComponent<BoxCollider2D>().enabled = true;
             // Gives a value between -1 and 1
-            horizontal = InputSystem.right.isPressed() ? 1 : (InputSystem.left.isPressed() ? -1 : 0);  // -1 is left
-            vertical = InputSystem.up.isPressed() ? 1 : (InputSystem.down.isPressed() ? -1 : 0); // -1 is down
+
+            if (playerActive)
+            {
+                this.GetComponent<BoxCollider2D>().enabled = true;
+
+                // Restrict diagonal movement
+                if (InputSystem.right.isPressed())
+                {
+                    horizontal = 1;
+                    vertical = 0;
+                }
+                else if (InputSystem.left.isPressed())
+                {
+                    horizontal = -1;
+                    vertical = 0;
+                }
+                else if (InputSystem.up.isPressed())
+                {
+                    horizontal = 0;
+                    vertical = 1;
+                }
+                else if (InputSystem.down.isPressed())
+                {
+                    horizontal = 0;
+                    vertical = -1;
+                }
+                else
+                {
+                    horizontal = 0;
+                    vertical = 0;
+                }
+            }
+
         }
         else
         {
@@ -177,10 +206,10 @@ public class Player : MonoBehaviour, ISavable
     }
     public void Door(GameObject other)
     {
-        roomSys.ChangeRoom(
+        StartCoroutine(roomSys.ChangeRoom(
             other.GetComponent<Door>().targetRoom,
             this.gameObject
-        );
+        ));
     }
     public void TV()
     {
@@ -198,7 +227,7 @@ public class Player : MonoBehaviour, ISavable
             StopCoroutine(lastRoutine);
         active = false;
         // if (other.gameObject.GetComponent<Interactable>() != null)
-            // lastRoutine = StartCoroutine(removeNotification());
+        // lastRoutine = StartCoroutine(removeNotification());
     }
 
     #endregion
@@ -347,7 +376,7 @@ public class Player : MonoBehaviour, ISavable
                 playerActive = false;
                 isMoving = false;
                 roomSys.levelLoader.Load(
-                    new Room(transform.position, "Transition", this.gameObject)
+                    new Room(transform.position, "Transition")
                 );
                 yield return new WaitForSeconds(1);
                 battleSystem.SetActive(true);

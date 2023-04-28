@@ -12,6 +12,7 @@ public class CreatureBase : ScriptableObject
     [Header("Sprites")]
     public Sprite frontSprite;
     public Sprite backSprite;
+    public Sprite repaintedFrontSprite, repaintedBackSprite;
 
     [Header("Types")]
     public CreatureType type1;

@@ -94,9 +94,5 @@ public class DialogManager : MonoBehaviour
     {
         if (dialog != null)
             SetDialog(dialog.lines[currentLine]);
-        if (dialogBox != null && !dialogBox.activeInHierarchy && GameController.instance.state != GameState.Battle && GameController.instance.state != GameState.Dialog)
-        {
-            GameController.instance.state = GameState.FreeRoam;
-        }
     }
 }

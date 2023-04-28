@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
@@ -13,9 +14,13 @@ public class RoomSystem
         this.currentRoom = startingRoom;
     }
 
-    public void ChangeRoom(Room targetRoom, GameObject player)
+    public IEnumerator ChangeRoom(Room targetRoom, GameObject player)
     {
+        player.GetComponent<Player>().playerActive = false;
         this.currentRoom = targetRoom;
-        this.levelLoader.Load(targetRoom);
+        this.levelLoader.Load();
+        yield return new WaitForSeconds(0.4f);
+        player.transform.position = targetRoom.roomPosition;
+        player.GetComponent<Player>().playerActive = true;
     }
 }

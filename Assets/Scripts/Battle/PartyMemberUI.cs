@@ -17,15 +17,18 @@ public class PartyMemberUI : MonoBehaviour
 
         _creature.OnHPChanged += UpdateData;
     }
-    void UpdateData(){
-
+    void UpdateData()
+    {
+        if (!gameObject.activeSelf)
+            return;
         nameText.text = _creature._base.Name;
         lvlText.text = $"Lvl {_creature.level}";
 
         hpBar.SetHP((float)_creature.HP, _creature.maxHealth);
         StartCoroutine(hpBar.SetHPSmooth((float)_creature.HP));
     }
-    public void SetMessage(string msg){
+    public void SetMessage(string msg)
+    {
         messageText.text = msg;
     }
     public void SetSelected(bool selected)
