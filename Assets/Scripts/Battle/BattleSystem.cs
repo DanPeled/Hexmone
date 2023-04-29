@@ -461,9 +461,12 @@ public class BattleSystem : MonoBehaviour
         {
 
             bool battleWon = true;
-            if (isTrainerBattle){
+            if (isTrainerBattle)
+            {
                 battleWon = trainerParty.GetHealthyCreature() == null;
-            } if (battleWon){
+            }
+            if (battleWon)
+            {
                 AudioManager.i.PlayMusic(battleVictoryMusic);
             }
             // Exp gain
@@ -634,7 +637,7 @@ public class BattleSystem : MonoBehaviour
             case BattleState.Bag:
                 Action onBack = () =>
                 {
-        inventoryUI.UpdateItemList();
+                    inventoryUI.UpdateItemList();
                     inventoryUI.gameObject.SetActive(false);
                     battleState = BattleState.ActionSelection;
                 };
@@ -650,7 +653,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator OnItemUsed(ItemBase usedItem)
     {
         battleState = BattleState.Busy;
-        inventoryUI.gameObject.SetActive(false);
+        //inventoryUI.gameObject.SetActive(false);
 
         if (usedItem is HexoballItem)
         {

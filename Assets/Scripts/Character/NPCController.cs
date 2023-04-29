@@ -11,15 +11,11 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
 
     [Header("Movement")]
     public List<Sprite> sprites;
-    public List<Vector2> movementPattern;
-    public float timeBetweenPatterns;
-    NPCState state;
-    float idleTimer = 0f;
     public Character character;
     ItemGiver itemGiver;
     Healer healer;
     CreatureGiver creatureGiver;
-    SpriteAnimator spriteAnimator;
+    public SpriteAnimator spriteAnimator;
     Merchant merchant;
     Quest activeQuest;
 
@@ -35,26 +31,10 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     }
     void Update()
     {
-        if (state == NPCState.Idle)
-        {
-            idleTimer += Time.deltaTime;
-            if (idleTimer > 2f)
-            {
-                idleTimer = 0f;
-                if (movementPattern.Count > 0)
-                {
-                    spriteAnimator.HandleUpdate();
-                    var pattern = movementPattern[Random.Range(0, movementPattern.Count)];
-                    state = NPCState.Walking;
-                }
-            }
-        }
 
     }
     public IEnumerator Interact(Transform initiator = null)
     {
-        idleTimer = 0f;
-        state = NPCState.Idle;
         if (questToComplete != null)
         {
             var quest = new Quest(questToComplete);

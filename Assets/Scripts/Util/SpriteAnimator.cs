@@ -32,4 +32,8 @@ public class SpriteAnimator
         }
 
     }
+    public void SetFrame(int frame)
+    {
+        currentFrame = frame;
+    }
 }

@@ -14,20 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Pebblin
   description: 
-  maxHealth: 50
-  type1: 1
-  type2: 0
-  damage: 30
   frontSprite: {fileID: 21300000, guid: 24d0c9450f8e41a47b62e66f29f776ea, type: 3}
   backSprite: {fileID: 21300000, guid: 3afbdabeb1340d140821b6652524ffa8, type: 3}
+  repaintedFrontSprite: {fileID: 0}
+  repaintedBackSprite: {fileID: 0}
+  type1: 1
+  type2: 0
+  maxHealth: 70
+  damage: 40
   defense: 60
-  spAttack: 50
-  spDefense: 60
-  speed: 30
-  learnableMoves: []
-  learnableByItems: []
+  spAttack: 60
+  spDefense: 40
+  speed: 40
   catchRate: 225
   expYield: 100
   growthRate: 0
-  maxNumberOfMoves: 4
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: 9c6502bde9e713949b6476b65582dd6a, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: 7da9d4c3d59368f4aa8cba9c6f6b1181, type: 2}
+    level: 6
+  - moveBase: {fileID: 11400000, guid: ad3d3e8f181efc543ac84ccd377eb2e3, type: 2}
+    level: 13
+  - moveBase: {fileID: 11400000, guid: fd8adddc29b9d6140b6d1057880f3802, type: 2}
+    level: 20
+  learnableByItems: []
   evolutions: []
+  maxNumberOfMoves: 4

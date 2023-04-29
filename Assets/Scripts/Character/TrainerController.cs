@@ -79,4 +79,9 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
             fov.gameObject.SetActive(false);
         }
     }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position - new Vector3(4,0,0));
+    }
 }

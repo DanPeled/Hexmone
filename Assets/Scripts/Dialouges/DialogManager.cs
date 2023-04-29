@@ -80,7 +80,7 @@ public class DialogManager : MonoBehaviour
     {
         dialogBox.SetActive(false);
         OnCloseDialog?.Invoke();
-        GameController.instance.state = GameState.FreeRoam;
+        GameController.instance.state = GameController.instance.prevState;
     }
     public void SetDialog(string line)
     {

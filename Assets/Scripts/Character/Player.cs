@@ -20,7 +20,7 @@ public class Player : MonoBehaviour, ISavable
         right
     };
     public bool isMoving;
-    FacingDir facingDir;
+    public FacingDir facingDir;
     public static Player instance;
     float horizontal;
     float vertical;
@@ -201,6 +201,11 @@ public class Player : MonoBehaviour, ISavable
                 }
                 break;
         }
+        if (other.gameObject.GetComponent<Interactable>() != null)
+        {
+            this.collidingInteractable = true;
+            this.interactObject = other.gameObject;
+        }
     }
     public void Door(GameObject other)
     {
@@ -223,6 +228,11 @@ public class Player : MonoBehaviour, ISavable
     {
         if (lastRoutine != null)
             StopCoroutine(lastRoutine);
+        if (other.gameObject.GetComponent<Interactable>() != null)
+        {
+            this.collidingInteractable = false;
+            this.interactObject = null;
+        }
         active = false;
         // if (other.gameObject.GetComponent<Interactable>() != null)
         // lastRoutine = StartCoroutine(removeNotification());
@@ -296,6 +306,7 @@ public class Player : MonoBehaviour, ISavable
             this.interactObject = other.gameObject;
         }
     }
+
     void OnCollisionExit(Collision other)
     {
         if (other.gameObject.GetComponent<Interactable>() != null)

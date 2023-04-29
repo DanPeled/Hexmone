@@ -36,6 +36,10 @@ public class InventoryUI : MonoBehaviour
     }
     void Update()
     {
+        if (gameObject.activeInHierarchy && GameController.instance.state == GameState.FreeRoam)
+        {
+            GameController.instance.state = GameState.Bag;
+        }
     }
     public void UpdateItemList()
     {
@@ -267,7 +271,10 @@ public class InventoryUI : MonoBehaviour
     {
         var slots = inventory.GetSlotsByCategory(selectedCategory);
         selectedItem = Mathf.Clamp(selectedItem, 0, slots.Count - 1);
-
+        if (slotUIs.Count > slots.Count)
+        {
+            Destroy(slotUIs[0]);
+        }
         for (int i = 0; i < slotUIs.Count; i++)
         {
             if (i == selectedItem)
@@ -319,7 +326,6 @@ public class InventoryUI : MonoBehaviour
     {
         state = InventoryUIState.PartySelection;
         partyScreen.gameObject.SetActive(true);
-
     }
     void ClosePartyScreen()
     {
