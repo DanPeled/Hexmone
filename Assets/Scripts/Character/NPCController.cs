@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class NPCController : MonoBehaviour, Interactable, ISavable
 {
     [Header("Dialog")]
+    public string Name;
     public string dialog;
 
     [Header("Quests")]
@@ -18,7 +19,7 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     public SpriteAnimator spriteAnimator;
     Merchant merchant;
     Quest activeQuest;
-
+    public Sprite dialougeSprite;
     void Start()
     {
         spriteAnimator = new SpriteAnimator(sprites, GetComponentInChildren<SpriteRenderer>());
@@ -70,7 +71,8 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
             }
             else
             {
-                yield return DialogManager.instance.ShowDialog(activeQuest.Base.InProgressDialog);
+                DialogManager.instance.SetNPCDetails(this);
+                yield return DialogManager.instance.ShowDialog(activeQuest.Base.InProgressDialog, init:transform);
             }
         }
         else if (healer != null)
@@ -82,7 +84,8 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         else
         {
             if (CreaturesParty.GetPlayerParty().GetHealthyCreature() == null) yield break;
-            yield return (DialogManager.instance.ShowDialogText(dialog, autoClose: false));
+            DialogManager.instance.SetNPCDetails(this);
+            yield return (DialogManager.instance.ShowDialogText(dialog, autoClose: false, init:transform));
 
         }
     }

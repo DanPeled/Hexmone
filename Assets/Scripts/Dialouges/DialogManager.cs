@@ -4,13 +4,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class DialogManager : MonoBehaviour
 {
+    [Header("NPC Details")]
+    public GameObject npcDetails;
+    public Image npcImage;
+    public TextMeshProUGUI npcName;
     public Action OnShowDialog;
     public Action OnCloseDialog;
+    [Header("Refrences")]
     public GameObject dialogBox;
     public ChoiceBox choiceBox;
     public TextMeshProUGUI dialogText;
+    [Header("Stats")]
     public int lettersPerSecond;
     public static DialogManager instance;
     [SerializeField] public int currentLine;
@@ -20,8 +27,12 @@ public class DialogManager : MonoBehaviour
         instance = this;
     }
     Dialog dialog;
-    public IEnumerator ShowDialog(Dialog dialog, List<string> choices = null, Action<int> onActionSelected = null)
+    public IEnumerator ShowDialog(Dialog dialog, List<string> choices = null, Action<int> onActionSelected = null, Transform init = null)
     {
+        if (init == null)
+        {
+            ClearDetails();
+        }
         //yield return new WaitForEndOfFrame();
         OnShowDialog?.Invoke();
         this.dialog = dialog;
@@ -38,6 +49,24 @@ public class DialogManager : MonoBehaviour
         dialogBox.SetActive(false);
         OnCloseDialog?.Invoke();
     }
+    public void SetNPCDetails(NPCController npc)
+    {
+        npcDetails.SetActive(true);
+        npcName.text = npc.Name;
+        npcImage.sprite = npc.dialougeSprite;
+    }
+    public void SetTrainerDetails(TrainerController trainer)
+    {
+        npcDetails.SetActive(true);
+        npcName.text = trainer.Name;
+        npcImage.sprite = trainer.dialougeSprite;
+    }
+    public void ClearDetails()
+    {
+        npcDetails.SetActive(false);
+        npcName.name = "";
+        npcImage.sprite = null;
+    }
     public IEnumerator TypeDialog(string line)
     {
         yield return new WaitForEndOfFrame();
@@ -49,8 +78,12 @@ public class DialogManager : MonoBehaviour
         }
         OnShowDialog?.Invoke();
     }
-    public IEnumerator ShowDialogText(string text, bool waitForInput = true, bool autoClose = true, List<string> choices = null, Action<int> onChoiceSelected = null)
+    public IEnumerator ShowDialogText(string text, bool waitForInput = true, bool autoClose = true, List<string> choices = null, Action<int> onChoiceSelected = null, Transform init = null)
     {
+        if (init == null)
+        {
+            ClearDetails();
+        }
         // if (dialogBox.gameObject.activeInHierarchy){
         //     dialogBox.SetActive(false);
         //     CloseDialog();

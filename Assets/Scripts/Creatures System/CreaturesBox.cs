@@ -5,6 +5,7 @@ using AYellowpaper.SerializedCollections;
 public class CreaturesBox : MonoBehaviour
 {
     public SerializedDictionary<int, Creature[]> boxes;
+    int boxSize = 10;
     public Creature Get(int index, int box)
     {
         return GetBox(box)[index];
@@ -40,5 +41,28 @@ public class CreaturesBox : MonoBehaviour
                 return;
             }
         }
+    }
+    public bool IsFull(int box)
+    {
+        return boxes[box].Length == boxSize;
+    }
+    public void Add(Creature creature)
+    {
+        int boxIndex = 0;
+        foreach (var box in boxes.Keys)
+        {
+            if (!IsFull(box))
+            {
+                boxIndex = box;
+                break;
+            }
+        }
+        GetBox(boxIndex).Append(creature);
+        DialogManager.instance.ShowDialogText($"{creature._base.name} has been added to your Hexo-Box");
+    }
+
+    public static CreaturesBox GetPlayerBox()
+    {
+        return FindObjectsOfType<CreaturesBox>().FirstOrDefault(cb => cb.gameObject.tag.Equals("Player"));
     }
 }

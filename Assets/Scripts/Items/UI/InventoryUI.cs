@@ -11,8 +11,8 @@ public class InventoryUI : MonoBehaviour
     List<ItemSlotUI> slotUIs;
     public GameObject itemList;
     public ItemSlotUI itemSlotUI;
-    Inventory inventory;
-    int selectedItem = 0, selectedCategory;
+    public Inventory inventory;
+    int selectedItem = 0, selectedCategory = 0;
     public Image itemIcon;
     public TextMeshProUGUI descriptionText, categoryText;
     public RectTransform itemListRect;
@@ -49,13 +49,14 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
         slotUIs = new List<ItemSlotUI>();
-        foreach (var itemSlot in inventory.GetSlotsByCategory(selectedCategory))
-        {
-            var slot = Instantiate(itemSlotUI, itemList.transform);
-            slot.SetData(itemSlot);
+        // if (inventory.GetSlotsByCategory(selectedCategory).Count > 0)
+            foreach (var itemSlot in inventory.GetSlotsByCategory(selectedCategory))
+            {
+                var slot = Instantiate(itemSlotUI, itemList.transform);
+                slot.SetData(itemSlot);
 
-            slotUIs.Add(slot);
-        }
+                slotUIs.Add(slot);
+            }
 
         UpdateItemSelection();
     }
@@ -145,7 +146,7 @@ public class InventoryUI : MonoBehaviour
             state = InventoryUIState.ItemSelection;
             yield break;
         }
-        if (GameController.instance.state == GameState.Battle)
+        if (GameController.instance.battleSystem.gameObject.activeInHierarchy)
         {
             // In a battle
             if (!item.CanUseInBattle)
@@ -211,7 +212,7 @@ public class InventoryUI : MonoBehaviour
         if (usedItem != null)
         {
             if (usedItem is RecoveryItem)
-                yield return DialogManager.instance.ShowDialogText($"The player used {usedItem.name} ");
+                yield return DialogManager.instance.ShowDialogText($"{Player.instance.playerName} used {usedItem.name}!");
             onItemUsed?.Invoke(usedItem);
         }
         else
@@ -275,24 +276,31 @@ public class InventoryUI : MonoBehaviour
         {
             Destroy(slotUIs[0]);
         }
-        for (int i = 0; i < slotUIs.Count; i++)
-        {
-            if (i == selectedItem)
+        if (slotUIs.Count > 0)
+            for (int i = 0; i < slotUIs.Count; i++)
             {
-                slotUIs[i].nameText.color = GlobalSettings.i.highlightedColor;
+                if (i == selectedItem)
+                {
+                    slotUIs[i].nameText.color = GlobalSettings.i.highlightedColor;
+                }
+                else
+                {
+                    slotUIs[i].nameText.color = Color.black;
+                }
             }
-            else
-            {
-                slotUIs[i].nameText.color = Color.black;
-            }
-        }
 
         if (slots.Count > 0)
         {
+            itemIcon.gameObject.SetActive(true);
             var item = slots[selectedItem].item;
             itemIcon.color = Color.white;
             itemIcon.sprite = item.icon;
             descriptionText.text = item.description;
+        }
+        else
+        {
+            itemIcon.gameObject.SetActive(false);
+            descriptionText.text = "";
         }
         HandleScrolling();
     }

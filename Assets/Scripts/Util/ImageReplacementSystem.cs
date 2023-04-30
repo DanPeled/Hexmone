@@ -20,11 +20,10 @@ public class ImageReplacementSystem : MonoBehaviour
             {
                 if (image.gameObject.activeInHierarchy)
                 {
-                    if ((image.GetComponent<BattleUnit>() != null || image.tag.Equals("CharacterImage")))
+                    if ((image.GetComponent<BattleUnit>() != null || image.tag.Equals("CharacterImage") || image.tag.Equals("NPCImage")))
                     {
                         image.sprite = missingTexture;
                     }
-
                 }
                 else
                 {

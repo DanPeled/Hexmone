@@ -8,6 +8,7 @@ public class CreaturesParty : MonoBehaviour
 {
     public event Action onUpdated;
     public List<Creature> creatures;
+    CreaturesBox creaturesBox;
     public List<Creature> Creatures
     {
         get
@@ -23,6 +24,7 @@ public class CreaturesParty : MonoBehaviour
 
     public void Start()
     {
+        creaturesBox = CreaturesBox.GetPlayerBox();
         foreach (var creature in Creatures)
         {
             creature.Init();
@@ -43,6 +45,7 @@ public class CreaturesParty : MonoBehaviour
         else
         {
             // TODO: Add the to the PC
+            creaturesBox.Add(newCreature);
         }
     }
     public static CreaturesParty GetPlayerParty()

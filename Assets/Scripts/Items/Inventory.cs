@@ -37,7 +37,11 @@ public class Inventory : MonoBehaviour, ISavable
 
         var item = GetItem(itemIndex, selectedCategory);
         bool itemUsed = item.Use(creature);
-
+        if (item is HexoballItem && BattleSystem.i.isTrainerBattle)
+        {
+            //StartCoroutine(DialogManager.instance.ShowDialogText("This item cannot be used in a trainer battle!"));
+            return null;
+        }
         if (itemUsed)
         {
             if (!item.isReusable)
@@ -55,7 +59,7 @@ public class Inventory : MonoBehaviour, ISavable
         var currentSlots = GetSlotsByCategory(category);
         return currentSlots.Exists(slot => slot.item == item);
     }
-    public void RemoveItem(ItemBase item, int count=1)
+    public void RemoveItem(ItemBase item, int count = 1)
     {
         var category = (int)GetCategoryFromItem(item);
 

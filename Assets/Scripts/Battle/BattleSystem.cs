@@ -28,6 +28,11 @@ public enum BattleAction
 
 public class BattleSystem : MonoBehaviour
 {
+    public static BattleSystem i;
+    void Awake()
+    {
+        i = this;
+    }
     [Header("Music")]
     public AudioClip wildBattleMusic;
     public AudioClip trainerBattleMusic, battleVictoryMusic;
@@ -113,14 +118,14 @@ public class BattleSystem : MonoBehaviour
             playerImage.sprite = player.sprite;
             trainerImage.sprite = trainer.sprite;
 
-            yield return dialogBox.TypeDialog($"{trainer.trainerName} wants to battle");
+            yield return dialogBox.TypeDialog($"{trainer.Name} wants to battle");
 
             // Send out first creature of the trainer
             trainerImage.gameObject.SetActive(false);
             enemyUnit.gameObject.SetActive(true);
             var enemyCreature = trainerParty.GetHealthyCreature();
             enemyUnit.Setup(enemyCreature);
-            yield return dialogBox.TypeDialog($"{trainer.trainerName} sent out {enemyCreature._base.Name}");
+            yield return dialogBox.TypeDialog($"{trainer.Name} sent out {enemyCreature._base.Name}");
 
             // Send out first creature of the player
             playerImage.gameObject.SetActive(false);
@@ -173,7 +178,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator AboutToUse(Creature newCreature)
     {
         battleState = BattleState.Busy;
-        yield return dialogBox.TypeDialog($"{trainer.trainerName} is about to use {newCreature._base.Name}. Do you want to change creature?");
+        yield return dialogBox.TypeDialog($"{trainer.Name} is about to use {newCreature._base.Name}. Do you want to change creature?");
         battleState = BattleState.AboutToUse;
         dialogBox.ToggleChoiceBox(true);
     }
@@ -657,6 +662,13 @@ public class BattleSystem : MonoBehaviour
 
         if (usedItem is HexoballItem)
         {
+            if (isTrainerBattle)
+            {
+                partyScreen.gameObject.SetActive(false);
+                DialogManager.instance.ShowDialogText("You can't use a hexoball in a trainer battle!");
+                battleState = BattleState.ActionSelection;
+                yield break;
+            }
             yield return ThrowHexoball((HexoballItem)usedItem);
         }
 
@@ -885,7 +897,7 @@ public class BattleSystem : MonoBehaviour
         var nextCreature = trainerParty.GetHealthyCreature();
         battleState = BattleState.Busy;
         enemyUnit.Setup(nextCreature);
-        yield return dialogBox.TypeDialog($"{trainer.trainerName} send out {nextCreature._base.Name}");
+        yield return dialogBox.TypeDialog($"{trainer.Name} send out {nextCreature._base.Name}");
 
         battleState = BattleState.RunningTurn;
     }
