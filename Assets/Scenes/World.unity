@@ -54392,7 +54392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 941050631977307291, guid: 42d199058d4ffb84b9ecfab9429b0857, type: 3}
       propertyPath: creatures.Array.data[0].repainted
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2136478156385822749, guid: 42d199058d4ffb84b9ecfab9429b0857, type: 3}
       propertyPath: uniqueId

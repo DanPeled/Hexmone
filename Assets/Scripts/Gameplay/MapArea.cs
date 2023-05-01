@@ -17,10 +17,6 @@ public class MapArea : MonoBehaviour
             totalChance = totalChance + record.chancePercentage;
         }
     }
-    void Start()
-    {
-
-    }
     public Creature GetRandomWildCreature()
     {
         bool repainted = Random.Range(1, 4050) == 1;
