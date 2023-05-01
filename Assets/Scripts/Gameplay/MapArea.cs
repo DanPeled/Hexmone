@@ -23,12 +23,13 @@ public class MapArea : MonoBehaviour
     }
     public Creature GetRandomWildCreature()
     {
+        bool repainted = Random.Range(1, 4050) == 1;
         int r = Random.Range(1, 101);
         var creatureRecord = wildCreatures.First(c => r >= c.chanceLower && r <= c.chanceUpper);
         var levelRange = creatureRecord.levelRange;
         var lvl = levelRange.y == 0 ? levelRange.x : Random.Range(levelRange.x, levelRange.y + 1);
 
-        var wildCreature = new Creature(creatureRecord.creature, lvl);
+        var wildCreature = new Creature(creatureRecord.creature, lvl, repainted);
         wildCreature.Init();
         return wildCreature;
     }

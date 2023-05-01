@@ -24,11 +24,11 @@ public class BattleUnit : MonoBehaviour
         this.creature = creature;
         if (isPlayerUnit)
         {
-            image.sprite = creature._base.backSprite;
+            image.sprite = creature.GetBackSprite();
         }
         else
         {
-            image.sprite = creature._base.frontSprite;
+            image.sprite = creature.GetFrontSprite();
         }
         transform.localScale = new Vector3(1, 1, 1);
         hud.gameObject.SetActive(true);

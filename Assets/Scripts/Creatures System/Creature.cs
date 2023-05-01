@@ -19,10 +19,18 @@ public class Creature
     public event Action OnHPChanged;
     public Condition volatileStatus;
     public int volatileStatusTime;
+    public bool repainted;
     public Creature(CreatureBase base_, int pLvl)
     {
         this._base = base_;
         level = pLvl;
+        Init();
+    }
+    public Creature(CreatureBase base_, int pLvl, bool repainted)
+    {
+        this._base = base_;
+        level = pLvl;
+        this.repainted = repainted;
         Init();
     }
     public void Init()
@@ -310,6 +318,14 @@ public class Creature
         HP = maxHealth;
         CureStatus();
         OnHPChanged?.Invoke();
+    }
+    public Sprite GetFrontSprite()
+    {
+        return repainted ? _base.repaintedFrontSprite : _base.frontSprite;
+    }
+    public Sprite GetBackSprite()
+    {
+        return repainted ? _base.repaintedBackSprite : _base.backSprite;
     }
 }
 

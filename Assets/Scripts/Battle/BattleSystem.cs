@@ -101,7 +101,7 @@ public class BattleSystem : MonoBehaviour
             dialogBox.SetMoveNames(playerUnit.creature.moves);
 
             yield return dialogBox.TypeDialog(
-                $"A Wild {enemyUnit.creature._base.Name} Appeared",
+                $"A Wild {(enemyUnit.creature.repainted ? "Repainted" : "")}{enemyUnit.creature._base.Name} Appeared",
                 dialogBox.dialogText
             );
         }
@@ -125,7 +125,7 @@ public class BattleSystem : MonoBehaviour
             enemyUnit.gameObject.SetActive(true);
             var enemyCreature = trainerParty.GetHealthyCreature();
             enemyUnit.Setup(enemyCreature);
-            yield return dialogBox.TypeDialog($"{trainer.Name} sent out {enemyCreature._base.Name}");
+            yield return dialogBox.TypeDialog($"{trainer.Name} sent out {(enemyUnit.creature.repainted ? "Repainted" : "")} {enemyCreature._base.Name}");
 
             // Send out first creature of the player
             playerImage.gameObject.SetActive(false);
@@ -876,7 +876,7 @@ public class BattleSystem : MonoBehaviour
 
         dialogBox.SetMoveNames(newCreature.moves);
         yield return dialogBox.TypeDialog(
-            $"Go {newCreature._base.Name}!",
+            $"Go {(enemyUnit.creature.repainted ? "Repainted" : "")} {newCreature._base.Name}!",
             dialogBox.dialogText
         );
         playerUnit.image.color = playerUnit.originalColor;

@@ -32008,6 +32008,7 @@ MonoBehaviour:
     HP: 100
     statusTime: 0
     volatileStatusTime: 0
+    repainted: 0
 --- !u!114 &901585474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32065,12 +32066,14 @@ MonoBehaviour:
         HP: 0
         statusTime: 0
         volatileStatusTime: 0
+        repainted: 0
       - _base: {fileID: 0}
         level: 0
         exp: 0
         HP: 0
         statusTime: 0
         volatileStatusTime: 0
+        repainted: 0
 --- !u!1 &907816476
 GameObject:
   m_ObjectHideFlags: 0
@@ -54377,6 +54380,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 941050631977307291, guid: 42d199058d4ffb84b9ecfab9429b0857, type: 3}
       propertyPath: creatures.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 941050631977307291, guid: 42d199058d4ffb84b9ecfab9429b0857, type: 3}
+      propertyPath: creatures.Array.data[0]._base
+      value: 
+      objectReference: {fileID: 11400000, guid: 9052ac1cd0bb1354c8d0a0f193ddb35a, type: 2}
+    - target: {fileID: 941050631977307291, guid: 42d199058d4ffb84b9ecfab9429b0857, type: 3}
+      propertyPath: creatures.Array.data[0].level
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 941050631977307291, guid: 42d199058d4ffb84b9ecfab9429b0857, type: 3}
+      propertyPath: creatures.Array.data[0].repainted
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2136478156385822749, guid: 42d199058d4ffb84b9ecfab9429b0857, type: 3}

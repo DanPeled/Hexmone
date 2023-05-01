@@ -18,7 +18,7 @@ public class EvolutionManager : MonoBehaviour
         onStartEvolution?.Invoke();
         evolutionUI.SetActive(true);
         AudioManager.i.PlayMusic(evolutionMusic);
-        creatureImage.sprite = creature._base.frontSprite;
+        creatureImage.sprite = creature.GetFrontSprite();
         yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} is evolving");
 
         
@@ -26,7 +26,7 @@ public class EvolutionManager : MonoBehaviour
 
 
         creature.Evolve(evolution);
-        creatureImage.sprite = creature._base.frontSprite;
+        creatureImage.sprite = creature.GetFrontSprite();
         yield return DialogManager.instance.ShowDialogText($"{oldCreature.Name} evolved into {creature._base.Name}");
 
 
