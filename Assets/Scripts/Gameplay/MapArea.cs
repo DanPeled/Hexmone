@@ -19,7 +19,7 @@ public class MapArea : MonoBehaviour
     }
     public Creature GetRandomWildCreature()
     {
-        bool repainted = Random.Range(1, 4050) == 1;
+        bool repainted = Random.Range(1, 4070) == 1;
         int r = Random.Range(1, 101);
         var creatureRecord = wildCreatures.First(c => r >= c.chanceLower && r <= c.chanceUpper);
         var levelRange = creatureRecord.levelRange;
