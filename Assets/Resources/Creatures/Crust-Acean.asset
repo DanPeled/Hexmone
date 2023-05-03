@@ -16,6 +16,8 @@ MonoBehaviour:
   description: 
   frontSprite: {fileID: 21300000, guid: a187ba6f37932984d8b9c3bb5f17c36a, type: 3}
   backSprite: {fileID: 21300000, guid: 9e6834366723e4448ac68d51e495cf5a, type: 3}
+  repaintedFrontSprite: {fileID: 0}
+  repaintedBackSprite: {fileID: 0}
   type1: 2
   type2: 18
   maxHealth: 120
@@ -23,7 +25,7 @@ MonoBehaviour:
   defense: 110
   spAttack: 80
   spDefense: 110
-  speed: 80
+  speed: 60
   catchRate: 225
   expYield: 200
   growthRate: 1

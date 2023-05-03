@@ -18,7 +18,7 @@ public class CreatureGiver : MonoBehaviour
         used = true;
         AudioManager.i.PlaySFX(AudioId.CreatureObtained, true);
 
-        string dialogText = $"{player.playerName} recived {creature._base.Name}";
+        string dialogText = $"{player.playerName} recived {creature.GetName()}";
 
         yield return DialogManager.instance.ShowDialogText(dialogText);
     }

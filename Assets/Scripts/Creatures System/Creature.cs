@@ -6,6 +6,7 @@ using System.Linq;
 [System.Serializable]
 public class Creature
 {
+    public string nickname = "";
     public CreatureBase _base;
     public int level, exp;
     public int HP, statusTime;
@@ -113,10 +114,14 @@ public class Creature
             this.statBoosts[stat] = Mathf.Clamp(this.statBoosts[stat] + boost, -6, 6);
             string change = boost > 0 ? "rose" : "fell";
 
-            statusChanges.Enqueue($"{_base.Name}'s {stat} {change}!");
+            statusChanges.Enqueue($"{GetName()}'s {stat} {change}!");
 
             Debug.Log($"{stat} Has been boosted to {this.statBoosts[stat]}");
         }
+    }
+    public string GetName()
+    {
+        return nickname != "" ? nickname : _base.Name;
     }
     public void SetStatus(ConditionID conditionID)
     {
@@ -124,7 +129,7 @@ public class Creature
 
         status = ConditionDB.conditions[conditionID];
         status?.onStart?.Invoke(this);
-        statusChanges.Enqueue($"{_base.Name} {status.startMessage}");
+        statusChanges.Enqueue($"{GetName()} {status.startMessage}");
 
         OnStatusChanged?.Invoke();
     }
@@ -139,7 +144,7 @@ public class Creature
 
         volatileStatus = ConditionDB.conditions[conditionID];
         volatileStatus?.onStart?.Invoke(this);
-        statusChanges.Enqueue($"{_base.Name} {volatileStatus.startMessage}");
+        statusChanges.Enqueue($"{GetName()} {volatileStatus.startMessage}");
     }
     public void CureVolatileStatus()
     {
@@ -291,7 +296,7 @@ public class Creature
     {
         var saveData = new CreatureSaveData()
         {
-            name = this._base.name,
+            name = this.GetName(),
             hp = this.HP,
             level = this.level,
             exp = this.exp,
@@ -338,7 +343,7 @@ public class DamageDetails
 [System.Serializable]
 public class CreatureSaveData
 {
-    public string name;
+    public string name, nickname;
     public int hp, level, exp;
     public ConditionID? statusId;
     public List<MoveSaveData> moves;

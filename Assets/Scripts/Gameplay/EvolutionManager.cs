@@ -19,7 +19,7 @@ public class EvolutionManager : MonoBehaviour
         evolutionUI.SetActive(true);
         AudioManager.i.PlayMusic(evolutionMusic);
         creatureImage.sprite = creature.GetFrontSprite();
-        yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} is evolving");
+        yield return DialogManager.instance.ShowDialogText($"{creature.GetName()} is evolving");
 
         
         var oldCreature = creature._base;
@@ -27,7 +27,7 @@ public class EvolutionManager : MonoBehaviour
 
         creature.Evolve(evolution);
         creatureImage.sprite = creature.GetFrontSprite();
-        yield return DialogManager.instance.ShowDialogText($"{oldCreature.Name} evolved into {creature._base.Name}");
+        yield return DialogManager.instance.ShowDialogText($"{oldCreature.Name} evolved into {creature.GetName()}");
 
 
         evolutionUI.SetActive(false);

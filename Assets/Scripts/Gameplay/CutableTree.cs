@@ -12,14 +12,14 @@ public class CutableTree : MonoBehaviour, Interactable
         if (creatureWithCut != null)
         {
             int selectedChoice = 0;
-            yield return DialogManager.instance.ShowDialogText($"Should {creatureWithCut._base.name} use cut?",
+            yield return DialogManager.instance.ShowDialogText($"Should {creatureWithCut.GetName()} use cut?",
              choices: new List<string>() { "Yes", "No" },
               onChoiceSelected: (selection) => selectedChoice = selection);
 
             if (selectedChoice == 0)
             {
                 // yes
-                yield return DialogManager.instance.ShowDialogText($"{creatureWithCut._base.name} used Cut!");
+                yield return DialogManager.instance.ShowDialogText($"{creatureWithCut.GetName()} used Cut!");
 
                 gameObject.SetActive(false);
             }

@@ -58,7 +58,7 @@ public class CreaturesBox : MonoBehaviour
             }
         }
         GetBox(boxIndex).Append(creature);
-        DialogManager.instance.ShowDialogText($"{creature._base.name} has been added to your Hexo-Box");
+        DialogManager.instance.ShowDialogText($"{creature.GetName()} has been added to your Hexo-Box");
     }
 
     public static CreaturesBox GetPlayerBox()

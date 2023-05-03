@@ -79,7 +79,7 @@ public class CreaturesParty : MonoBehaviour
         string res = "";
         for (int i = 0; i < creatures.Count; i++)
         {
-            string text = (names[i] != names[0] ? "," : "") + names[i] + $" lvl {lvls[i]}";
+            string text = $"{(names[i] != names[0] ? ", " : "")}{names[i]} {(creatures[i].GetName() == names[i] ? "" : ("\"" + creatures[i].GetName() + "\""))} lvl {lvls[i]}";
             res += $"{text}";
         }
         return res;

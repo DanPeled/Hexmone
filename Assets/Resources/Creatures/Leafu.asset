@@ -16,16 +16,16 @@ MonoBehaviour:
   description: 
   frontSprite: {fileID: 21300000, guid: 7bc22deec58b94241bc473a1f88886f9, type: 3}
   backSprite: {fileID: 21300000, guid: e3c95a52aee13204fb630b314935dd2e, type: 3}
-  repaintedFrontSprite: {fileID: 0}
-  repaintedBackSprite: {fileID: 0}
+  repaintedFrontSprite: {fileID: 21300000, guid: 461042a49b62bbe4d88ac23394a46200, type: 3}
+  repaintedBackSprite: {fileID: 21300000, guid: a4f1c4786c442ce4bb24f34fe9fd0025, type: 3}
   type1: 4
   type2: 6
-  maxHealth: 120
-  damage: 95
-  defense: 70
-  spAttack: 100
-  spDefense: 55
-  speed: 85
+  maxHealth: 80
+  damage: 85
+  defense: 50
+  spAttack: 40
+  spDefense: 45
+  speed: 75
   catchRate: 225
   expYield: 119
   growthRate: 1
@@ -36,6 +36,12 @@ MonoBehaviour:
     level: 10
   - moveBase: {fileID: 11400000, guid: 3026b69e796c2e24ca9bcfa068639ec6, type: 2}
     level: 30
+  - moveBase: {fileID: 11400000, guid: 432ce4b5c8f43444aa37fd9e109a6cd8, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: ee599e715537d5340965b4459d32022e, type: 2}
+    level: 13
+  - moveBase: {fileID: 11400000, guid: 16b58ac7a0dcea44093e23734f5ee58b, type: 2}
+    level: 5
   learnableByItems: []
   evolutions:
   - evolvesInto: {fileID: 11400000, guid: a242f4036c87dca4580b8e1915f02253, type: 2}

@@ -21,7 +21,7 @@ public class PartyMemberUI : MonoBehaviour
     {
         if (!gameObject.activeSelf)
             return;
-        nameText.text = _creature._base.Name;
+        nameText.text = _creature.GetName();
         lvlText.text = $"Lvl {_creature.level}";
 
         hpBar.SetHP((float)_creature.HP, _creature.maxHealth);

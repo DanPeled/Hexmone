@@ -13,14 +13,14 @@ public class SurfableWater : MonoBehaviour, Interactable
         if (creature != null)
         {
             int selectedChoice = 0;
-            yield return DialogManager.instance.ShowDialogText($"Should {creature._base.name} use Surf?",
+            yield return DialogManager.instance.ShowDialogText($"Should {creature.GetName()} use Surf?",
              choices: new List<string>() { "Yes", "No" },
               onChoiceSelected: (selection) => selectedChoice = selection);
 
             if (selectedChoice == 0)
             {
                 // yes
-                yield return DialogManager.instance.ShowDialogText($"{creature._base.name} used Surf!");
+                yield return DialogManager.instance.ShowDialogText($"{creature.GetName()} used Surf!");
                 var animator = initiaitor.GetComponent<CharacterAnimator>();
                 var dir = new Vector3(animator.moveX, animator.moveY);
                 var targetPos = initiaitor.position + dir;

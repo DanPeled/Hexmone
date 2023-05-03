@@ -235,23 +235,23 @@ public class InventoryUI : MonoBehaviour
 
         if (creature.HasMove(tmItem.move))
         {
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} already knows {tmItem.move.name}");
+            yield return DialogManager.instance.ShowDialogText($"{creature.GetName()} already knows {tmItem.move.name}");
             yield break;
         }
         if (!tmItem.CanBeTaught(creature))
         {
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} can't learn {tmItem.move.name}");
+            yield return DialogManager.instance.ShowDialogText($"{creature.GetName()} can't learn {tmItem.move.name}");
             yield break;
         }
         if (creature.moves.Count < creature._base.maxNumberOfMoves)
         {
 
             creature.LearnMove(tmItem.move);
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} learned {tmItem.move.name}");
+            yield return DialogManager.instance.ShowDialogText($"{creature.GetName()} learned {tmItem.move.name}");
         }
         else
         {
-            yield return DialogManager.instance.ShowDialogText($"{creature._base.Name} is trying to learn {tmItem.move.name}");
+            yield return DialogManager.instance.ShowDialogText($"{creature.GetName()} is trying to learn {tmItem.move.name}");
             yield return DialogManager.instance.ShowDialogText($"But it cannot learn more than 4 moves");
             yield return ChooseMoveToForget(creature, tmItem.move);
             yield return new WaitUntil(() => state != InventoryUIState.MoveToForget);
@@ -351,13 +351,13 @@ public class InventoryUI : MonoBehaviour
         if (moveIndex == 4)
         {
             // Dont learn the new move
-            yield return (DialogManager.instance.ShowDialogText($"{creature._base.Name} did not learn {moveToLearn.name}"));
+            yield return (DialogManager.instance.ShowDialogText($"{creature.GetName()} did not learn {moveToLearn.name}"));
         }
         else
         {
             // forget the selected move and learn new move
             var selectedMove = creature.moves[moveIndex].base_;
-            yield return (DialogManager.instance.ShowDialogText($"{creature._base.Name} forgot {selectedMove.name} and learned {moveToLearn.name}"));
+            yield return (DialogManager.instance.ShowDialogText($"{creature.GetName()} forgot {selectedMove.name} and learned {moveToLearn.name}"));
 
             creature.moves[moveIndex] = new Move(moveToLearn);
         }
