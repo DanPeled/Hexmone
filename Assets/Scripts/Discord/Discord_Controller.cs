@@ -20,6 +20,7 @@ public class Discord_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        gameObject.SetActive(true);
         playerParty = CreaturesParty.GetPlayerParty();
         if (!instanceExists)
         {
@@ -28,16 +29,20 @@ public class Discord_Controller : MonoBehaviour
         }
         else if (FindObjectsOfType(GetType()).Length > 1)
         {
-            Destroy(gameObject);
+            (gameObject).SetActive(false);
         }
     }
     void Start()
     {
+        ConnectToDiscord();
+    }
+    public void ConnectToDiscord()
+    {
+        gameObject.SetActive(true);
         discord = new Discord.Discord(applicationID, (System.UInt64)Discord.CreateFlags.NoRequireDiscord);
         time = System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
         UpdateStatus();
-
     }
 
     // Update is called once per frame
@@ -49,7 +54,7 @@ public class Discord_Controller : MonoBehaviour
         }
         catch
         {
-            Destroy(gameObject);
+            (gameObject).SetActive(false);
         }
     }
     void LateUpdate()
@@ -71,7 +76,7 @@ public class Discord_Controller : MonoBehaviour
                 },
                 Timestamps = {
                     Start = time
-                }
+                },
             };
             activityManager.UpdateActivity(activity, (res) =>
             {
@@ -83,7 +88,10 @@ public class Discord_Controller : MonoBehaviour
         }
         catch
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
+    }
+    public void Disconnect()
+    {
     }
 }
