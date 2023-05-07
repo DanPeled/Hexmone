@@ -9,6 +9,7 @@ using System.Linq;
 
 public class Player : MonoBehaviour, ISavable
 {
+    public static Room gotoRoom;
     [Header("Vars")]
     public string playerName;
     public float runSpeed = 20.0f;
@@ -32,7 +33,7 @@ public class Player : MonoBehaviour, ISavable
     Door doorObject;
     GameObject interactObject;
     Coroutine lastRoutine = null;
-    public bool playerActive = true;
+    public static bool playerActive = true;
     public static Rect viewPort;
 
     [Header("Refrences")]
@@ -58,11 +59,13 @@ public class Player : MonoBehaviour, ISavable
     {
         roomSys = new RoomSystem(roomSys.startingRoom);
         body = GetComponent<Rigidbody2D>();
-        this.roomSys.levelLoader = GameObject
-            .FindGameObjectWithTag("LevelLoader")
-            .GetComponent<LevelLoader>();
-        StartCoroutine(roomSys.ChangeRoom(roomSys.startingRoom, this.gameObject));
+        // this.roomSys.levelLoader = GameObject
+        //     .FindGameObjectWithTag("LevelLoader")
+        //     .GetComponent<LevelLoader>();
+        //StartCoroutine(roomSys.ChangeRoom(roomSys.startingRoom, this.gameObject));
         GameController.instance.battleSystem.gameObject.SetActive(false);
+        if (gotoRoom != null)
+            transform.position = gotoRoom.roomPosition;
     }
     void Update()
     {
@@ -76,9 +79,9 @@ public class Player : MonoBehaviour, ISavable
         {
             TV();
         }
-        this.roomSys.levelLoader = GameObject
-            .FindGameObjectWithTag("LevelLoader")
-            .GetComponent<LevelLoader>();
+        // this.roomSys.levelLoader = GameObject
+        //     .FindGameObjectWithTag("LevelLoader")
+        //     .GetComponent<LevelLoader>();
         if (playerActive)
         {
             this.GetComponent<BoxCollider2D>().enabled = true;
@@ -209,10 +212,8 @@ public class Player : MonoBehaviour, ISavable
     }
     public void Door(GameObject other)
     {
-        StartCoroutine(roomSys.ChangeRoom(
-            other.GetComponent<Door>().targetRoom,
-            this.gameObject
-        ));
+        LevelLoader.i.Load();
+        gotoRoom = other.GetComponent<Door>().targetRoom;
     }
     public void TV()
     {
@@ -378,9 +379,7 @@ public class Player : MonoBehaviour, ISavable
             {
                 playerActive = false;
                 isMoving = false;
-                roomSys.levelLoader.Load(
-                    new Room(transform.position, "Transition")
-                );
+                // LevelLoader.i.Load();
                 yield return new WaitForSeconds(1);
                 GameController.instance.battleSystem.gameObject.SetActive(true);
                 SwitchCamera(1);

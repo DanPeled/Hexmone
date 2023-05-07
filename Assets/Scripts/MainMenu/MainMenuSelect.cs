@@ -11,11 +11,7 @@ public class MainMenuSelect : MonoBehaviour
     public LevelLoader levelLoader;
     public GameObject[] buttons;
     public bool isMobile;
-    public GameObject cover, playMenu, normalMenu;
-    void Start()
-    {
-        cover.SetActive(false);
-    }
+    public GameObject playMenu, normalMenu;
     public void SetMobile()
     {
         MobileControls.isMobilePersisted = !isMobile;
@@ -45,7 +41,7 @@ public class MainMenuSelect : MonoBehaviour
                     PlayMenu();
                     break;
                 case 1:
-                    //todo: settings
+                    //TODO: settings
                     break;
                 case 2:
                     Quit();
@@ -61,21 +57,19 @@ public class MainMenuSelect : MonoBehaviour
     public void PlayMenu()
     {
         playMenu.SetActive(true);
-        normalMenu.SetActive(false); 
+        normalMenu.SetActive(false);
     }
     public void Play()
     {
-        cover.gameObject.SetActive(true);
-        SceneManager.LoadScene("world");
+        levelLoader.Load("World");
     }
     public void WorldEditor()
     {
-        cover.gameObject.SetActive(true);
         SceneManager.LoadScene("WorldEditor");
     }
     public void Settings()
     {
-        // todo: implement settings
+        // TODO: implement settings
     }
     public void Quit()
     {

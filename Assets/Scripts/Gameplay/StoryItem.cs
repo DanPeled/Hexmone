@@ -5,7 +5,7 @@ public class StoryItem : MonoBehaviour, IPlayerTriggerable
     public string dialog;
     public void OnPlayerTriggered(Player player){
         player.isMoving = false;
-        player.playerActive = false;
+        Player.playerActive = false;
         this.GetComponent<BoxCollider2D>().enabled = false;
         StartCoroutine(DialogManager.instance.ShowDialogText(dialog));
     }

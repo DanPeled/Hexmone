@@ -13,14 +13,4 @@ public class RoomSystem
         this.startingRoom = startingRoom;
         this.currentRoom = startingRoom;
     }
-
-    public IEnumerator ChangeRoom(Room targetRoom, GameObject player)
-    {
-        player.GetComponent<Player>().playerActive = false;
-        this.currentRoom = targetRoom;
-        this.levelLoader.Load();
-        yield return new WaitForSeconds(0.4f);
-        player.transform.position = targetRoom.roomPosition;
-        player.GetComponent<Player>().playerActive = true;
-    }
 }

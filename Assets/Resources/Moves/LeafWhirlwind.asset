@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Leaf Whirlwind
   description: 
-  type: 6
+  type: 4
   power: 0
   accuracy: 70
   pp: 15
@@ -27,3 +27,4 @@ MonoBehaviour:
     volatileStatus: 0
   secondaryEffects: []
   target: 0
+  sound: {fileID: 0}

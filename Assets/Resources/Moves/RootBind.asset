@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Root Bind
   description: 
-  type: 6
+  type: 4
   power: 65
   accuracy: 90
   pp: 20
@@ -32,3 +32,4 @@ MonoBehaviour:
     chance: 5
     target: 0
   target: 0
+  sound: {fileID: 0}

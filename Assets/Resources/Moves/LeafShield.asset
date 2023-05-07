@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Leaf Shield
   description: 
-  type: 6
+  type: 4
   power: 0
   accuracy: 100
   pp: 4
@@ -29,3 +29,4 @@ MonoBehaviour:
     volatileStatus: 0
   secondaryEffects: []
   target: 1
+  sound: {fileID: 0}

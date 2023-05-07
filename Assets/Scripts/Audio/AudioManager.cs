@@ -49,6 +49,11 @@ public class AudioManager : MonoBehaviour
             yield return musicPlayer.DOFade(originalMusicVolume, fadeDuration).WaitForCompletion();
         }
     }
+    IEnumerator StopMusicAsync()
+    {
+        yield return musicPlayer.DOFade(0, fadeDuration).WaitForCompletion();
+        musicPlayer.Stop();
+    }
     public void PlaySFX(AudioClip clip, bool pauseMusic = false)
     {
         if (clip == null) return;
@@ -76,6 +81,14 @@ public class AudioManager : MonoBehaviour
         musicPlayer.volume = 0;
         musicPlayer.UnPause();
         musicPlayer.DOFade(originalMusicVolume, fadeDuration);
+    }
+    public void StopMusic()
+    {
+        StartCoroutine(StopMusicAsync());
+    }
+    public void StopSFX()
+    {
+        sfxPlayer.Stop();
     }
 }
 public enum AudioId

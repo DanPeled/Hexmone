@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour
     TrainerController trainer;
     public void StartBattle()
     {
-        player.playerActive = false;
+        Player.playerActive = false;
         state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
         battleSystem.isTrainerBattle = false;
@@ -96,12 +96,12 @@ public class GameController : MonoBehaviour
         }
         if (state != GameState.FreeRoam)
         {
-            player.playerActive = false;
+            Player.playerActive = false;
         }
         else
         {
 
-            player.playerActive = true;
+            Player.playerActive = true;
             if (InputSystem.start.isClicked())
             {
                 menu.OpenMenu();
@@ -155,7 +155,7 @@ public class GameController : MonoBehaviour
         partyScreen.SetPartyData();
         state = GameState.FreeRoam;
         battleSystem.gameObject.SetActive(false);
-
+        AudioManager.i.StopMusic();
         var playerParty = player.GetComponent<CreaturesParty>();
         bool hasEvolutions = playerParty.CheckForEvolutions();
         if (hasEvolutions)

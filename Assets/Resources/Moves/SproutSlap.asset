@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Sprout Slap
   description: 
-  type: 6
+  type: 4
   power: 20
   accuracy: 100
   pp: 35
@@ -27,3 +27,4 @@ MonoBehaviour:
     volatileStatus: 0
   secondaryEffects: []
   target: 0
+  sound: {fileID: 0}

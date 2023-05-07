@@ -48,7 +48,7 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
             DialogManager.instance.SetTrainerDetails(this);
             yield return (DialogManager.instance.ShowDialogText($"{dialog}", init:transform));
             AudioManager.i.PlayMusic(trainerAppearClip);
-            player.playerActive = false;
+            Player.playerActive = false;
             player.isMoving = false;
             // Show exclamation
             exclamation.SetActive(true);

@@ -67,7 +67,7 @@ public class BattleSystem : MonoBehaviour
     public void StartBattle(CreaturesParty playerParty, Creature wildCreature)
     {
         player = playerParty.GetComponent<Player>();
-        player.playerActive = false;
+        Player.playerActive = false;
         this.playerParty = playerParty;
         this.wildCreature = wildCreature;
         isTrainerBattle = false;
@@ -77,7 +77,7 @@ public class BattleSystem : MonoBehaviour
     public void StartTrainerBattle(CreaturesParty playerParty, CreaturesParty trainerParty)
     {
         player = playerParty.GetComponent<Player>();
-        player.playerActive = false;
+        Player.playerActive = false;
         this.playerParty = playerParty;
         this.trainerParty = trainerParty;
         isTrainerBattle = true;
@@ -92,7 +92,7 @@ public class BattleSystem : MonoBehaviour
         moveSelectionUI.gameObject.SetActive(false);
         playerUnit.Clear();
         enemyUnit.Clear();
-        GameObject.FindObjectOfType<Player>().playerActive = false;
+        Player.playerActive= false;
         if (!this.isTrainerBattle)
         {
             // Wild Creature Battle
@@ -531,7 +531,7 @@ public class BattleSystem : MonoBehaviour
         dialogBox.ToggleActionSelector(false);
         dialogBox.ToggleMoveSelector(false);
         yield return new WaitForSeconds(1f);
-        GameObject.FindObjectOfType<Player>().playerActive = true;
+        Player.playerActive= true;
         GameObject.FindObjectOfType<Player>().SwitchCamera(0);
         //StopCoroutine(SetupBattle());
         GameController.instance.EndBattle(won);
@@ -602,7 +602,7 @@ public class BattleSystem : MonoBehaviour
 
     void Update()
     {
-        GameObject.FindObjectOfType<Player>().playerActive = false;
+        Player.playerActive= false;
         switch (battleState)
         {
             case BattleState.ActionSelection:

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Seed Bomb
   description: 
-  type: 6
+  type: 4
   power: 80
   accuracy: 100
   pp: 15
@@ -27,3 +27,4 @@ MonoBehaviour:
     volatileStatus: 0
   secondaryEffects: []
   target: 0
+  sound: {fileID: 0}

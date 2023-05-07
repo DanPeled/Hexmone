@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b763179e2a48c3f47abd99aa5a892ee4, type: 3}
+  m_Name: PresetTransitionSettings
+  m_EditorClassIdentifier: 
+  transitions:
+  - transitionID: Fade
+    refrenceResolution: {x: 1920, y: 1080}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 0
+    transitionSpeed: 1
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 1
+    destroyTime: 1
+    transitionIn: {fileID: 6646061696548187551, guid: d8bb38ff38a790d4eb099fdb40036a2c, type: 3}
+    transitionOut: {fileID: 5977944067770627119, guid: 04918ee4efcad774e92717c26d955df1, type: 3}
+  - transitionID: CircleWipe
+    refrenceResolution: {x: 1920, y: 1080}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 1
+    transitionSpeed: 1
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 1
+    destroyTime: 1
+    transitionIn: {fileID: 3068447116946115738, guid: 9ae6ca60e7061124e9e47ac5bbb31e9b, type: 3}
+    transitionOut: {fileID: 1249853659853146663, guid: 82a04d1e6894c5c49a2653d25abde114, type: 3}
+  - transitionID: LiniarWipe
+    refrenceResolution: {x: 1920, y: 1080}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 0
+    transitionSpeed: 1
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 0.75
+    destroyTime: 1.5
+    transitionIn: {fileID: 2846249025423157759, guid: f17ff05ffec4a3949a12ac8c568bd827, type: 3}
+    transitionOut: {fileID: 4376996571985838007, guid: d777d67ce4965e9489816615dc6fddf3, type: 3}
+  - transitionID: RectangleGrid
+    refrenceResolution: {x: 1920, y: 1080}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 0
+    transitionSpeed: 1
+    autoAdjustTransitionTime: 1
+    flipX: 1
+    flipY: 0
+    transitionTime: 1.3
+    destroyTime: 1.25
+    transitionIn: {fileID: 5319433796827228326, guid: 9fc8103d1638b404a8d8adb3231e62f0, type: 3}
+    transitionOut: {fileID: 7408388071323071454, guid: ead20355430ea0d478955e636e5a7caa, type: 3}
+  - transitionID: DoubleWipe
+    refrenceResolution: {x: 1920, y: 1080}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 0
+    transitionSpeed: 1.5
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 0.75
+    destroyTime: 0.75
+    transitionIn: {fileID: 1844440750038884793, guid: ec9329cc0794b7b4ba342094dbe2e150, type: 3}
+    transitionOut: {fileID: 214316858439596270, guid: 9d1683652e748654694b465b9128c43e, type: 3}
+  - transitionID: DiagonalRectangleGrid
+    refrenceResolution: {x: 1920, y: 1080}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 0
+    transitionSpeed: 1
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 1
+    destroyTime: 1
+    transitionIn: {fileID: 7971754084106339017, guid: 8b5b1ec84b4e39649a0e090d37f698ba, type: 3}
+    transitionOut: {fileID: 5609359190485901388, guid: 618da791ac68cc9428142a5378a62f17, type: 3}
+  - transitionID: RectangleWipe
+    refrenceResolution: {x: 960, y: 540}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 1
+    transitionSpeed: 1
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 1
+    destroyTime: 1
+    transitionIn: {fileID: 6266081684323434569, guid: 8d1f4c836b7ea734da04a6e5b6221fb4, type: 3}
+    transitionOut: {fileID: 4971769444696530201, guid: dbd6ccf66a0b18646bf1a7593ccd0786, type: 3}
+  - transitionID: VerticalCurtain
+    refrenceResolution: {x: 960, y: 540}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 0
+    transitionSpeed: 1
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 0.35
+    destroyTime: 0.5
+    transitionIn: {fileID: 2757787406843130695, guid: 0c02d8d393a528746a5438defdb57524, type: 3}
+    transitionOut: {fileID: 4707031915836842308, guid: 404de9424d430584b8e084227960d17b, type: 3}
+  - transitionID: HorizontalCurtain
+    refrenceResolution: {x: 960, y: 540}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 0
+    transitionSpeed: 1.25
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 0.5
+    destroyTime: 0.5
+    transitionIn: {fileID: 3182676166929454385, guid: 6910b14c2f212a24b862cafe64dd2b68, type: 3}
+    transitionOut: {fileID: 6855827920998274584, guid: 56cfe72327eb8054080542f75de2c758, type: 3}
+  - transitionID: Brush
+    refrenceResolution: {x: 1920, y: 1080}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 0
+    transitionSpeed: 1
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 1
+    destroyTime: 1.25
+    transitionIn: {fileID: 8146198696072019079, guid: ba56f51867b074f42acabcd86ba13273, type: 3}
+    transitionOut: {fileID: 1971740581942834528, guid: 7169acee88d38d5418744538f27d012b, type: 3}
+  - transitionID: PaintSplash
+    refrenceResolution: {x: 1920, y: 1080}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 0
+    transitionSpeed: 1
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 0.75
+    destroyTime: 0.75
+    transitionIn: {fileID: 501235885848192162, guid: 278370681279aad4093aaab29aadd98e, type: 3}
+    transitionOut: {fileID: 410111082859399802, guid: 28c9e4b137f5a424fb352eb97b777b04, type: 3}
+  - transitionID: Noise
+    refrenceResolution: {x: 1920, y: 1080}
+    blockRaycasts: 1
+    colorTintMode: 0
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    isCutoutTransition: 0
+    transitionSpeed: 1
+    autoAdjustTransitionTime: 1
+    flipX: 0
+    flipY: 0
+    transitionTime: 0.75
+    destroyTime: 0.75
+    transitionIn: {fileID: 8212135093846547593, guid: 969dd4df10bff1542827006be3cb2281, type: 3}
+    transitionOut: {fileID: 6797660132664756540, guid: ef4669bd174fed948b0578bce2883331, type: 3}
+  multiplyColorMaterial: {fileID: 2100000, guid: 53171468e32441749b007c64337cd3db, type: 2}
+  addColorMaterial: {fileID: 2100000, guid: 65ccb7b6cbefce14eb6f884cfc33ba91, type: 2}
