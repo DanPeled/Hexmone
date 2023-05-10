@@ -33,9 +33,10 @@ public class SavingSystem : MonoBehaviour
                 savable.RestoreState(gameState[id]);
         }
     }
-    public void RestoreEntity(SavableEntity entity){
+    public void RestoreEntity(SavableEntity entity)
+    {
         if (gameState.ContainsKey(entity.UniqueId))
-        entity.RestoreState(gameState[entity.UniqueId]);
+            entity.RestoreState(gameState[entity.UniqueId]);
     }
     public void Save(string saveFile)
     {

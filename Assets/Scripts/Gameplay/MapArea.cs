@@ -2,11 +2,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using System.Linq;
+using Unity.RemoteConfig;
 public class MapArea : MonoBehaviour
 {
+    public struct userAttributes { }
+    public struct appAttributes { }
     public List<CreatureEncounterRecord> wildCreatures;
     [HideInInspector]
     public int totalChance = 0;
+    public void Awake()
+    {
+        ConfigManager.FetchCompleted += CheckForEvent;
+        ConfigManager.FetchConfigs<userAttributes, appAttributes>(new userAttributes(), new appAttributes());
+    }
+    void CheckForEvent(ConfigResponse response)
+    {
+
+    }
     void OnValidate()
     {
         totalChance = 0;

@@ -67,7 +67,7 @@ public class BattleSystem : MonoBehaviour
     public void StartBattle(CreaturesParty playerParty, Creature wildCreature)
     {
         player = playerParty.GetComponent<Player>();
-        Player.playerActive = false;
+        player.playerActive = false;
         this.playerParty = playerParty;
         this.wildCreature = wildCreature;
         isTrainerBattle = false;
@@ -77,7 +77,7 @@ public class BattleSystem : MonoBehaviour
     public void StartTrainerBattle(CreaturesParty playerParty, CreaturesParty trainerParty)
     {
         player = playerParty.GetComponent<Player>();
-        Player.playerActive = false;
+        player.playerActive = false;
         this.playerParty = playerParty;
         this.trainerParty = trainerParty;
         isTrainerBattle = true;
@@ -92,7 +92,7 @@ public class BattleSystem : MonoBehaviour
         moveSelectionUI.gameObject.SetActive(false);
         playerUnit.Clear();
         enemyUnit.Clear();
-        Player.playerActive= false;
+        player.playerActive = false;
         if (!this.isTrainerBattle)
         {
             // Wild Creature Battle
@@ -515,7 +515,7 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
-        CheckForBattleOver(faintedUnit);
+        StartCoroutine(CheckForBattleOver(faintedUnit));
     }
     IEnumerator ChooseMoveToForget(Creature creature, MoveBase newMove)
     {
@@ -531,13 +531,13 @@ public class BattleSystem : MonoBehaviour
         dialogBox.ToggleActionSelector(false);
         dialogBox.ToggleMoveSelector(false);
         yield return new WaitForSeconds(1f);
-        Player.playerActive= true;
+        player.playerActive = true;
         GameObject.FindObjectOfType<Player>().SwitchCamera(0);
         //StopCoroutine(SetupBattle());
         GameController.instance.EndBattle(won);
     }
 
-    void CheckForBattleOver(BattleUnit faintedUnit)
+    IEnumerator CheckForBattleOver(BattleUnit faintedUnit)
     {
         if (faintedUnit.isPlayerUnit)
         {
@@ -550,6 +550,11 @@ public class BattleSystem : MonoBehaviour
             else
             {
                 battleState = BattleState.BattleOver;
+                if (isTrainerBattle)
+                {
+                    yield return DialogManager.instance.ShowDialogText($"{trainer.Name} has lost the battle");
+                    yield return DialogManager.instance.ShowDialogText($"You have recived {trainer.itemReward}");
+                }
                 BattleOver(false);
             }
         }
@@ -602,7 +607,7 @@ public class BattleSystem : MonoBehaviour
 
     void Update()
     {
-        Player.playerActive= false;
+        player.playerActive = false;
         switch (battleState)
         {
             case BattleState.ActionSelection:

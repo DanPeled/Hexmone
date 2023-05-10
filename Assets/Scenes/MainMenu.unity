@@ -827,11 +827,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAction: 0
-  levelLoader: {fileID: 0}
+  levelLoader: {fileID: 603873905}
   buttons:
   - {fileID: 1588494191}
   - {fileID: 732999499}
-  - {fileID: 0}
   isMobile: 0
   playMenu: {fileID: 703888910}
   normalMenu: {fileID: 279852125}

@@ -20,5 +20,6 @@ public class ItemSlotUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         nameText.text = item.name;
         countText.text = $"${item.price}";
+        countText.fontSize = nameText.fontSize;
     }
 }

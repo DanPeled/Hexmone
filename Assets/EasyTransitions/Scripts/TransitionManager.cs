@@ -114,6 +114,11 @@ namespace EasyTransition
 
         IEnumerator Timer(string sceneName, float time, TransitionSettings transitionSettings, Action onEnd = null)
         {
+            Player player = FindObjectOfType<Player>();
+            if (player != null)
+            {
+                player.playerActive = false;
+            }
             yield return new WaitForSecondsRealtime(time);
 
             GameObject template = Instantiate(transitionTemplate) as GameObject;

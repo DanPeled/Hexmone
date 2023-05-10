@@ -32,14 +32,14 @@ public class LevelLoader : MonoBehaviour
     public void DisablePlayer()
     {
         if (player != null)
-            Player.playerActive = false;
+            player.playerActive = false;
     }
     public IEnumerator EnablePlayer()
     {
         if (player != null)
         {
             yield return new WaitForSeconds(0.4f);
-            Player.playerActive = true;
+            player.playerActive = true;
         }
     }
 }

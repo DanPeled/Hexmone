@@ -13,6 +13,7 @@ public class WalletUI : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+        SetMoneyText();
     }
     public void Close()
     {
@@ -21,6 +22,5 @@ public class WalletUI : MonoBehaviour
     public void SetMoneyText()
     {
         moneyText.text = "$" + Wallet.i.money;
-
     }
 }

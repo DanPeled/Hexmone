@@ -23,7 +23,7 @@ public class ShopUI : MonoBehaviour
     public void Show(List<ItemBase> items, Action<ItemBase> onItemSelected, Action onBack)
     {
         this.onItemSelected = onItemSelected;
-        this.onBack= onBack;
+        this.onBack = onBack;
         this.items = items;
         gameObject.SetActive(true);
 
@@ -46,9 +46,12 @@ public class ShopUI : MonoBehaviour
         {
             UpdateItemList();
         }
-        if (InputSystem.action.isClicked()){
+        if (InputSystem.action.isClicked())
+        {
             onItemSelected?.Invoke(items[selectedItem]);
-        } else if (InputSystem.back.isClicked()){
+        }
+        else if (InputSystem.back.isClicked())
+        {
             onBack?.Invoke();
         }
     }
@@ -111,7 +114,8 @@ public class ShopUI : MonoBehaviour
         bool showDownArrow = selectedItem + 4 < slotUIs.Count;
         downArrow.gameObject.SetActive(showDownArrow);
     }
-    public void Close(){
+    public void Close()
+    {
         gameObject.SetActive(false);
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 
 public class Player : MonoBehaviour, ISavable
 {
+    public bool loadPos;
     public static Room gotoRoom;
     [Header("Vars")]
     public string playerName;
@@ -33,7 +34,7 @@ public class Player : MonoBehaviour, ISavable
     Door doorObject;
     GameObject interactObject;
     Coroutine lastRoutine = null;
-    public static bool playerActive = true;
+    public bool playerActive = true;
     public static Rect viewPort;
 
     [Header("Refrences")]
@@ -66,6 +67,7 @@ public class Player : MonoBehaviour, ISavable
         GameController.instance.battleSystem.gameObject.SetActive(false);
         if (gotoRoom != null)
             transform.position = gotoRoom.roomPosition;
+        SavingSystem.i.Load("saveSlot1");
     }
     void Update()
     {
@@ -212,6 +214,8 @@ public class Player : MonoBehaviour, ISavable
     }
     public void Door(GameObject other)
     {
+        loadPos = false;
+        SavingSystem.i.Save("saveSlot1");
         LevelLoader.i.Load();
         gotoRoom = other.GetComponent<Door>().targetRoom;
     }
@@ -416,9 +420,11 @@ public class Player : MonoBehaviour, ISavable
         var saveData = (PlayerSaveData)state;
 
         //Restore pos
-        var pos = saveData.pos;
-        transform.position = new Vector3(pos[0], pos[1]);
-
+        if (loadPos)
+        {
+            var pos = saveData.pos;
+            transform.position = new Vector3(pos[0], pos[1]);
+        }
         // Restore party
         GetComponent<CreaturesParty>().Creatures = saveData.creatures.Select(s => new Creature(s)).ToList();
     }

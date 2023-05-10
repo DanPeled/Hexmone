@@ -50,7 +50,9 @@ public class CreaturesParty : MonoBehaviour
     }
     public static CreaturesParty GetPlayerParty()
     {
-        return FindObjectOfType<Player>().GetComponent<CreaturesParty>();
+        if (FindObjectOfType<Player>( ) != null)
+            return FindObjectOfType<Player>().GetComponent<CreaturesParty>();
+        else return null;
     }
     public bool CheckForEvolutions()
     {

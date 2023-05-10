@@ -3,9 +3,10 @@ using System.Linq;
 public class StoryItem : MonoBehaviour, IPlayerTriggerable
 {
     public string dialog;
-    public void OnPlayerTriggered(Player player){
+    public void OnPlayerTriggered(Player player)
+    {
         player.isMoving = false;
-        Player.playerActive = false;
+        player.playerActive = false;
         this.GetComponent<BoxCollider2D>().enabled = false;
         StartCoroutine(DialogManager.instance.ShowDialogText(dialog));
     }

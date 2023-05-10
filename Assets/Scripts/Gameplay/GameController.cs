@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour
     TrainerController trainer;
     public void StartBattle()
     {
-        Player.playerActive = false;
+        player.playerActive = false;
         state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
         battleSystem.isTrainerBattle = false;
@@ -96,12 +96,12 @@ public class GameController : MonoBehaviour
         }
         if (state != GameState.FreeRoam)
         {
-            Player.playerActive = false;
+            player.playerActive = false;
         }
         else
         {
 
-            Player.playerActive = true;
+            player.playerActive = true;
             if (InputSystem.start.isClicked())
             {
                 menu.OpenMenu();
@@ -142,7 +142,10 @@ public class GameController : MonoBehaviour
             ShopController.i.HandleUpdate();
         }
 
-
+        if (ShopController.i.shopUI.gameObject.activeInHierarchy)
+        {
+            state = GameState.Shop;
+        }
         instance = this;
     }
     public void EndBattle(bool won)
@@ -185,6 +188,7 @@ public class GameController : MonoBehaviour
                 break;
             case 3:
                 // Load
+                player.loadPos = true;
                 SavingSystem.i.Load("saveSlot1");
                 state = GameState.FreeRoam;
                 break;
@@ -200,7 +204,7 @@ public class GameController : MonoBehaviour
     }
     public void MoveCamera(Vector2 moveOffset)
     {
-        LevelLoader.i.Load();
+        //LevelLoader.i.Load();
         player.cameras[player.camIndex].transform.position += new Vector3(moveOffset.x, moveOffset.y);
 
     }

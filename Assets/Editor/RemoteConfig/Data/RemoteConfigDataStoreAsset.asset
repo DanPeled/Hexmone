@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
+  m_Name: RemoteConfigDataStoreAsset
+  m_EditorClassIdentifier: 
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"5a91d0e0-ac59-4a74-809a-d5c02aaaecdb\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"Eli's Birthday\",\r\n      \"type\":
+    \"bool\",\r\n      \"value\": false\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"5a91d0e0-ac59-4a74-809a-d5c02aaaecdb\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"Eli's Birthday\",\r\n      \"type\":
+    \"bool\",\r\n      \"value\": false\r\n    }\r\n  }\r\n]"
+  _environments: "[\r\n  {\r\n    \"projectId\": \"92a8affd-27b0-4a39-afc2-73600549d233\",\r\n   
+    \"name\": \"production\",\r\n    \"id\": \"c0f8f9b9-3d93-4313-ac6e-3cc5a1869222\",\r\n   
+    \"isDefault\": true,\r\n    \"createdAt\": \"2023-05-09T10:05:49Z\",\r\n    \"updatedAt\":
+    \"2023-05-09T10:05:49Z\"\r\n  }\r\n]"

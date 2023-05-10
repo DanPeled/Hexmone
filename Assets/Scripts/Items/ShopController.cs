@@ -148,11 +148,13 @@ public class ShopController : MonoBehaviour
                 inv.AddItem(item, countToBuy);
                 Wallet.i.TakeMoney(totalPrice);
                 yield return DialogManager.instance.ShowDialogText($"Thank you for shopping with us");
+                OnBackFromBuying();
             }
         }
         else
         {
             yield return DialogManager.instance.ShowDialogText($"You don't have enough money for that");
+            OnBackFromBuying();
         }
         state = ShopState.buying;
     }

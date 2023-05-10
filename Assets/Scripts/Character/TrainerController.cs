@@ -9,6 +9,15 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
     public string Name;
     public Sprite dialougeSprite;
     public string dialog, dialogAfterBattle;
+    [Header("Rewards")]
+    /// <summary>
+    /// Money reward for beating the trainer
+    /// </summary>
+    public int moneyReward;
+    /// <summary>
+    /// Item reward for beating the trainer
+    /// </summary>
+    public ItemBase itemReward;
     [Header("Refrences")]
     public GameObject exclamation, fov;
     public Sprite sprite;
@@ -46,9 +55,9 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
         if (player.GetComponent<CreaturesParty>().GetHealthyCreature() != null)
         {
             DialogManager.instance.SetTrainerDetails(this);
-            yield return (DialogManager.instance.ShowDialogText($"{dialog}", init:transform));
+            yield return (DialogManager.instance.ShowDialogText($"{dialog}", init: transform));
             AudioManager.i.PlayMusic(trainerAppearClip);
-            Player.playerActive = false;
+            player.playerActive = false;
             player.isMoving = false;
             // Show exclamation
             exclamation.SetActive(true);
@@ -85,6 +94,6 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position - new Vector3(4,0,0));
+        Gizmos.DrawLine(transform.position, transform.position - new Vector3(4, 0, 0));
     }
 }

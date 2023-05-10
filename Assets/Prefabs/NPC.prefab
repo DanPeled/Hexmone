@@ -180,7 +180,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -1
   m_Sprite: {fileID: -1052402311, guid: f654a1d3042d42a4abd1d4f02c0cd9ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -374,12 +374,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73efb09dac4c2404d854b4188f3f86f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialog:
-    lines: []
+  Name: 
+  dialog: 
+  questToStart: {fileID: 0}
+  questToComplete: {fileID: 0}
   sprites: []
-  movementPattern: []
-  timeBetweenPatterns: 0
   character: {fileID: 0}
+  dialougeSprite: {fileID: 0}
 --- !u!114 &6348608732335773463
 MonoBehaviour:
   m_ObjectHideFlags: 0

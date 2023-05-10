@@ -10,8 +10,10 @@ public class Discord_ControllerEditor : Editor
         if (GUILayout.Button("Connect"))
         {
             dc.ConnectToDiscord();
-        } if (GUILayout.Button("Disconnect")){
-            dc.gameObject.SetActive(false);
+        }
+        if (GUILayout.Button("Disconnect"))
+        {
+            dc.Disconnect();
         }
         base.OnInspectorGUI();
     }
