@@ -21,6 +21,6 @@ public class OverworldCreaturesSystem : MonoBehaviour
 
     public void SetCreature(CreatureBase c)
     {
-        overworldCreature.Setup(creatures.GetValueOrDefault(c));
+        // overworldCreature.Setup(creatures.GetValueOrDefault(c));
     }
 }

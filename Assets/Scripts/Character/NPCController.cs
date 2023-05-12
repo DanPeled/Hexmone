@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+
 public class NPCController : MonoBehaviour, Interactable, ISavable
 {
     [Header("Dialog")]
@@ -8,7 +9,8 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     public string dialog;
 
     [Header("Quests")]
-    public QuestBase questToStart, questToComplete;
+    public QuestBase questToStart,
+        questToComplete;
 
     [Header("Movement")]
     public List<Sprite> sprites;
@@ -20,6 +22,7 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     Merchant merchant;
     Quest activeQuest;
     public Sprite dialougeSprite;
+
     void Start()
     {
         spriteAnimator = new SpriteAnimator(sprites, GetComponentInChildren<SpriteRenderer>());
@@ -30,10 +33,9 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         healer = GetComponent<Healer>();
         merchant = GetComponent<Merchant>();
     }
-    void Update()
-    {
 
-    }
+    void Update() { }
+
     public IEnumerator Interact(Transform initiator = null)
     {
         if (questToComplete != null)
@@ -72,23 +74,31 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
             else
             {
                 DialogManager.instance.SetNPCDetails(this);
-                yield return DialogManager.instance.ShowDialog(activeQuest.Base.InProgressDialog, init:transform);
+                yield return DialogManager.instance.ShowDialog(
+                    activeQuest.Base.InProgressDialog,
+                    init: transform
+                );
             }
         }
         else if (healer != null)
         {
             yield return healer.Heal(initiator, dialog);
-        } else if (merchant != null){
+        }
+        else if (merchant != null)
+        {
             yield return merchant.Trade();
         }
         else
         {
-            if (CreaturesParty.GetPlayerParty().GetHealthyCreature() == null) yield break;
+            if (CreaturesParty.GetPlayerParty().GetHealthyCreature() == null)
+                yield break;
             DialogManager.instance.SetNPCDetails(this);
-            yield return (DialogManager.instance.ShowDialogText(dialog, autoClose: false, init:transform));
-
+            yield return (
+                DialogManager.instance.ShowDialogText(dialog, autoClose: false, init: transform)
+            );
         }
     }
+
     public object CaptureState()
     {
         var saveData = new NPCQuestSaveData();
@@ -99,23 +109,33 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
             saveData.questToComplete = (new Quest(questToComplete)).GetSaveData();
         return saveData;
     }
+
     public void RestoreState(object state)
     {
         var saveData = state as NPCQuestSaveData;
         if (saveData != null)
         {
             activeQuest = (saveData.activeQuest != null) ? new Quest(saveData.activeQuest) : null;
-            questToStart = (saveData.questToStart != null) ? new Quest(saveData.questToStart).Base : null;
-            questToComplete = (saveData.questToComplete != null) ? new Quest(saveData.questToComplete).Base : null;
+            questToStart =
+                (saveData.questToStart != null) ? new Quest(saveData.questToStart).Base : null;
+            questToComplete =
+                (saveData.questToComplete != null)
+                    ? new Quest(saveData.questToComplete).Base
+                    : null;
         }
     }
 }
+
 [System.Serializable]
 public class NPCQuestSaveData
 {
-    public QuestSaveData activeQuest, questToStart, questToComplete;
+    public QuestSaveData activeQuest,
+        questToStart,
+        questToComplete;
 }
+
 public enum NPCState
 {
-    Idle, Walking
+    Idle,
+    Walking
 }

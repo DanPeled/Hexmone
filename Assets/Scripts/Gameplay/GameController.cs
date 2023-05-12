@@ -212,7 +212,5 @@ public class GameController : MonoBehaviour
 
 public enum GameState
 {
-    Battle,
-    FreeRoam,
-    Dialog, Menu, Paused, CutScene, PartyScreen, Bag, Evolution, Shop
+    Battle,FreeRoam, Dialog, Menu, Paused, CutScene, PartyScreen, Bag, Evolution, Shop
 }

@@ -1,0 +1,2546 @@
+fileFormatVersion: 2
+guid: 6c9a6d8deae878a49a6617bcd3206240
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 150
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hexamon_player_sprites_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1399
+        width: 133
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da80019613e334344b235cc363c7e4f0
+      internalID: 541621386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_1
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 1399
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bce71cbe26a43b4084d77146e1a1b0f
+      internalID: -35259008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_2
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 1399
+        width: 132
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de36e5bef8f97354298e431fdefd0552
+      internalID: -2073375551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_3
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 1399
+        width: 1441
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30b9bd8d69f2a5841ab2f6de4cc18e2b
+      internalID: 1232287336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_4
+      rect:
+        serializedVersion: 2
+        x: 1929
+        y: 1399
+        width: 152
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c49145fdc12c78448dc48d693023fcf
+      internalID: -789428880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_5
+      rect:
+        serializedVersion: 2
+        x: 2088
+        y: 1399
+        width: 154
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db54ab324e9c72648bf2214c008d26f4
+      internalID: -185317139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_6
+      rect:
+        serializedVersion: 2
+        x: 2249
+        y: 1399
+        width: 151
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f15d21cb5b99c64a9c0f7760a6e8de7
+      internalID: 814659387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_7
+      rect:
+        serializedVersion: 2
+        x: 2399
+        y: 1399
+        width: 481
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2bd24440bf3f41498d4bbe674f4e128
+      internalID: -2101692608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_8
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 1199
+        width: 132
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab5849e9c60ca7b4dbead35c128d3e5d
+      internalID: 699339870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_9
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 1199
+        width: 132
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef6debf66be05d54d8985bdc6d444eb5
+      internalID: -1949847633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_10
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 1199
+        width: 132
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a37693b4bf76cc439d1157b8b690ab4
+      internalID: 1566224866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_11
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 1199
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25ce3f491dd3a7343881dc879457bb8b
+      internalID: -1380628539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_12
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 1199
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb7a4b3011cf69d4097c266b3337e4de
+      internalID: 2039117926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_13
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 1199
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42e1a7377f5a0ac459ceeae895f481fc
+      internalID: -1761505037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_14
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 1199
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d71c26b52a0dbe47b8c87783be309db
+      internalID: 992467070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_15
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 1199
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1320947d6819d7b4b9706960a8044e71
+      internalID: 1610602590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_16
+      rect:
+        serializedVersion: 2
+        x: 1299
+        y: 1199
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fc331cf9ab13b74095084cb422d851f
+      internalID: -907568224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_17
+      rect:
+        serializedVersion: 2
+        x: 1458
+        y: 1199
+        width: 144
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfc6a789d3cb1704582a969d207f9ef5
+      internalID: 823421841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_18
+      rect:
+        serializedVersion: 2
+        x: 1619
+        y: 1199
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5d25f1b469ce1f408c67749910880cc
+      internalID: -1416267094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_19
+      rect:
+        serializedVersion: 2
+        x: 1779
+        y: 1199
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc69eef5fceae554e952b80cfb923fa4
+      internalID: 1303524714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_20
+      rect:
+        serializedVersion: 2
+        x: 1939
+        y: 1199
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e11fb300fbcc14b43907dcaecd1e2e3a
+      internalID: 1685890466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_21
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 1199
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eee19a623fb85ae44acdf985e9da817b
+      internalID: -1062696737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_22
+      rect:
+        serializedVersion: 2
+        x: 2258
+        y: 1199
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57b7e4f5b846a5d43a03197c86994d9c
+      internalID: 1426143285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_23
+      rect:
+        serializedVersion: 2
+        x: 2419
+        y: 1199
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b452110382ffa3b46bdbc2c477ad4759
+      internalID: -1230390690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_24
+      rect:
+        serializedVersion: 2
+        x: 2579
+        y: 1199
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50610fc982cef8944a6a4be121a77a15
+      internalID: -435439697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_25
+      rect:
+        serializedVersion: 2
+        x: 2739
+        y: 1199
+        width: 141
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d7c686ae3a7fa04c84a843405b324c0
+      internalID: 1952704374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_26
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 998
+        width: 133
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb21da43366357c44ab69e340f3a5f1a
+      internalID: -1528430760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_27
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 998
+        width: 132
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed6d105dd74d74241a4bacd1ded6c439
+      internalID: -1696814933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_28
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 998
+        width: 132
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a20fcd63aec88d94f849e2e2fc607d76
+      internalID: -2009405644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_29
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 998
+        width: 142
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 050bdb166f9c5614199df1b048c54a68
+      internalID: -1040903881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_30
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 998
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22bf9b62badbd1e4b905693397d07eca
+      internalID: 2100428407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_31
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 998
+        width: 142
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47afcb82d6b3a3e4da349c2cf141e730
+      internalID: 1179961319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_32
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 998
+        width: 142
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2687a6503dc1149439e0b936aaacc370
+      internalID: -241382428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_33
+      rect:
+        serializedVersion: 2
+        x: 1119
+        y: 998
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 486abd3bba50cf94a8669d5ab3ebe76d
+      internalID: 1573425278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_34
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 998
+        width: 144
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bdf6522472b4174ba7bf8e92fdd4e19
+      internalID: 228074826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_35
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 998
+        width: 142
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e52fe3b7fe3a4b64f98c9f1852056e5e
+      internalID: 1540551335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_36
+      rect:
+        serializedVersion: 2
+        x: 1599
+        y: 998
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c670a59ea5099646b7a424d04cc8223
+      internalID: 1379032381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_37
+      rect:
+        serializedVersion: 2
+        x: 1759
+        y: 998
+        width: 142
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76c8de1552741074795e68d56022f768
+      internalID: 1432327899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_38
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 998
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7df4e2a0ef6eb246b5e14bcc1d1d3fa
+      internalID: -1644210095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_39
+      rect:
+        serializedVersion: 2
+        x: 2078
+        y: 998
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67dbae4f0c1f730409f16247d942165e
+      internalID: 1896709027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_40
+      rect:
+        serializedVersion: 2
+        x: 2239
+        y: 998
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 511c8f6de9a95b04e92ea15502d1a7fb
+      internalID: 429656985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_41
+      rect:
+        serializedVersion: 2
+        x: 2399
+        y: 998
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba0a2d9aa163d9548af753da9babd171
+      internalID: -5405188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_42
+      rect:
+        serializedVersion: 2
+        x: 2559
+        y: 998
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93c2c3fad0818f9429b13011bc0a47e3
+      internalID: -1182244647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_43
+      rect:
+        serializedVersion: 2
+        x: 2718
+        y: 998
+        width: 144
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29ad4d969bf8e624e8d58bb2c2a3211a
+      internalID: 746325961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_44
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 799
+        width: 142
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7690237674d3eb4e9fa9b7375723f09
+      internalID: -477650418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_45
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 799
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b1d7ca83e24d764185c472a531c8ad6
+      internalID: 415530827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_46
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 799
+        width: 132
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37f94334c762f4a418dff4c6d10c59f0
+      internalID: 11479883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_47
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 799
+        width: 160
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d856d9e1e7de97438d8ff68180c332c
+      internalID: 1214486311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_48
+      rect:
+        serializedVersion: 2
+        x: 2078
+        y: 799
+        width: 154
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fba356e07de4db04e84bdd2b7e595173
+      internalID: 81137845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_49
+      rect:
+        serializedVersion: 2
+        x: 2239
+        y: 799
+        width: 152
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2494c9b42e979ec4aa4ddf2917fdfc11
+      internalID: -352288453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_50
+      rect:
+        serializedVersion: 2
+        x: 2399
+        y: 799
+        width: 481
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e4131ec8ce65994ca20cf707b6f0e18
+      internalID: -995874515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_51
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 599
+        width: 142
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc30de94150b24c48a861af01d36d9c0
+      internalID: 1986346827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_52
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 599
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c60df8f21bb08d8409a603cbd344ba84
+      internalID: -619690344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_53
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 599
+        width: 142
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41f7ecd4c13dc5d44b2717cbf466bdf0
+      internalID: -571424941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_54
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 599
+        width: 480
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8322fe7fabcf4d044bc7e17ab5a2232c
+      internalID: 1615147437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_55
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 599
+        width: 142
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29e168c47ed7f0f4699c3c2882fe28d9
+      internalID: -419335013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_56
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 599
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36d82bac6d9d85449b2e948ee1a8e710
+      internalID: -86059062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_57
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 599
+        width: 142
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c79b5189f1ceed49be3a5cae1dfa671
+      internalID: 1587375434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_58
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 599
+        width: 1441
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16ed11fc1c92ef94e93a9d8be5f10569
+      internalID: -2111654940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_59
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 399
+        width: 123
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2606c2e286fdca145b0cd23b138f5280
+      internalID: 737805282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_60
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 399
+        width: 122
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 385491a6ade3d2d4c99cdb950678666f
+      internalID: 232888289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_61
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 399
+        width: 122
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e8d911b98443aa47ba2b9385c742dd5
+      internalID: -617899110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_62
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 399
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82c48b264f75e0d4596d8c544eb6d142
+      internalID: -1114274591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_63
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 399
+        width: 142
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd7d23088eb2d69499e6afa96483f5e9
+      internalID: -1739071153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_64
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 399
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4def87eb0a826ed479f6991fb9a3e4a5
+      internalID: 411673532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_65
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 399
+        width: 122
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04f63fecae05fd848996ba2f3ad4931e
+      internalID: 2024355921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_66
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 399
+        width: 122
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45914421a5c89434aa317fe69f876a02
+      internalID: 374219461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_67
+      rect:
+        serializedVersion: 2
+        x: 1299
+        y: 399
+        width: 123
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75ef59a00b834a24c9e36c2122768af5
+      internalID: -840824571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_68
+      rect:
+        serializedVersion: 2
+        x: 1458
+        y: 399
+        width: 144
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e473348e612c98b4185b9a4226ac2159
+      internalID: 1794203535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_69
+      rect:
+        serializedVersion: 2
+        x: 1619
+        y: 399
+        width: 142
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f351ea86a69adb45ab4a9eb2149bbed
+      internalID: -841888459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_70
+      rect:
+        serializedVersion: 2
+        x: 1779
+        y: 399
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aba504725d7d8d4f955c5d4625ae54a
+      internalID: -919636337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_71
+      rect:
+        serializedVersion: 2
+        x: 1939
+        y: 399
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4baef3505e3a624a9d6850f6e12d244
+      internalID: 847374739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_72
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 399
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3227395b5f567c047b6c26849b196d97
+      internalID: -717492832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_73
+      rect:
+        serializedVersion: 2
+        x: 2258
+        y: 399
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a832279b063c374392230c3eb9de683
+      internalID: 301669565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_74
+      rect:
+        serializedVersion: 2
+        x: 2419
+        y: 399
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a851820c8a743f45be9c43a184a7a9b
+      internalID: -148241278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_75
+      rect:
+        serializedVersion: 2
+        x: 2579
+        y: 399
+        width: 142
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1164c2b8f6cfe14f9ebdf3aa8c0c3a8
+      internalID: 1190089235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_76
+      rect:
+        serializedVersion: 2
+        x: 2739
+        y: 399
+        width: 141
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bde0aa729a345445906b980a720c3e0
+      internalID: -915402317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_77
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 198
+        width: 123
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6e36db691db4c84f90232bd4e6f0cfb
+      internalID: -812912572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_78
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 198
+        width: 122
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 562a779f3f73c4b4ea5d94b778b1ec11
+      internalID: -1389123021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_79
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 198
+        width: 122
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 688fa0d7ecb2f4d42b11f9c1f096fb4a
+      internalID: -318008315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_80
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 198
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42aa0cbfce4511c498b3b59233f2c638
+      internalID: -1772396882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_81
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 198
+        width: 142
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 147e6524a1d46c544b617680a1ba8efa
+      internalID: 986836425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_82
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 198
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb297014a14ab0d448821c6c707216ea
+      internalID: -2136322982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_83
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 198
+        width: 122
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5069943eb71b4394b97c6e90ee3796a9
+      internalID: 1785791419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_84
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 198
+        width: 122
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88b71ab38635833419dbb268d91b9100
+      internalID: 1655087808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_85
+      rect:
+        serializedVersion: 2
+        x: 1299
+        y: 198
+        width: 123
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35ab930e6a37d374da6e003733da99fa
+      internalID: 307588099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_86
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 198
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c3b980159a55994b86ea1d25468dcc6
+      internalID: 1655104732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_87
+      rect:
+        serializedVersion: 2
+        x: 1599
+        y: 198
+        width: 142
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7744bad05465e884594b47334d6b9553
+      internalID: -93169709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_88
+      rect:
+        serializedVersion: 2
+        x: 1759
+        y: 198
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e9bf903e0a8a2c4eb33ebc9e258e26e
+      internalID: 1574580156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_89
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 198
+        width: 142
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99f651952c52ec14c961027e8b1ba04a
+      internalID: -2131916509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_90
+      rect:
+        serializedVersion: 2
+        x: 2078
+        y: 198
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf37d328bdedf124d8a3cfce8a247346
+      internalID: 45623366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_91
+      rect:
+        serializedVersion: 2
+        x: 2239
+        y: 198
+        width: 142
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be376a97c32238a4db49220e59cb066b
+      internalID: 223578135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_92
+      rect:
+        serializedVersion: 2
+        x: 2399
+        y: 198
+        width: 142
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db0ed1bab966cac4c943d5e87c38a4e8
+      internalID: 1746083465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_93
+      rect:
+        serializedVersion: 2
+        x: 2559
+        y: 198
+        width: 142
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff9f07ae77677934eb82c9899650af8b
+      internalID: -1614354581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_94
+      rect:
+        serializedVersion: 2
+        x: 2718
+        y: 198
+        width: 144
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03002bfead40f1c4bb24e378800a2d23
+      internalID: -1105266227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_95
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 0
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1064d7b69261ad24ca0b1f966c966ba3
+      internalID: -1868808610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_96
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 0
+        width: 142
+        height: 181
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d39baddf0369f644c97fcd93c9f77286
+      internalID: 1355189225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_97
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 0
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0e0ce4c43f2ee448b494ddba64c4a5e
+      internalID: 1459305457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_98
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 480
+        height: 181
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 546e68647f88ec246957c2aee61975e4
+      internalID: 631430054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_99
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 0
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd413d767d0572a44b425f6425c3b635
+      internalID: -1705598744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_100
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 0
+        width: 142
+        height: 181
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f54c07e33afebd49b021e519fa59feb
+      internalID: 1403929748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_101
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 0
+        width: 142
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ca74aba28f50714ab5a156c6c25c84a
+      internalID: 2021679870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_102
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 0
+        width: 1441
+        height: 181
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 895a6040bf2ea294b8c5830581712821
+      internalID: -1972993180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_103
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 800
+        width: 161
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33cf429fc75b042419f4f574842bcda7
+      internalID: 1267193134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_104
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 799
+        width: 160
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfdae231cb6683045af07d9d38b364c0
+      internalID: 2099269145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_105
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 799
+        width: 161
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d50a64ea1ba351429f84212494ffb69
+      internalID: -2019506151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_106
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 799
+        width: 162
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ea3059143ba0ca45a7fa8b906daa287
+      internalID: -1934089183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_107
+      rect:
+        serializedVersion: 2
+        x: 1286
+        y: 799
+        width: 151
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2336f5da3a8f1b14cbc118f14d25e0af
+      internalID: 1600497729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hexamon_player_sprites_108
+      rect:
+        serializedVersion: 2
+        x: 1919
+        y: 799
+        width: 157
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69635fc0724595148a7f0b3ec917284b
+      internalID: -1715897355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      hexamon_player_sprites_61: -617899110
+      hexamon_player_sprites_20: 1685890466
+      hexamon_player_sprites_53: -571424941
+      hexamon_player_sprites_67: -840824571
+      hexamon_player_sprites_81: 986836425
+      hexamon_player_sprites_104: 2099269145
+      hexamon_player_sprites_65: 2024355921
+      hexamon_player_sprites_101: 2021679870
+      hexamon_player_sprites_59: 737805282
+      hexamon_player_sprites_4: -789428880
+      hexamon_player_sprites_77: -812912572
+      hexamon_player_sprites_1: -35259008
+      hexamon_player_sprites_16: -907568224
+      hexamon_player_sprites_89: -2131916509
+      hexamon_player_sprites_10: 1566224866
+      hexamon_player_sprites_3: 1232287336
+      hexamon_player_sprites_63: -1739071153
+      hexamon_player_sprites_74: -148241278
+      hexamon_player_sprites_51: 1986346827
+      hexamon_player_sprites_103: 1267193134
+      hexamon_player_sprites_8: 699339870
+      hexamon_player_sprites_6: 814659387
+      hexamon_player_sprites_18: -1416267094
+      hexamon_player_sprites_64: 411673532
+      hexamon_player_sprites_7: -2101692608
+      hexamon_player_sprites_105: -2019506151
+      hexamon_player_sprites_25: 1952704374
+      hexamon_player_sprites_11: -1380628539
+      hexamon_player_sprites_31: 1179961319
+      hexamon_player_sprites_91: 223578135
+      hexamon_player_sprites_33: 1573425278
+      hexamon_player_sprites_86: 1655104732
+      hexamon_player_sprites_34: 228074826
+      hexamon_player_sprites_73: 301669565
+      hexamon_player_sprites_26: -1528430760
+      hexamon_player_sprites_40: 429656985
+      hexamon_player_sprites_0: 541621386
+      hexamon_player_sprites_72: -717492832
+      hexamon_player_sprites_35: 1540551335
+      hexamon_player_sprites_12: 2039117926
+      hexamon_player_sprites_82: -2136322982
+      hexamon_player_sprites_90: 45623366
+      hexamon_player_sprites_19: 1303524714
+      hexamon_player_sprites_58: -2111654940
+      hexamon_player_sprites_56: -86059062
+      hexamon_player_sprites_76: -915402317
+      hexamon_player_sprites_88: 1574580156
+      hexamon_player_sprites_79: -318008315
+      hexamon_player_sprites_107: 1600497729
+      hexamon_player_sprites_92: 1746083465
+      hexamon_player_sprites_13: -1761505037
+      hexamon_player_sprites_24: -435439697
+      hexamon_player_sprites_97: 1459305457
+      hexamon_player_sprites_102: -1972993180
+      hexamon_player_sprites_29: -1040903881
+      hexamon_player_sprites_52: -619690344
+      hexamon_player_sprites_50: -995874515
+      hexamon_player_sprites_68: 1794203535
+      hexamon_player_sprites_85: 307588099
+      hexamon_player_sprites_47: 1214486311
+      hexamon_player_sprites_48: 81137845
+      hexamon_player_sprites_2: -2073375551
+      hexamon_player_sprites_93: -1614354581
+      hexamon_player_sprites_27: -1696814933
+      hexamon_player_sprites_98: 631430054
+      hexamon_player_sprites_37: 1432327899
+      hexamon_player_sprites_14: 992467070
+      hexamon_player_sprites_87: -93169709
+      hexamon_player_sprites_96: 1355189225
+      hexamon_player_sprites_66: 374219461
+      hexamon_player_sprites_38: -1644210095
+      hexamon_player_sprites_84: 1655087808
+      hexamon_player_sprites_45: 415530827
+      hexamon_player_sprites_43: 746325961
+      hexamon_player_sprites_28: -2009405644
+      hexamon_player_sprites_69: -841888459
+      hexamon_player_sprites_100: 1403929748
+      hexamon_player_sprites_106: -1934089183
+      hexamon_player_sprites_54: 1615147437
+      hexamon_player_sprites_17: 823421841
+      hexamon_player_sprites_60: 232888289
+      hexamon_player_sprites_94: -1105266227
+      hexamon_player_sprites_49: -352288453
+      hexamon_player_sprites_95: -1868808610
+      hexamon_player_sprites_30: 2100428407
+      hexamon_player_sprites_15: 1610602590
+      hexamon_player_sprites_80: -1772396882
+      hexamon_player_sprites_75: 1190089235
+      hexamon_player_sprites_32: -241382428
+      hexamon_player_sprites_62: -1114274591
+      hexamon_player_sprites_39: 1896709027
+      hexamon_player_sprites_108: -1715897355
+      hexamon_player_sprites_22: 1426143285
+      hexamon_player_sprites_70: -919636337
+      hexamon_player_sprites_41: -5405188
+      hexamon_player_sprites_71: 847374739
+      hexamon_player_sprites_36: 1379032381
+      hexamon_player_sprites_23: -1230390690
+      hexamon_player_sprites_9: -1949847633
+      hexamon_player_sprites_57: 1587375434
+      hexamon_player_sprites_46: 11479883
+      hexamon_player_sprites_5: -185317139
+      hexamon_player_sprites_44: -477650418
+      hexamon_player_sprites_78: -1389123021
+      hexamon_player_sprites_83: 1785791419
+      hexamon_player_sprites_55: -419335013
+      hexamon_player_sprites_99: -1705598744
+      hexamon_player_sprites_21: -1062696737
+      hexamon_player_sprites_42: -1182244647
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
