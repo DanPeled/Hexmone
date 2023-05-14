@@ -27,6 +27,5 @@ fixed major bugs, added quest system, fixed savings, added some sounds, added ne
 Fixed most bugs, added shop system, a basic shop layout, added URP, added Shader Graph and discord rich presence codes.
 ## Devlog #7 — 05/12/2023:
 Working shop, repaintes, healers, new npc system, bug fixes, new transitions, new main menu design, and more...
-<video src="https://cdn.discordapp.com/attachments/1092441779434950697/1104765650284597309/Hexmone_-_World_-_WebGL_-_Unity_2022.2.0f1__DX11__2023-05-07_16-43-18.mp4" controls="controls" style="max-width: 730px;">
-</video>
+![vid](https://cdn.discordapp.com/attachments/1092441779434950697/1104765650284597309/Hexmone_-_World_-_WebGL_-_Unity_2022.2.0f1__DX11__2023-05-07_16-43-18.mp4)
 ![img](https://cdn.discordapp.com/attachments/1092441779434950697/1104773047120052274/image.png)
