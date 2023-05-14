@@ -58871,7 +58871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6212534951846652446, guid: 59894561caa31fe4bb95c378d977e8a5, type: 3}
       propertyPath: dialog
-      value: <i>Soj?</i>
+      value: Soj?
       objectReference: {fileID: 0}
     - target: {fileID: -6212534951846652446, guid: 59894561caa31fe4bb95c378d977e8a5, type: 3}
       propertyPath: character

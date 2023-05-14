@@ -41,7 +41,7 @@ public class MainMenuSelect : MonoBehaviour
                     PlayMenu();
                     break;
                 case 1:
-                    //TODO: settings
+                    Settings();
                     break;
                 case 2:
                     Quit();
@@ -69,7 +69,7 @@ public class MainMenuSelect : MonoBehaviour
     }
     public void Settings()
     {
-        // TODO: implement settings
+        // TODO: implement settings function
     }
     public void Quit()
     {

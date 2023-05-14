@@ -82,10 +82,12 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         }
         else if (healer != null)
         {
+            DialogManager.instance.SetNPCDetails(this);
             yield return healer.Heal(initiator, dialog);
         }
         else if (merchant != null)
         {
+            DialogManager.instance.SetNPCDetails(this);
             yield return merchant.Trade();
         }
         else

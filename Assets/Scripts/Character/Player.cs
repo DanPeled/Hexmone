@@ -11,9 +11,11 @@ public class Player : MonoBehaviour, ISavable
 {
     public bool loadPos;
     public static Room gotoRoom;
+
     [Header("Vars")]
     public string playerName;
     public float runSpeed = 20.0f;
+
     public enum FacingDir
     {
         forward,
@@ -21,13 +23,15 @@ public class Player : MonoBehaviour, ISavable
         left,
         right
     };
+
     public bool isMoving;
     public FacingDir facingDir;
     public static Player instance;
     float horizontal;
     float vertical;
     float moveLimiter = 0.7f;
-    public bool colldingDoor, collidingInteractable;
+    public bool colldingDoor,
+        collidingInteractable;
     public int camIndex;
     string notification;
 
@@ -69,9 +73,12 @@ public class Player : MonoBehaviour, ISavable
             transform.position = gotoRoom.roomPosition;
         SavingSystem.i.Load("saveSlot1");
     }
+
     void Update()
     {
-        notificationBar.transform.parent.gameObject.GetComponent<Canvas>().worldCamera = cameras[camIndex];
+        notificationBar.transform.parent.gameObject.GetComponent<Canvas>().worldCamera = cameras[
+            camIndex
+        ];
         instance = this;
         if (colldingDoor && InputSystem.action.isClicked())
         {
@@ -120,7 +127,6 @@ public class Player : MonoBehaviour, ISavable
                     vertical = 0;
                 }
             }
-
         }
         else
         {
@@ -142,21 +148,21 @@ public class Player : MonoBehaviour, ISavable
         {
             isMoving = true;
             anim.moveX = 0;
-            anim.moveY = -1;// back
+            anim.moveY = -1; // back
             this.facingDir = FacingDir.backward;
         }
         else if (horizontal > 0)
         {
             isMoving = true;
             anim.moveY = 0;
-            anim.moveX = -1;// right
+            anim.moveX = -1; // right
             this.facingDir = FacingDir.right;
         }
         else if (horizontal < 0)
         {
             isMoving = true;
 
-            anim.moveX = 1;// left
+            anim.moveX = 1; // left
             anim.moveY = 0;
             this.facingDir = FacingDir.left;
         }
@@ -172,6 +178,7 @@ public class Player : MonoBehaviour, ISavable
             StartCoroutine(Interact(interactObject));
         }
     }
+
     IEnumerator Interact(GameObject obj)
     {
         if (collidingInteractable)
@@ -182,6 +189,7 @@ public class Player : MonoBehaviour, ISavable
             yield break;
         }
     }
+
     void FixedUpdate()
     {
         if (horizontal != 0 && vertical != 0) // Check for diagonal movement
@@ -192,6 +200,7 @@ public class Player : MonoBehaviour, ISavable
         }
         body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
     }
+
     bool active = false;
 
     #region Collision
@@ -212,6 +221,7 @@ public class Player : MonoBehaviour, ISavable
             this.interactObject = other.gameObject;
         }
     }
+
     public void Door(GameObject other)
     {
         loadPos = false;
@@ -219,6 +229,7 @@ public class Player : MonoBehaviour, ISavable
         LevelLoader.i.Load();
         gotoRoom = other.GetComponent<Door>().targetRoom;
     }
+
     public void TV()
     {
         active = true;
@@ -229,6 +240,7 @@ public class Player : MonoBehaviour, ISavable
         string timeOnly = DateTime.Now.ToString("h:mm:ss tt");
         // lastRoutine = StartCoroutine(notify($"{timeOnly}"));
     }
+
     void OnCollisionExit2D(Collision2D other)
     {
         if (lastRoutine != null)
@@ -263,6 +275,7 @@ public class Player : MonoBehaviour, ISavable
             yield return new WaitForSeconds(0.05f);
         }
     }
+
     public void ShowDialog()
     {
         notificationBar.SetActive(true);
@@ -277,6 +290,7 @@ public class Player : MonoBehaviour, ISavable
     {
         GameController.instance.battleSystem.gameObject.SetActive(true);
     }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Door")
@@ -298,6 +312,7 @@ public class Player : MonoBehaviour, ISavable
             transform.position = new Vector2(71.84f, -51.6f);
         }
     }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         // if (other.gameObject.GetComponent<SurfableWater>() != null)
@@ -321,6 +336,7 @@ public class Player : MonoBehaviour, ISavable
             // lastRoutine = (removeNotification());
         }
     }
+
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "Door")
@@ -341,6 +357,7 @@ public class Player : MonoBehaviour, ISavable
         //     anim.isSurfing = false;
         // }
     }
+
     public void OnTriggerStay2D(Collider2D other)
     {
         OnMoveOver(other.gameObject);
@@ -363,19 +380,30 @@ public class Player : MonoBehaviour, ISavable
         {
             transform.position = new Vector2(71.84f, -51.6f);
         }
+        if (other.gameObject.GetComponent<Interactable>() != null)
+        {
+            this.collidingInteractable = true;
+            this.interactObject = other.gameObject;
+        }
     }
+
     public void OnMoveOver(GameObject other)
     {
         StartCoroutine(
-            CheckForEncounters(
-                other.tag == "LongGrass" && (horizontal != 0 || vertical != 0)
+            CheckForEncounters(other.tag == "LongGrass" && (horizontal != 0 || vertical != 0))
+        );
+        StartCoroutine(
+            CheckIfInTrainersView(
+                other.gameObject.GetComponentInParent<TrainerController>(),
+                other.tag.Equals("FOV")
             )
         );
-        StartCoroutine(CheckIfInTrainersView(other.gameObject.GetComponentInParent<TrainerController>(), other.tag.Equals("FOV")));
     }
+
     public IEnumerator CheckForEncounters(bool touchingLongGrass)
     {
-        if (!playerActive) yield break;
+        if (!playerActive)
+            yield break;
         int rnd = UnityEngine.Random.Range(1, 1000);
         if (touchingLongGrass)
         {
@@ -391,6 +419,7 @@ public class Player : MonoBehaviour, ISavable
             }
         }
     }
+
     public IEnumerator CheckIfInTrainersView(TrainerController trainer, bool inView)
     {
         if (inView && trainer != null && playerActive)
@@ -400,21 +429,26 @@ public class Player : MonoBehaviour, ISavable
             yield break;
         }
     }
+
     public void SwitchCamera(int camIndex)
     {
         this.camIndex = camIndex;
         cameras.ForEach(c => c.gameObject.SetActive(false));
         cameras[camIndex].gameObject.SetActive(true);
     }
+
     public object CaptureState()
     {
         var saveData = new PlayerSaveData()
         {
             pos = new float[] { transform.position.x, transform.position.y },
-            creatures = GetComponent<CreaturesParty>().Creatures.Select(p => p.GetSaveData()).ToList()
+            creatures = GetComponent<CreaturesParty>().Creatures
+                .Select(p => p.GetSaveData())
+                .ToList()
         };
         return saveData;
     }
+
     public void RestoreState(object state)
     {
         var saveData = (PlayerSaveData)state;
@@ -426,8 +460,11 @@ public class Player : MonoBehaviour, ISavable
             transform.position = new Vector3(pos[0], pos[1]);
         }
         // Restore party
-        GetComponent<CreaturesParty>().Creatures = saveData.creatures.Select(s => new Creature(s)).ToList();
+        GetComponent<CreaturesParty>().Creatures = saveData.creatures
+            .Select(s => new Creature(s))
+            .ToList();
     }
+
     public void SetViewPort(Rect port)
     {
         viewPort = new Rect(port);
@@ -436,7 +473,6 @@ public class Player : MonoBehaviour, ISavable
             cam.rect = port;
         }
     }
-
 }
 
 [System.Serializable]
@@ -445,4 +481,3 @@ public class PlayerSaveData
     public float[] pos;
     public List<CreatureSaveData> creatures;
 }
-

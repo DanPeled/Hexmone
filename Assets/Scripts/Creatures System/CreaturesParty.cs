@@ -30,11 +30,18 @@ public class CreaturesParty : MonoBehaviour
             creature.Init();
         }
     }
-
+    /// <summary>
+    /// Gets the first healthy (with hp > 0) creature
+    /// </summary>
+    /// <returns>The first healthy creature found in the party</returns>
     public Creature GetHealthyCreature()
     {
         return Creatures.Where(x => x.HP > 0).FirstOrDefault();
     }
+    /// <summary>
+    /// Adds a creature to the creature party / PC
+    /// </summary>
+    /// <param name="newCreature">The creature being added</param>
     public void AddCreature(Creature newCreature)
     {
         if (Creatures.Count < 6)
@@ -48,12 +55,19 @@ public class CreaturesParty : MonoBehaviour
             creaturesBox.Add(newCreature);
         }
     }
+    /// <summary>
+    /// Gets the player's party
+    /// </summary>
     public static CreaturesParty GetPlayerParty()
     {
         if (FindObjectOfType<Player>( ) != null)
             return FindObjectOfType<Player>().GetComponent<CreaturesParty>();
         else return null;
     }
+    /// <summary>
+    /// Checks for evolutions possible in the party
+    /// </summary>
+    /// <returns>Wheter some creature in the party has a possible evolution</returns>
     public bool CheckForEvolutions()
     {
         return creatures.Any(p => p.CheckForEvolution() != null);
