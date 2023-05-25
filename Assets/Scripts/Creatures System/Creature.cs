@@ -3,13 +3,16 @@ using System.Runtime.ExceptionServices;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+
 [System.Serializable]
 public class Creature
 {
     public string nickname = "";
     public CreatureBase _base;
-    public int level, exp;
-    public int HP, statusTime;
+    public int level,
+        exp;
+    public int HP,
+        statusTime;
     public List<Move> moves;
     public Move currentMove;
     public Dictionary<Stat, int> stats;
@@ -21,12 +24,14 @@ public class Creature
     public Condition volatileStatus;
     public int volatileStatusTime;
     public bool repainted;
+
     public Creature(CreatureBase base_, int pLvl)
     {
         this._base = base_;
         level = pLvl;
         Init();
     }
+
     public Creature(CreatureBase base_, int pLvl, bool repainted)
     {
         this._base = base_;
@@ -34,6 +39,7 @@ public class Creature
         this.repainted = repainted;
         Init();
     }
+
     public void Init()
     {
         moves = new List<Move>();
@@ -71,6 +77,7 @@ public class Creature
         if (oldHP != 0)
             HP += maxHealth - oldHP;
     }
+
     void ResetStatBoost()
     {
         this.statBoosts = new Dictionary<Stat, int>()
@@ -80,10 +87,11 @@ public class Creature
             { Stat.SpAttack, 0 },
             { Stat.SpDefense, 0 },
             { Stat.Speed, 0 },
-            {Stat.Accuracy, 0},
-            {Stat.Evasion, 0},
+            { Stat.Accuracy, 0 },
+            { Stat.Evasion, 0 },
         };
     }
+
     public int GetStat(Stat stat)
     {
         int statVal = stats[stat];
@@ -119,13 +127,16 @@ public class Creature
             Debug.Log($"{stat} Has been boosted to {this.statBoosts[stat]}");
         }
     }
+
     public string GetName()
     {
         return nickname != "" ? nickname : _base.Name;
     }
+
     public void SetStatus(ConditionID conditionID)
     {
-        if (status != null) return;
+        if (status != null)
+            return;
 
         status = ConditionDB.conditions[conditionID];
         status?.onStart?.Invoke(this);
@@ -133,23 +144,28 @@ public class Creature
 
         OnStatusChanged?.Invoke();
     }
+
     public void CureStatus()
     {
         status = null;
         OnStatusChanged?.Invoke();
     }
+
     public void SetVolatileStatus(ConditionID conditionID)
     {
-        if (volatileStatus != null) return;
+        if (volatileStatus != null)
+            return;
 
         volatileStatus = ConditionDB.conditions[conditionID];
         volatileStatus?.onStart?.Invoke(this);
         statusChanges.Enqueue($"{GetName()} {volatileStatus.startMessage}");
     }
+
     public void CureVolatileStatus()
     {
         volatileStatus = null;
     }
+
     public bool CheckForLevelUp()
     {
         if (exp > _base.GetExpForLevel(level + 1))
@@ -160,19 +176,24 @@ public class Creature
         }
         return false;
     }
+
     public LearnableMove GetLearnableMoveAtCurrLevel()
     {
         return _base.learnableMoves.Where(x => x.level == this.level).FirstOrDefault();
     }
+
     public void LearnMove(MoveBase moveToLearn)
     {
-        if (moves.Count > this._base.maxNumberOfMoves) return;
+        if (moves.Count > this._base.maxNumberOfMoves)
+            return;
         moves.Add(new Move(moveToLearn));
     }
+
     public bool HasMove(MoveBase move)
     {
         return this.moves.Count(m => m.base_ == move) > 0;
     }
+
     public int Attack
     {
         get { return GetStat(Stat.Attack); }
@@ -228,11 +249,13 @@ public class Creature
         var movesWithPP = moves.Where(x => x.PP > 0).ToList();
         return movesWithPP[UnityEngine.Random.Range(0, movesWithPP.Count)];
     }
+
     public void OnAfterTurn()
     {
         status?.onAfterTurn?.Invoke(this);
         volatileStatus?.onAfterTurn?.Invoke(this);
     }
+
     public bool OnBeforeMove()
     {
         bool canPreformMove = true;
@@ -252,16 +275,19 @@ public class Creature
         }
         return canPreformMove;
     }
+
     public void IncreaseHP(int amount)
     {
         HP = Mathf.Clamp(HP + amount, 0, maxHealth);
         OnHPChanged?.Invoke();
     }
+
     public void DecreaseHP(int damage)
     {
         HP = Mathf.Clamp(HP - damage, 0, maxHealth);
         OnHPChanged?.Invoke();
     }
+
     public void OnBattleOver()
     {
         volatileStatus = null;
@@ -270,12 +296,11 @@ public class Creature
 
     public Creature(CreatureSaveData saveData)
     {
-
         _base = CreatureDB.GetObjectByName(saveData.name);
         this.HP = saveData.hp;
         this.level = saveData.level;
         this.exp = saveData.exp;
-
+        this.nickname = saveData.nickname;
         if (saveData.statusId != null)
         {
             status = ConditionDB.conditions[saveData.statusId.Value];
@@ -292,11 +317,13 @@ public class Creature
         ResetStatBoost();
         volatileStatus = null;
     }
+
     public CreatureSaveData GetSaveData()
     {
         var saveData = new CreatureSaveData()
         {
-            name = this.GetName(),
+            nickname = this.nickname,
+            name = this._base.Name,
             hp = this.HP,
             level = this.level,
             exp = this.exp,
@@ -305,29 +332,35 @@ public class Creature
         };
         return saveData;
     }
+
     public Evolution CheckForEvolution()
     {
         return _base.evolutions.FirstOrDefault(e => e.requiredLevel <= level);
     }
+
     public Evolution CheckForEvolution(ItemBase item)
     {
         return _base.evolutions.FirstOrDefault(e => e.requiredItem == item);
     }
+
     public void Evolve(Evolution evolution)
     {
         _base = evolution.evolvesInto;
         CalculateStats();
     }
+
     public void Heal()
     {
         HP = maxHealth;
         CureStatus();
         OnHPChanged?.Invoke();
     }
+
     public Sprite GetFrontSprite()
     {
         return repainted ? _base.repaintedFrontSprite : _base.frontSprite;
     }
+
     public Sprite GetBackSprite()
     {
         return repainted ? _base.repaintedBackSprite : _base.backSprite;
@@ -340,11 +373,15 @@ public class DamageDetails
     public float Critical { get; set; }
     public float TypeEffectiveness { get; set; }
 }
+
 [System.Serializable]
 public class CreatureSaveData
 {
-    public string name, nickname;
-    public int hp, level, exp;
+    public string name,
+        nickname;
+    public int hp,
+        level,
+        exp;
     public ConditionID? statusId;
     public List<MoveSaveData> moves;
 }

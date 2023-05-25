@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+
 public class MenuController : MonoBehaviour
 {
     public GameObject menu;
@@ -10,18 +11,24 @@ public class MenuController : MonoBehaviour
     public event Action<int> onMenuSelected;
     public event Action onBack;
     int selectedItem = 0;
+
     void Awake()
     {
         menuItems = menu.GetComponentsInChildren<TextMeshProUGUI>().ToList();
     }
-    void CloseMenu(){
+
+    void CloseMenu()
+    {
+        Time.timeScale = 1;
         menu.SetActive(false);
     }
+
     public void OpenMenu()
     {
         menu.SetActive(true);
         UpdateItemSelection();
     }
+
     public void HandleUpdate()
     {
         int prevSelection = selectedItem;
@@ -37,14 +44,16 @@ public class MenuController : MonoBehaviour
         if (prevSelection != selectedItem)
             UpdateItemSelection();
 
-        if(InputSystem.action.isClicked()){
+        if (InputSystem.action.isClicked())
+        {
             onMenuSelected?.Invoke(selectedItem);
             CloseMenu();
-        } else if (InputSystem.back.isClicked()){
+        }
+        else if (InputSystem.back.isClicked())
+        {
             onBack?.Invoke();
             CloseMenu();
         }
-
     }
 
     void UpdateItemSelection()

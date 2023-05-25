@@ -30,12 +30,18 @@ MonoBehaviour:
   expYield: 216
   growthRate: 1
   learnableMoves:
-  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
-    level: 0
-  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
-    level: 0
-  - moveBase: {fileID: 11400000, guid: 984752f4da5533a44ac60d4c76c51adb, type: 2}
-    level: 3
+  - moveBase: {fileID: 11400000, guid: 4803aad8e91da774891b0cee38cac1ff, type: 2}
+    level: 10
+  - moveBase: {fileID: 11400000, guid: 1d8a368423a616d4e8f3fb4729cda63c, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 3026b69e796c2e24ca9bcfa068639ec6, type: 2}
+    level: 30
+  - moveBase: {fileID: 11400000, guid: 432ce4b5c8f43444aa37fd9e109a6cd8, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: ee599e715537d5340965b4459d32022e, type: 2}
+    level: 13
+  - moveBase: {fileID: 11400000, guid: 16b58ac7a0dcea44093e23734f5ee58b, type: 2}
+    level: 5
   learnableByItems: []
   evolutions: []
   maxNumberOfMoves: 4

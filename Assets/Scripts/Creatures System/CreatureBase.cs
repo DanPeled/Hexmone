@@ -8,11 +8,14 @@ using TMPro;
 [CreateAssetMenu(fileName = "Creature", menuName = "Creatures/ Create New Creature")]
 public class CreatureBase : ScriptableObject
 {
-    public string name, description;
+    public string name,
+        description;
+
     [Header("Sprites")]
     public Sprite frontSprite;
     public Sprite backSprite;
-    public Sprite repaintedFrontSprite, repaintedBackSprite;
+    public Sprite repaintedFrontSprite,
+        repaintedBackSprite;
 
     [Header("Types")]
     public CreatureType type1;
@@ -39,7 +42,11 @@ public class CreatureBase : ScriptableObject
 
     [HideInInspector]
     public int maxNumberOfMoves = 4;
-    public string Name { get { return name; } }
+    public string Name
+    {
+        get { return name; }
+    }
+
     public int GetExpForLevel(int level)
     {
         if (growthRate == GrowthRate.Fast)
@@ -52,15 +59,57 @@ public class CreatureBase : ScriptableObject
         }
         else if (growthRate == GrowthRate.MeduimSlow)
         {
-            return Mathf.FloorToInt((6f / 5f) * Mathf.Pow(level, 3f) - 15f * Mathf.Pow(level, 2f) + 100f * level - 140f);
+            return Mathf.FloorToInt(
+                (6f / 5f) * Mathf.Pow(level, 3f) - 15f * Mathf.Pow(level, 2f) + 100f * level - 140f
+            );
         }
         else if (growthRate == GrowthRate.Slow)
         {
             return Mathf.FloorToInt((5 * Mathf.Pow(level, 3)) / 4f);
         }
+        else if (growthRate == GrowthRate.Erratic)
+        {
+            if (level <= 50)
+            {
+                return Mathf.FloorToInt((level * level * level) * (100 - level) / 50);
+            }
+            else if (level <= 68)
+            {
+                return Mathf.FloorToInt((level * level * level) * (150 - level) / 100);
+            }
+            else if (level <= 98)
+            {
+                return Mathf.FloorToInt((level * level * level) * ((1911 - 10 * level) / 3) / 500);
+            }
+            else
+            {
+                return Mathf.FloorToInt((level * level * level) * (160 - level) / 100);
+            }
+        }
+        else if (growthRate == GrowthRate.Fluctuating)
+        {
+            if (level <= 15)
+            {
+                return Mathf.FloorToInt(
+                    (level * level * level) * ((Mathf.Floor((level + 1) / 3f) + 24) / 50f)
+                );
+            }
+            else if (level <= 36)
+            {
+                return Mathf.FloorToInt((level * level * level) * ((level + 14) / 50f));
+            }
+            else
+            {
+                return Mathf.FloorToInt(
+                    (level * level * level) * ((Mathf.Floor(level / 2f) + 32) / 50f)
+                );
+            }
+        }
+
         return -1;
     }
 }
+
 [System.Serializable]
 public class Evolution
 {
@@ -68,16 +117,24 @@ public class Evolution
     public int requiredLevel;
     public EvolutionItem requiredItem;
 }
+
 [System.Serializable]
 public class LearnableMove
 {
     public MoveBase moveBase;
     public int level;
 }
+
 public enum GrowthRate
 {
-    Fast, MeduimFast, MeduimSlow, Slow
+    Erratic,
+    Fast,
+    MeduimFast,
+    MeduimSlow,
+    Slow,
+    Fluctuating
 }
+
 public enum CreatureType
 {
     Normal,
@@ -119,26 +176,66 @@ public class TypeChart
 {
     static float[,] chart =
     {
-    /*                NOR FIR WAT ELE GRA ICE FIG POI GRO FLY PSY BUG ROC GHO DRG DAR STE FAI FOD  */
-    /* Normal    */ { 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 1f, 1f, 0.5f, 0f, 1f, 1f, 0.5f, 1f , 2f},
-    /* Fire      */ { 1f, 0.5f, 2f, 1f, 0.5f, 0.5f, 1f, 1f, 2f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 0.5f, 1f , 0.5f},
-    /* Water     */ { 1f, 2f, 0.5f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 0.5f, 1f , 2f},
-    /* Electric  */ { 1f, 1f, 2f, 0.5f, 0.5f, 1f, 1f, 1f, 0f, 2f, 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 1f , 0f},
-    /* Grass     */ { 1f, 2f, 0.5f, 1f, 0.5f, 2f, 1f, 2f, 0.5f, 2f, 1f, 0.5f, 2f, 1f, 1f, 1f, 0.5f, 1f, 1f},
-    /* Ice       */ { 1f, 2f, 1f, 1f, 2f, 0.5f, 1f, 1f, 2f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 0.5f, 1f, 0.5f},
-    /* Fighting  */ { 2f, 1f, 1f, 1f, 1f, 2f, 1f, 0.5f, 1f, 0.5f, 0.5f, 0.5f, 2f, 0f, 1f, 2f, 2f, 0.5f, 1f},
-    /* Poison    */ { 1f, 1f, 1f, 1f, 2f, 1f, 1f, 0.5f, 0.5f, 1f, 1f, 1f, 0.5f, 0.5f, 1f, 1f, 0f, 2f, 2f},
-    /* Ground    */ { 1f, 1f, 1f, 2f, 0f, 2f, 1f, 0.5f, 2f, 1f, 1f, 0.5f, 2f, 1f, 1f, 1f, 1f, 1f, 1f},
-    /* Flying    */ { 1f, 1f, 1f, 2f, 0.5f, 1f, 2f, 1f, 0f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 2f},
-    /* Psychic   */ { 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 2f, 1f, 1f, 0.5f, 1f, 1f, 1f, 2f, 2f, 1f, 1f, 1f},
-    /* Bug       */ { 1f, 0.5f, 1f, 1f, 2f, 1f, 0.5f, 1f, 0.5f, 2f, 1f, 2f, 1f, 0.5f, 2f, 1f, 0.5f, 0.5f, 1f},
-    /* Rock      */ { 0.5f, 2f, 1f, 2f, 2f, 1f, 0.5f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 1f, 1f},
-    /* Ghost     */ { 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0.5f, 1f, 1f, 2f, 1f, 1f, 2f, 1f, 1f, 1f, 2f, 0.5f},
-    /* Dragon    */ { 1f, 0.5f, 0.5f, 0.5f, 0.5f, 2f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 2f, 1f, 1f},
-    /* Dark      */ { 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 1f, 1f, 1f, 0f, 2f, 1f, 2f, 1f, 0.5f, 1f, 0.5f, 1f},
-    /* Steel     */ { 0.5f, 2f, 1f, 0.5f, 2f, 1f, 1f, 1f, 0.5f, 2f, 1f, 0.5f, 1f, 0.5f, 1f, 0.5f, 0.5f, 2f, 2f},
-    /* Fairy     */ { 1f, 0.5f, 1f, 1f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 0f, 2f, 0.5f, 1f, 1f},
-    /* Food      */ { 0.5f, 2f, 0.5f, 1f, 1f, 2f, 1f, 1f, 1f, 0.5f, 1f, 0.5f, 1f, 1f, 0.5f, 1f, 0.5f, 1f, 0f}
+        /*                NOR FIR WAT ELE GRA ICE FIG POI GRO FLY PSY BUG ROC GHO DRG DAR STE FAI FOD  */
+        /* Normal    */{
+            1f,
+            1f,
+            1f,
+            1f,
+            1f,
+            1f,
+            2f,
+            1f,
+            1f,
+            1f,
+            1f,
+            1f,
+            0.5f,
+            0f,
+            1f,
+            1f,
+            0.5f,
+            1f,
+            2f
+        },
+        /* Fire      */{ 1f, 0.5f, 2f, 1f, 0.5f, 0.5f, 1f, 1f, 2f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 0.5f, 1f, 0.5f },
+        /* Water     */{ 1f, 2f, 0.5f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 0.5f, 1f, 2f },
+        /* Electric  */{ 1f, 1f, 2f, 0.5f, 0.5f, 1f, 1f, 1f, 0f, 2f, 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 1f, 0f },
+        /* Grass     */{ 1f, 2f, 0.5f, 1f, 0.5f, 2f, 1f, 2f, 0.5f, 2f, 1f, 0.5f, 2f, 1f, 1f, 1f, 0.5f, 1f, 1f },
+        /* Ice       */{ 1f, 2f, 1f, 1f, 2f, 0.5f, 1f, 1f, 2f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 0.5f, 1f, 0.5f },
+        /* Fighting  */{ 2f, 1f, 1f, 1f, 1f, 2f, 1f, 0.5f, 1f, 0.5f, 0.5f, 0.5f, 2f, 0f, 1f, 2f, 2f, 0.5f, 1f },
+        /* Poison    */{ 1f, 1f, 1f, 1f, 2f, 1f, 1f, 0.5f, 0.5f, 1f, 1f, 1f, 0.5f, 0.5f, 1f, 1f, 0f, 2f, 2f },
+        /* Ground    */{ 1f, 1f, 1f, 2f, 0f, 2f, 1f, 0.5f, 2f, 1f, 1f, 0.5f, 2f, 1f, 1f, 1f, 1f, 1f, 1f },
+        /* Flying    */{ 1f, 1f, 1f, 2f, 0.5f, 1f, 2f, 1f, 0f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 2f },
+        /* Psychic   */{ 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 2f, 1f, 1f, 0.5f, 1f, 1f, 1f, 2f, 2f, 1f, 1f, 1f },
+        /* Bug       */{ 1f, 0.5f, 1f, 1f, 2f, 1f, 0.5f, 1f, 0.5f, 2f, 1f, 2f, 1f, 0.5f, 2f, 1f, 0.5f, 0.5f, 1f },
+        /* Rock      */{ 0.5f, 2f, 1f, 2f, 2f, 1f, 0.5f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 1f, 1f },
+        /* Ghost     */{ 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0.5f, 1f, 1f, 2f, 1f, 1f, 2f, 1f, 1f, 1f, 2f, 0.5f },
+        /* Dragon    */{ 1f, 0.5f, 0.5f, 0.5f, 0.5f, 2f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 2f, 1f, 1f },
+        /* Dark      */{ 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 1f, 1f, 1f, 0f, 2f, 1f, 2f, 1f, 0.5f, 1f, 0.5f, 1f },
+        /* Steel     */{
+            0.5f,
+            2f,
+            1f,
+            0.5f,
+            2f,
+            1f,
+            1f,
+            1f,
+            0.5f,
+            2f,
+            1f,
+            0.5f,
+            1f,
+            0.5f,
+            1f,
+            0.5f,
+            0.5f,
+            2f,
+            2f
+        },
+        /* Fairy     */{ 1f, 0.5f, 1f, 1f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 0f, 2f, 0.5f, 1f, 1f },
+        /* Food      */{ 0.5f, 2f, 0.5f, 1f, 1f, 2f, 1f, 1f, 1f, 0.5f, 1f, 0.5f, 1f, 1f, 0.5f, 1f, 0.5f, 1f, 0f }
     };
 
     public static float GetAffectiveness(CreatureType attackType, CreatureType defenseType)

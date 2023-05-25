@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e79a054c7486ef40a083eda26e6127f, type: 3}
+  m_Name: Inkder
+  m_EditorClassIdentifier: 
+  name: Inkder
+  description: 
+  frontSprite: {fileID: 21300000, guid: 6e470af1680b6f74c9373d66bb7b8ffd, type: 3}
+  backSprite: {fileID: 21300000, guid: 799dcb8542d12554cb0c71fb8f800a18, type: 3}
+  repaintedFrontSprite: {fileID: 0}
+  repaintedBackSprite: {fileID: 0}
+  type1: 11
+  type2: 15
+  maxHealth: 70
+  damage: 35
+  defense: 45
+  spAttack: 55
+  spDefense: 50
+  speed: 60
+  catchRate: 225
+  expYield: 54
+  growthRate: 1
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 447a170e9c2d82045b8502e2db2bcbdc, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 96fb102c5e4c2cf4ab400a8dfb56f807, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: a803d0af54ceb0a4d9c96739d5d8233c, type: 2}
+    level: 6
+  - moveBase: {fileID: 11400000, guid: af1870f70edf20644b7a8a3651a3f560, type: 2}
+    level: 10
+  - moveBase: {fileID: 11400000, guid: 4a23352cd9b10e94693d4d50b28f0dc1, type: 2}
+    level: 16
+  learnableByItems: []
+  evolutions: []
+  maxNumberOfMoves: 4

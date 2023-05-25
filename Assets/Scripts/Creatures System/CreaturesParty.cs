@@ -11,10 +11,7 @@ public class CreaturesParty : MonoBehaviour
     CreaturesBox creaturesBox;
     public List<Creature> Creatures
     {
-        get
-        {
-            return creatures;
-        }
+        get { return creatures; }
         set
         {
             creatures = value;
@@ -30,6 +27,7 @@ public class CreaturesParty : MonoBehaviour
             creature.Init();
         }
     }
+
     /// <summary>
     /// Gets the first healthy (with hp > 0) creature
     /// </summary>
@@ -38,6 +36,7 @@ public class CreaturesParty : MonoBehaviour
     {
         return Creatures.Where(x => x.HP > 0).FirstOrDefault();
     }
+
     /// <summary>
     /// Adds a creature to the creature party / PC
     /// </summary>
@@ -55,15 +54,18 @@ public class CreaturesParty : MonoBehaviour
             creaturesBox.Add(newCreature);
         }
     }
+
     /// <summary>
     /// Gets the player's party
     /// </summary>
     public static CreaturesParty GetPlayerParty()
     {
-        if (FindObjectOfType<Player>( ) != null)
+        if (FindObjectOfType<Player>() != null)
             return FindObjectOfType<Player>().GetComponent<CreaturesParty>();
-        else return null;
+        else
+            return null;
     }
+
     /// <summary>
     /// Checks for evolutions possible in the party
     /// </summary>
@@ -72,6 +74,7 @@ public class CreaturesParty : MonoBehaviour
     {
         return creatures.Any(p => p.CheckForEvolution() != null);
     }
+
     public IEnumerator RunEvolutions()
     {
         foreach (var creature in creatures)
@@ -84,10 +87,12 @@ public class CreaturesParty : MonoBehaviour
         }
         onUpdated?.Invoke();
     }
+
     public void PartyUpdated()
     {
         onUpdated?.Invoke();
     }
+
     public string GetPartyDiscordStatus()
     {
         string[] names = creatures.Select(c => c._base.name).ToArray();
@@ -95,7 +100,8 @@ public class CreaturesParty : MonoBehaviour
         string res = "";
         for (int i = 0; i < creatures.Count; i++)
         {
-            string text = $"{(names[i] != names[0] ? ", " : "")}{names[i]} {(creatures[i].GetName() == names[i] ? "" : ("\"" + creatures[i].GetName() + "\""))} lvl {lvls[i]}";
+            string text =
+                $"{(names[i] != names[0] ? ", " : "")}{names[i]} {(creatures[i].GetName() == names[i] ? "" : ("\"" + creatures[i].GetName() + "\""))} lvl {lvls[i]}";
             res += $"{text}";
         }
         return res;
