@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5679f4b5ef656042901dd31569b18ef, type: 3}
+  m_Name: README
+  m_EditorClassIdentifier: 
+  icon: {fileID: 2800000, guid: e997f3a85c5260c469eb412442080712, type: 3}
+  title: "Welcome to \nSmart Console!"
+  sections:
+  - heading: README
+    text: 
+    linkText: 
+    url: 
+  - heading: About
+    text: "Elevate your game development experience with Smart Console - a flexible and intuitive in-game console!"
+    linkText: 
+    url: 
+  - heading: Compatibility
+    text: "Unity version 2020.3 or higher.\nCompatible with both Input System or Legacy Input Manager."
+    linkText: 
+    url: 
+  - heading: 'Demo  '
+    text: "Open the Demo scene (located at Assets/Smart Console/Demo/Scenes).\n
+      In this scene, you can test the Smart Console in a default environment.\n
+	Open and close the console pressing input key Escape.\n
+	You can start with the command help."
+    linkText: 
+    url: 
+  - heading: Documentation
+    text: Open the User Manual (located at Assets/Smart Console/UserManual.pdf).
+    linkText: Click here to open the online documentation.
+    url: https://drive.google.com/file/d/1rcwAEyRFynPJsO-_S8N4W7xbDiqbgCGg/view?usp=sharing
+  - heading: 'I want to hear your feedback! '
+    text: 
+    linkText: Click here to write a review.
+    url: https://u3d.as/2WJo
+  loadedLayout: 1

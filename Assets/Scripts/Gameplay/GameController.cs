@@ -98,6 +98,10 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (state == GameState.Console)
+        {
+            return;
+        }
         if (state == GameState.Dialog)
         {
             DialogManager.instance.HandleUpdate();
@@ -233,5 +237,6 @@ public enum GameState
     PartyScreen,
     Bag,
     Evolution,
-    Shop
+    Shop,
+    Console
 }

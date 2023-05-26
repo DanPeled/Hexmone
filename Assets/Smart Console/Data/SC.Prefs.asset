@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67112ec745e7b4cb42433f2d676b0f, type: 3}
+  m_Name: SC.Prefs
+  m_EditorClassIdentifier: 
+  GlobalFont: {fileID: 11400000, guid: f3eaa9d832e80044a8a20aa5ee0f8a7b, type: 2}
+  LogTextFontSize: 28
+  AutocompleteTextFontSize: 24
+  LogTextColor: {r: 0.867, g: 0.867, b: 0.867, a: 1}
+  CommandTextColor: {r: 0.02352941, g: 0.6039216, b: 1, a: 1}
+  AutocompleteTextColor: {r: 0.867, g: 0.867, b: 0.867, a: 1}
+  AutocompleteParameterTextColor: {r: 0.867, g: 0.867, b: 0.867, a: 0.5}
+  WarningTextColor: {r: 0.9, g: 0.8, b: 0.02352941, a: 1}
+  ErrorTextColor: {r: 1, g: 0.2588235, b: 0.2313726, a: 1}
+  HighlightTextColor: {r: 0.996, g: 0.706, b: 0, a: 1}
+  BackgroundMainColor: {r: 0.176, g: 0.176, b: 0.176, a: 1}
+  BackgroundEvenColor: {r: 0.22, g: 0.22, b: 0.22, a: 0.5}
+  BackgroundSelectionColor: {r: 0.173, g: 0.365, b: 0.529, a: 0.5}
+  BackgroundAutocompleteColor: {r: 0, g: 0, b: 0, a: 0}
+  Opacity: 1
+  IntModifier: 1
+  FloatModifier: 0.1

@@ -43,7 +43,8 @@ public class Player : MonoBehaviour, ISavable
 
     [Header("Refrences")]
     public GameController gameController;
-    public GameObject notificationBar;
+    public GameObject notificationBar,
+        console;
     public Sprite sprite;
     public RoomSystem roomSys;
     private CharacterAnimator anim;
@@ -177,6 +178,23 @@ public class Player : MonoBehaviour, ISavable
             ShowDialog();
             StartCoroutine(Interact(interactObject));
         }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            TriggerConsole();
+        }
+        TriggerConsole(console.activeInHierarchy);
+    }
+
+    void TriggerConsole()
+    {
+        playerActive = !playerActive;
+        GameController.instance.state = playerActive ? GameState.FreeRoam : GameState.Console;
+    }
+
+    void TriggerConsole(bool active)
+    {
+        playerActive = !active;
+        GameController.instance.state = playerActive ? GameState.FreeRoam : GameState.Console;
     }
 
     IEnumerator Interact(GameObject obj)

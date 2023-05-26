@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using ED.SC;
 
 public class CreaturesParty : MonoBehaviour
 {
@@ -105,5 +106,12 @@ public class CreaturesParty : MonoBehaviour
             res += $"{text}";
         }
         return res;
+    }
+
+    [Command("GivePlayerCreature", "Give Player A Certian Creature", MonoTargetType.All)]
+    public static void GivePlayerCreature(string creatureName, int lvl)
+    {
+        Creature creature = new Creature(CreatureDB.GetObjectByName(creatureName), lvl);
+        GetPlayerParty().AddCreature(creature);
     }
 }
