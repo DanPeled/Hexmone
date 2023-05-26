@@ -194,7 +194,7 @@ public class Player : MonoBehaviour, ISavable
     void TriggerConsole(bool active)
     {
         playerActive = !active;
-        GameController.instance.state = playerActive ? GameState.FreeRoam : GameState.Console;
+        // GameController.instance.state = playerActive ? GameState.FreeRoam : GameState.Console;
     }
 
     IEnumerator Interact(GameObject obj)

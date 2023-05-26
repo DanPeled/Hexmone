@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
 using ED.SC;
+
 public enum BattleState
 {
     Start,
@@ -83,7 +84,6 @@ public class BattleSystem : MonoBehaviour
         this.wildCreature = wildCreature;
         isTrainerBattle = false;
         AudioManager.i.PlayMusic(wildBattleMusic);
-        Debug.Log($"Battle with {wildCreature.GetName()} and {playerUnit.creature.GetName()}");
 
         StartCoroutine(SetupBattle());
     }
@@ -100,6 +100,10 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(SetupBattle());
     }
 
+    /// <summary>
+    /// A function to initialize battle information
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator SetupBattle()
     {
         moveSelectionUI.gameObject.SetActive(false);
@@ -152,6 +156,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         escapeAttempts = 0;
+        Debug.Log($"Battle with {wildCreature.GetName()} and {playerUnit.creature.GetName()}");
 
         partyScreen.Init();
         StartCoroutine(PlayerAction());

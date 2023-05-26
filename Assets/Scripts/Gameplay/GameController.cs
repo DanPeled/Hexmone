@@ -1,5 +1,8 @@
+using System.Collections;
 using System;
 using UnityEngine;
+using TMPro;
+using DG.Tweening;
 
 public class GameController : MonoBehaviour
 {
@@ -12,6 +15,7 @@ public class GameController : MonoBehaviour
     public PartyScreen partyScreen;
     MenuController menu;
     public InventoryUI inventoryUI;
+    public TextMeshProUGUI screenshotText;
 
     private void Awake()
     {
@@ -98,6 +102,10 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            StartCoroutine(TakeScreenshot());
+        }
         if (state == GameState.Console)
         {
             return;
@@ -223,6 +231,13 @@ public class GameController : MonoBehaviour
         player.cameras[player.camIndex]
             .transform
             .position += new Vector3(moveOffset.x, moveOffset.y);
+    }
+
+    public IEnumerator TakeScreenshot()
+    {
+        ED.SC.Extra.ScreenCommands.CaptureScreenshot();
+        yield return screenshotText.DOFade(255, 1f).WaitForCompletion();
+        yield return screenshotText.DOFade(0, 1f).WaitForCompletion();
     }
 }
 

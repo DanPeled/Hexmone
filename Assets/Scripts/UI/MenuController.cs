@@ -70,4 +70,12 @@ public class MenuController : MonoBehaviour
             }
         }
     }
+
+    void Update()
+    {
+        if (Player.instance.console.activeInHierarchy)
+        {
+            CloseMenu();
+        }
+    }
 }
