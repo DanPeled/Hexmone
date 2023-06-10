@@ -15,7 +15,11 @@ public class CutsceneActorDrawer : PropertyDrawer
         isPlayerProp.boolValue = GUI.Toggle(togglePos, isPlayerProp.boolValue, "Is Player");
         isPlayerProp.serializedObject.ApplyModifiedProperties();
         if (!isPlayerProp.boolValue)
-            EditorGUI.PropertyField(fieldPos, property.FindPropertyRelative("character"), GUIContent.none);
+            EditorGUI.PropertyField(
+                fieldPos,
+                property.FindPropertyRelative("character"),
+                GUIContent.none
+            );
         EditorGUI.EndProperty();
     }
 }

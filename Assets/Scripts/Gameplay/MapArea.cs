@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using System.Linq;
-using Unity.RemoteConfig;
+// using Unity.RemoteConfig;
 public class MapArea : MonoBehaviour
 {
     public struct userAttributes { }
@@ -12,13 +12,13 @@ public class MapArea : MonoBehaviour
     public int totalChance = 0;
     public void Awake()
     {
-        ConfigManager.FetchCompleted += CheckForEvent;
-        ConfigManager.FetchConfigs<userAttributes, appAttributes>(new userAttributes(), new appAttributes());
+        // ConfigManager.FetchCompleted += CheckForEvent;
+        // ConfigManager.FetchConfigs<userAttributes, appAttributes>(new userAttributes(), new appAttributes());
     }
-    void CheckForEvent(ConfigResponse response)
-    {
+    // void CheckForEvent(ConfigResponse response)
+    // {
 
-    }
+    // }
     void OnValidate()
     {
         totalChance = 0;
@@ -33,7 +33,7 @@ public class MapArea : MonoBehaviour
     {
         bool repainted = Random.Range(1, 4070) == 1;
         int r = Random.Range(1, 101);
-        var creatureRecord = wildCreatures.First(c => r >= c.chanceLower && r <= c.chanceUpper);
+        var creatureRecord = wildCreatures.FirstOrDefault(c => r >= c.chanceLower && r <= c.chanceUpper);
         var levelRange = creatureRecord.levelRange;
         var lvl = levelRange.y == 0 ? levelRange.x : Random.Range(levelRange.x, levelRange.y + 1);
 

@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b66b7671-b638-49ba-b41a-79fea8909a72\"\r\n   
+  <dataStoreStatus>k__BackingField: 0
+  <configId>k__BackingField: 7b35eb09-ec60-43bc-9034-826dbf2c94d9
+  <currentEnvironmentName>k__BackingField: production
+  <currentEnvironmentId>k__BackingField: c0f8f9b9-3d93-4313-ac6e-3cc5a1869222
+  <currentEnvironmentIsDefault>k__BackingField: 1
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"899c92c0-f3ac-4b09-b207-b5ed6fc607ed\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Eli's Birthday\",\r\n      \"type\":
     \"bool\",\r\n      \"value\": false\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b66b7671-b638-49ba-b41a-79fea8909a72\"\r\n   
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"899c92c0-f3ac-4b09-b207-b5ed6fc607ed\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Eli's Birthday\",\r\n      \"type\":
     \"bool\",\r\n      \"value\": false\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"92a8affd-27b0-4a39-afc2-73600549d233\",\r\n   

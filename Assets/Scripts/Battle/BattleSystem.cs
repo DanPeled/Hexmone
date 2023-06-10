@@ -76,9 +76,11 @@ public class BattleSystem : MonoBehaviour
     public int currentAction,
         currentMove;
 
-    public void StartBattle(CreaturesParty playerParty, Creature wildCreature)
+    public void StartWildBattle(CreaturesParty playerParty, Creature wildCreature)
     {
+        Debug.Log($"Player party null : {playerParty is null}");
         player = playerParty.GetComponent<Player>();
+        Debug.Log($"Player null : {player is null}");
         player.playerActive = false;
         this.playerParty = playerParty;
         this.wildCreature = wildCreature;

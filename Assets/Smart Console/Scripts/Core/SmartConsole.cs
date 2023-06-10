@@ -251,7 +251,11 @@ namespace ED.SC
             LogMessages.Clear();
             OnClear?.Invoke();
         }
-
+        /// <summary>
+        /// Teleports the player to pos x and y
+        /// </summary>
+        /// <param name="x">X pos</param>
+        /// <param name="y">Y pos</param>
         [Command("tp", "teleports the player to the specified location")]
         public static void Tp(int x, int y)
         {

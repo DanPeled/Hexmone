@@ -216,7 +216,13 @@ public class Player : MonoBehaviour, ISavable
             horizontal *= moveLimiter;
             vertical *= moveLimiter;
         }
-        body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        StartCoroutine(Move(horizontal, vertical));
+    }
+
+    public IEnumerator Move(float x, float y)
+    {
+        body.velocity = new Vector2(x * runSpeed, y * runSpeed);
+        yield return null;
     }
 
     bool active = false;

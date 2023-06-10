@@ -85,7 +85,7 @@ public class GameController : MonoBehaviour
             .GetRandomWildCreature();
         var wildCreatureCopy = new Creature(wildCreature._base, wildCreature.level);
         battleSystem.isTrainerBattle = false;
-        battleSystem.StartBattle(playerParty, wildCreatureCopy);
+        battleSystem.StartWildBattle(playerParty, wildCreatureCopy);
     }
 
     public void StartTrainerBattle(TrainerController trainer)

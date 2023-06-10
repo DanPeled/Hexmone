@@ -73,7 +73,7 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-        if (Player.instance.console.activeInHierarchy)
+        if (Player.instance != null && Player.instance.console.activeInHierarchy)
         {
             CloseMenu();
         }

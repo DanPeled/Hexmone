@@ -13,10 +13,13 @@ public class MoveActorAction : CutSceneAction
         var charac = actor.GetCharacter();
         foreach (var pattern in movePatterns)
         {
-            yield return charac.Move(pattern);
+            yield return charac != null
+                ? charac.Move(pattern)
+                : Player.instance.Move(pattern.x, pattern.y);
         }
     }
 }
+
 [System.Serializable]
 public class CutsceneActor
 {
