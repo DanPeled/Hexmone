@@ -28,3 +28,6 @@ Fixed most bugs, added shop system, a basic shop layout, added URP, added Shader
 ## Devlog #7 — 05/12/2023:
 Working shop, repaintes, healers, new npc system, bug fixes, new transitions, new main menu design, and more...</br>
 ![img](https://cdn.discordapp.com/attachments/1092441779434950697/1104773047120052274/image.png)
+## Devlog #8 — 06/11/2023: 
+Fixed bugs, blocked wild battles due to un-fixed bug, added new background processes.
+
