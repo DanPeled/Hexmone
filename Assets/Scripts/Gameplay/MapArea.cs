@@ -49,6 +49,10 @@ public class CreatureEncounterRecord
     public Vector2Int levelRange;
     public int chancePercentage;
 
+    [field: SerializeField]
+    [field: HideInInspector]
     public int chanceLower { get; set; }
+    [field: SerializeField]
+    [field: HideInInspector]
     public int chanceUpper { get; set; }
 }
