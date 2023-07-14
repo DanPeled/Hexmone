@@ -38,6 +38,6 @@ It's been a while since the last devlog, the wild-battle bug has been fixed than
     LEFT : A 
     RIGHT : D
     ACTION : J
-    BACJ : K
+    BACK : K
     START : Enter / Return
 ```
