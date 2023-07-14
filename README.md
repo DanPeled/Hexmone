@@ -30,4 +30,14 @@ Working shop, repaintes, healers, new npc system, bug fixes, new transitions, ne
 ![img](https://cdn.discordapp.com/attachments/1092441779434950697/1104773047120052274/image.png)
 ## Devlog #8 — 06/11/2023: 
 Fixed bugs, blocked wild battles due to un-fixed bug, added new background processes.
-
+## Devlog #9 - 07/14/2023:
+It's been a while since the last devlog, the wild-battle bug has been fixed thanks to @Andreas010 , a custom controller system has been implemented but not given a UI yet, so the current controls are : 
+```
+    UP : W
+    DOWN : S
+    LEFT : A 
+    RIGHT : D
+    ACTION : J
+    BACJ : K
+    START : Enter / Return
+```
