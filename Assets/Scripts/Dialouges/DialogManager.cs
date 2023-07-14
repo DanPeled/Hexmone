@@ -128,4 +128,10 @@ public class DialogManager : MonoBehaviour
         if (dialog != null)
             SetDialog(dialog.lines[currentLine]);
     }
+    string replaceKeywords(string originalText){
+        string newText = originalText;
+        newText.Replace("@player", $"{Player.instance.playerName}")
+
+        return newText;
+    }
 }
