@@ -25,13 +25,34 @@ public class InputSystem : MonoBehaviour
     void Update()
     {
         i = this;
-        up.update(Input.GetKey(ControllerProfile.upKeyCode));
-        down.update(Input.GetKey(ControllerProfile.downKeyCode));
-        left.update(Input.GetKey(ControllerProfile.leftKeyCode));
-        right.update(Input.GetKey(ControllerProfile.rightKeyCode));
-        action.update(Input.GetKey(ControllerProfile.actionKeyCode));
-        back.update(Input.GetKey(ControllerProfile.backKeyCode));
-        start.update(Input.GetKey(ControllerProfile.startKeyCode));
+
+        if (isMobile)
+        {
+            // Handle mobile input here
+        }
+        else
+        {
+            // Handle keyboard input here
+            up.update(Input.GetKey(ControllerProfile.upKeyCode));
+            down.update(Input.GetKey(ControllerProfile.downKeyCode));
+            left.update(Input.GetKey(ControllerProfile.leftKeyCode));
+            right.update(Input.GetKey(ControllerProfile.rightKeyCode));
+            action.update(Input.GetKey(ControllerProfile.actionKeyCode));
+            back.update(Input.GetKey(ControllerProfile.backKeyCode));
+            start.update(Input.GetKey(ControllerProfile.startKeyCode));
+        }
+
+        // Check if any controllers are connected
+        string[] joystickNames = Input.GetJoystickNames();
+        if (joystickNames.Length > 0 && !string.IsNullOrEmpty(joystickNames[0]))
+        {
+            // Handle gamepad input only if a controller is connected
+            Vector2 gamepadMovementInput = ControllerProfile.GetGamepadMovementInput();
+            up.update(gamepadMovementInput.y > 0);
+            down.update(gamepadMovementInput.y < 0);
+            left.update(gamepadMovementInput.x < 0);
+            right.update(gamepadMovementInput.x > 0);
+        }
     }
 }
 
@@ -85,5 +106,28 @@ public class ControllerProfile
         actionKeyCode = KeyCode.J;
         backKeyCode = KeyCode.K;
         startKeyCode = KeyCode.Return;
+    }
+
+    public static void ResetGamepadProfile()
+    {
+        // Movement key codes for gamepad
+        upKeyCode = KeyCode.None;
+        downKeyCode = KeyCode.None;
+        leftKeyCode = KeyCode.None;
+        rightKeyCode = KeyCode.None;
+
+        // Actions key codes for gamepad
+        actionKeyCode = KeyCode.JoystickButton0; // A button
+        backKeyCode = KeyCode.JoystickButton1; // B button
+        startKeyCode = KeyCode.JoystickButton9; // Start button
+    }
+
+    // Use this method to check the movement input on a gamepad
+    public static Vector2 GetGamepadMovementInput()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        return new Vector2(horizontalInput, verticalInput);
     }
 }
