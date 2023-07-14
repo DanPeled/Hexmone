@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+
 public class QuestList : MonoBehaviour, ISavable
 {
     List<Quest> quests = new List<Quest>();
@@ -19,20 +20,24 @@ public class QuestList : MonoBehaviour, ISavable
     {
         return FindObjectOfType<QuestList>();
     }
+
     public bool IsStarted(string questName)
     {
         var questStatus = quests.FirstOrDefault(p => p.Base.name == questName)?.status;
         return questStatus == QuestStatus.Started || questStatus == QuestStatus.Completed;
     }
+
     public bool IsCompleted(string questName)
     {
         var questStatus = quests.FirstOrDefault(p => p.Base.name == questName)?.status;
         return questStatus == QuestStatus.Completed;
     }
+
     public object CaptureState()
     {
         return quests.Select(q => q.GetSaveData()).ToList();
     }
+
     public void RestoreState(object state)
     {
         var saveData = state as List<QuestSaveData>;

@@ -3,15 +3,18 @@ using UnityEngine;
 public class QuestObject : MonoBehaviour
 {
     public QuestBase questToCheck;
-    public ObjectActions onStart, onComplete;
+    public ObjectActions onStart,
+        onComplete;
 
     QuestList questList;
+
     void Start()
     {
         questList = QuestList.GetQuestList();
         questList.OnUpdated += UpdateObjectStatus;
         UpdateObjectStatus();
     }
+
     void OnDestroy()
     {
         questList.OnUpdated -= UpdateObjectStatus;
@@ -58,9 +61,11 @@ public class QuestObject : MonoBehaviour
             }
         }
     }
-
 }
+
 public enum ObjectActions
 {
-    None, Enable, Disable
+    None,
+    Enable,
+    Disable
 }

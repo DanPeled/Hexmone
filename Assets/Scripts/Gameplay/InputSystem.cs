@@ -12,31 +12,78 @@ public class InputSystem : MonoBehaviour
         start = new Toggle();
     public bool isMobile;
     public static InputSystem i;
+    public bool customProfile = false;
+
+    void Start()
+    {
+        if (!customProfile)
+        {
+            ControllerProfile.ResetProfile();
+        }
+    }
+
     void Update()
     {
         i = this;
-        // Normal Controls
-        if (MobileControls.i == null && !isMobile)
-        {
-            up.update(Input.GetAxisRaw("Vertical") > 0);
-            down.update(Input.GetAxisRaw("Vertical") < 0);
-            left.update(Input.GetAxisRaw("Horizontal") < 0);
-            right.update(Input.GetAxisRaw("Horizontal") > 0);
-            action.update(Input.GetButton("Action") || Input.GetKey(KeyCode.J));
-            back.update(Input.GetButton("Back") || Input.GetKey(KeyCode.K));
-            start.update(Input.GetButton("Start"));
-        }
+        up.update(Input.GetKey(ControllerProfile.upKeyCode));
+        down.update(Input.GetKey(ControllerProfile.downKeyCode));
+        left.update(Input.GetKey(ControllerProfile.leftKeyCode));
+        right.update(Input.GetKey(ControllerProfile.rightKeyCode));
+        action.update(Input.GetKey(ControllerProfile.actionKeyCode));
+        back.update(Input.GetKey(ControllerProfile.backKeyCode));
+        start.update(Input.GetKey(ControllerProfile.startKeyCode));
+    }
+}
 
-        // Mobile Controls
-        else if (isMobile || MobileControls.i != null)
-        {
-            up.update(Input.GetAxisRaw("Vertical") > 0 || MobileControls.i.up);
-            down.update(Input.GetAxisRaw("Vertical") < 0 || MobileControls.i.down);
-            left.update(Input.GetAxisRaw("Horizontal") < 0 || MobileControls.i.left);
-            right.update(Input.GetAxisRaw("Horizontal") > 0 || MobileControls.i.right);
-            action.update(Input.GetButton("Action") || Input.GetKey(KeyCode.J) || MobileControls.i.action);
-            back.update(Input.GetButton("Back") || Input.GetKey(KeyCode.K) || MobileControls.i.back);
-            start.update(Input.GetButton("Start") || MobileControls.i.start);
-        }
+public class ControllerProfile
+{
+    public static KeyCode actionKeyCode,
+        startKeyCode,
+        selectKeyCode,
+        rightKeyCode,
+        leftKeyCode,
+        upKeyCode,
+        downKeyCode,
+        backKeyCode;
+
+    public static void ReplaceKey(KeyCode oldKeyCode, KeyCode newKeyCode)
+    {
+        if (actionKeyCode == oldKeyCode)
+            actionKeyCode = newKeyCode;
+
+        if (startKeyCode == oldKeyCode)
+            startKeyCode = newKeyCode;
+
+        if (selectKeyCode == oldKeyCode)
+            selectKeyCode = newKeyCode;
+
+        if (rightKeyCode == oldKeyCode)
+            rightKeyCode = newKeyCode;
+
+        if (leftKeyCode == oldKeyCode)
+            leftKeyCode = newKeyCode;
+
+        if (upKeyCode == oldKeyCode)
+            upKeyCode = newKeyCode;
+
+        if (downKeyCode == oldKeyCode)
+            downKeyCode = newKeyCode;
+
+        if (backKeyCode == oldKeyCode)
+            backKeyCode = newKeyCode;
+    }
+
+    public static void ResetProfile()
+    {
+        //Movement key codes
+        upKeyCode = KeyCode.W;
+        downKeyCode = KeyCode.S;
+        leftKeyCode = KeyCode.A;
+        rightKeyCode = KeyCode.D;
+
+        //Actions key codes
+        actionKeyCode = KeyCode.J;
+        backKeyCode = KeyCode.K;
+        startKeyCode = KeyCode.Return;
     }
 }
