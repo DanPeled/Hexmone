@@ -120,8 +120,7 @@ public class BattleSystem : MonoBehaviour
             dialogBox.SetMoveNames(playerUnit.creature.moves);
 
             yield return dialogBox.TypeDialog(
-                $"A Wild {(enemyUnit.creature.repainted ? "Repainted" : "")}{enemyUnit.creature.GetName()} Appeared",
-                dialogBox.dialogText
+                $"A Wild {(enemyUnit.creature.repainted ? "Repainted" : "")}{enemyUnit.creature.GetName()} Appeared"
             );
         }
         else
@@ -318,8 +317,7 @@ public class BattleSystem : MonoBehaviour
         string usedText = sourceUnit.isPlayerUnit ? "" : "Enemy";
         if (battleState != BattleState.BattleOver)
             yield return dialogBox.TypeDialog(
-                $"{usedText} {sourceUnit.creature.GetName()} Used {move.base_.name}",
-                dialogBox.dialogText
+                $"{usedText} {sourceUnit.creature.GetName()} Used {move.base_.name}"
             );
 
         if (CheckIfMoveHits(move, sourceUnit.creature, targetUnit.creature))
@@ -375,10 +373,7 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            yield return dialogBox.TypeDialog(
-                $"{sourceUnit.creature.GetName()}'s attack missed",
-                dialogBox.dialogText
-            );
+            yield return dialogBox.TypeDialog($"{sourceUnit.creature.GetName()}'s attack missed");
         }
     }
 
@@ -480,16 +475,12 @@ public class BattleSystem : MonoBehaviour
         if (!faintedUnit.isPlayerUnit)
         {
             yield return dialogBox.TypeDialog(
-                $"The Enemy {faintedUnit.creature.GetName()} Fainted",
-                dialogBox.dialogText
+                $"The Enemy {faintedUnit.creature.GetName()} Fainted"
             );
         }
         else
         {
-            yield return dialogBox.TypeDialog(
-                $"Your {faintedUnit.creature.GetName()} Fainted",
-                dialogBox.dialogText
-            );
+            yield return dialogBox.TypeDialog($"Your {faintedUnit.creature.GetName()} Fainted");
         }
         faintedUnit.PlayFaintAnimation();
         yield return new WaitForSeconds(0.5f);
@@ -925,10 +916,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (playerUnit.creature.HP > 0)
         {
-            yield return dialogBox.TypeDialog(
-                $"Come back {playerUnit.creature.GetName()}",
-                dialogBox.dialogText
-            );
+            yield return dialogBox.TypeDialog($"Come back {playerUnit.creature.GetName()}");
             playerUnit.PlayFaintAnimation();
             yield return new WaitForSeconds(2f);
         }
@@ -937,8 +925,7 @@ public class BattleSystem : MonoBehaviour
 
         dialogBox.SetMoveNames(newCreature.moves);
         yield return dialogBox.TypeDialog(
-            $"Go {(enemyUnit.creature.repainted ? "Repainted" : "")} {newCreature.GetName()}!",
-            dialogBox.dialogText
+            $"Go {(enemyUnit.creature.repainted ? "Repainted" : "")} {newCreature.GetName()}!"
         );
         playerUnit.image.color = playerUnit.originalColor;
         if (isTrainerAboutToUse)

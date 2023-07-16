@@ -43,7 +43,7 @@ public class BattleDialogBox : MonoBehaviour
     /// <param name="dialog">The dialog text to type.</param>
     /// <param name="dialogText">The dialog text component.</param>
     /// <returns></returns>
-    private IEnumerator TypeDialog(string dialog, TextMeshProUGUI dialogText)
+    public IEnumerator TypeDialog(string dialog, TextMeshProUGUI dialogText)
     {
         dialogText.text = " ";
         yield return new WaitForSeconds(0.03f);
