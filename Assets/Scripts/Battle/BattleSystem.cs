@@ -219,6 +219,10 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunTurns(BattleAction playerAction)
     {
+        if (battleState == BattleState.BattleOver)
+        {
+            yield break;
+        }
         battleState = BattleState.RunningTurn;
 
         if (playerAction == BattleAction.Move)
@@ -298,6 +302,8 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
     {
+        if (battleState == BattleState.BattleOver)
+            yield break;
         bool canRunMove = sourceUnit.creature.OnBeforeMove();
         if (!canRunMove)
         {
@@ -1061,6 +1067,7 @@ public class BattleSystem : MonoBehaviour
         if (enemySpeed < playerSpeed)
         {
             yield return dialogBox.TypeDialog($"Ran away safely!");
+            battleState = BattleState.BattleOver;
             BattleOver(true);
         }
         else
@@ -1071,6 +1078,7 @@ public class BattleSystem : MonoBehaviour
             if (UnityEngine.Random.Range(0, 256) < f)
             {
                 yield return dialogBox.TypeDialog($"Ran away safely!");
+                battleState = BattleState.BattleOver;
                 BattleOver(true);
             }
             else

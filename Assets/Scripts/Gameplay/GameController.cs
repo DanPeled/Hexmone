@@ -1,11 +1,14 @@
-using System.Collections;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
 public class GameController : MonoBehaviour
 {
+    public bool battleActive = false; // Flag to track if a battle is already active
     public GameState state,
         prevState,
         stateBeforeEvolution;
@@ -16,6 +19,8 @@ public class GameController : MonoBehaviour
     MenuController menu;
     public InventoryUI inventoryUI;
     public TextMeshProUGUI screenshotText;
+
+    private Coroutine screenshotCoroutine;
 
     private void Awake()
     {
@@ -48,7 +53,7 @@ public class GameController : MonoBehaviour
         {
             if (state == GameState.Dialog)
             {
-                state = state = GameState.FreeRoam;
+                state = prevState;
             }
         };
         menu.onBack += () =>
@@ -74,6 +79,8 @@ public class GameController : MonoBehaviour
 
     public void StartBattle()
     {
+        if (battleActive) // Check if a battle is already active
+            return;
         player.playerActive = false;
         state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
@@ -86,10 +93,13 @@ public class GameController : MonoBehaviour
         var wildCreatureCopy = new Creature(wildCreature._base, wildCreature.level);
         battleSystem.isTrainerBattle = false;
         battleSystem.StartWildBattle(playerParty, wildCreatureCopy);
+        battleActive = true; // Set the battle flag to true
     }
 
     public void StartTrainerBattle(TrainerController trainer)
     {
+        if (battleActive) // Check if a battle is already active
+            return;
         state = GameState.Battle;
         this.trainer = trainer;
         battleSystem.gameObject.SetActive(true);
@@ -98,13 +108,18 @@ public class GameController : MonoBehaviour
         var trainerParty = trainer.GetComponent<CreaturesParty>();
         battleSystem.StartTrainerBattle(playerParty, trainerParty);
         player.SwitchCamera(1);
+        battleActive = true; // Set the battle flag to true
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            StartCoroutine(TakeScreenshot());
+            if (screenshotCoroutine != null)
+            {
+                StopCoroutine(screenshotCoroutine);
+            }
+            screenshotCoroutine = StartCoroutine(TakeScreenshot());
         }
         if (state == GameState.Console)
         {
@@ -183,6 +198,7 @@ public class GameController : MonoBehaviour
         if (hasEvolutions)
             StartCoroutine(playerParty.RunEvolutions());
         // else AudioManager.i.PlayMusic(); // play main music
+        battleActive = false; // Reset the battle flag
     }
 
     void onMenuSelected(int selected)
