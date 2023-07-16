@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+
 public class DialogManager : MonoBehaviour
 {
     [Header("NPC Details")]
@@ -13,21 +14,33 @@ public class DialogManager : MonoBehaviour
     public TextMeshProUGUI npcName;
     public Action OnShowDialog;
     public Action OnCloseDialog;
+
     [Header("Refrences")]
     public GameObject dialogBox;
     public ChoiceBox choiceBox;
     public TextMeshProUGUI dialogText;
+
     [Header("Stats")]
     public int lettersPerSecond;
     public static DialogManager instance;
-    [SerializeField] public int currentLine;
+
+    [SerializeField]
+    public int currentLine;
     Action onEnd;
+
     void Awake()
     {
         instance = this;
     }
+
     Dialog dialog;
-    public IEnumerator ShowDialog(Dialog dialog, List<string> choices = null, Action<int> onActionSelected = null, Transform init = null)
+
+    public IEnumerator ShowDialog(
+        Dialog dialog,
+        List<string> choices = null,
+        Action<int> onActionSelected = null,
+        Transform init = null
+    )
     {
         if (init == null)
         {
@@ -49,24 +62,28 @@ public class DialogManager : MonoBehaviour
         dialogBox.SetActive(false);
         OnCloseDialog?.Invoke();
     }
+
     public void SetNPCDetails(NPCController npc)
     {
         npcDetails.SetActive(true);
         npcName.text = npc.Name;
         npcImage.sprite = npc.dialougeSprite;
     }
+
     public void SetTrainerDetails(TrainerController trainer)
     {
         npcDetails.SetActive(true);
         npcName.text = trainer.Name;
         npcImage.sprite = trainer.dialougeSprite;
     }
+
     public void ClearDetails()
     {
         npcDetails.SetActive(false);
         npcName.name = "";
         npcImage.sprite = null;
     }
+
     public IEnumerator TypeDialog(string line)
     {
         yield return new WaitForEndOfFrame();
@@ -78,8 +95,17 @@ public class DialogManager : MonoBehaviour
         }
         OnShowDialog?.Invoke();
     }
-    public IEnumerator ShowDialogText(string text, bool waitForInput = true, bool autoClose = true, List<string> choices = null, Action<int> onChoiceSelected = null, Transform init = null)
+
+    public IEnumerator ShowDialogText(
+        string text,
+        bool waitForInput = true,
+        bool autoClose = true,
+        List<string> choices = null,
+        Action<int> onChoiceSelected = null,
+        Transform init = null
+    )
     {
+        text = ReplaceKeywords(text);
         if (init == null)
         {
             ClearDetails();
@@ -109,29 +135,32 @@ public class DialogManager : MonoBehaviour
         CloseDialog();
         OnCloseDialog?.Invoke();
     }
+
     public void CloseDialog()
     {
         dialogBox.SetActive(false);
         OnCloseDialog?.Invoke();
         GameController.instance.state = GameController.instance.prevState;
     }
+
     public void SetDialog(string line)
     {
         this.dialogText.text = line;
     }
-    public void HandleUpdate()
-    {
 
-    }
+    public void HandleUpdate() { }
+
     void Update()
     {
         if (dialog != null)
             SetDialog(dialog.lines[currentLine]);
     }
-    string replaceKeywords(string originalText){
-        string newText = originalText;
-        newText.Replace("@player", $"{Player.instance.playerName}")
 
+    string ReplaceKeywords(string originalText)
+    {
+        string newText = originalText;
+        newText = newText.Replace("@player", $"{Player.instance.playerName}");
+        
         return newText;
     }
 }
