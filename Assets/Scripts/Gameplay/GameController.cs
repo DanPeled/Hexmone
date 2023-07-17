@@ -269,5 +269,6 @@ public enum GameState
     Bag,
     Evolution,
     Shop,
-    Console
+    Console,
+    SummaryScreen
 }

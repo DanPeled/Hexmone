@@ -63,6 +63,15 @@ public class DialogManager : MonoBehaviour
         OnCloseDialog?.Invoke();
     }
 
+    public IEnumerator TypeDialog(Dialog dialog)
+    {
+        foreach (string line in dialog.lines)
+        {
+            string text = ReplaceKeywords(line);
+            yield return ShowDialogText(text);
+        }
+    }
+
     public void SetNPCDetails(NPCController npc)
     {
         npcDetails.SetActive(true);
@@ -160,7 +169,7 @@ public class DialogManager : MonoBehaviour
     {
         string newText = originalText;
         newText = newText.Replace("@player", $"{Player.instance.playerName}");
-        
+
         return newText;
     }
 }

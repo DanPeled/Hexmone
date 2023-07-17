@@ -54,7 +54,7 @@ public class BattleDialogBox : MonoBehaviour
             dialogText.text += letter;
             yield return new WaitForSeconds(1f / letterPerSecond);
         }
-
+        dialogText.text = dialog;
         yield return new WaitForSeconds(1f);
     }
 

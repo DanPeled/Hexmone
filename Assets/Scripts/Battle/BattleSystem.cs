@@ -1044,35 +1044,36 @@ public class BattleSystem : MonoBehaviour
 
         if (isTrainerBattle)
         {
-            yield return dialogBox.TypeDialog($"You can't run from trainer battles!");
+            dialogBox.TypeDialog("You can't run from trainer battles!");
             battleState = BattleState.RunningTurn;
             yield break;
         }
+
         escapeAttempts++;
         int playerSpeed = playerUnit.creature.Speed;
         int enemySpeed = enemyUnit.creature.Speed;
+
         if (enemySpeed < playerSpeed)
         {
-            yield return dialogBox.TypeDialog($"Ran away safely!");
+            dialogBox.TypeDialog("Ran away safely!");
+            battleState = BattleState.BattleOver;
+            BattleOver(true);
+            yield break;
+        }
+
+        float escapeChance = (playerSpeed * 128) / enemySpeed + 30 * escapeAttempts;
+        escapeChance %= 256;
+
+        if (UnityEngine.Random.Range(0, 256) < escapeChance)
+        {
+            dialogBox.TypeDialog("Ran away safely!");
             battleState = BattleState.BattleOver;
             BattleOver(true);
         }
         else
         {
-            float f = (playerSpeed * 128) / enemySpeed + 30 * escapeAttempts;
-            f = f % 256;
-
-            if (UnityEngine.Random.Range(0, 256) < f)
-            {
-                yield return dialogBox.TypeDialog($"Ran away safely!");
-                battleState = BattleState.BattleOver;
-                BattleOver(true);
-            }
-            else
-            {
-                yield return dialogBox.TypeDialog($"Can't escape!");
-                battleState = BattleState.RunningTurn;
-            }
+            dialogBox.TypeDialog("Can't escape!");
+            battleState = BattleState.RunningTurn;
         }
     }
 }
