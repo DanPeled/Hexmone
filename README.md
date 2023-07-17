@@ -41,3 +41,5 @@ It's been a while since the last devlog, the wild-battle bug has been fixed than
     BACK : K
     START : Enter / Return
 ```
+## Devlog #10 — 7/17/2023:
+Fixed the dialog box bug, fixed the sound issue with SFX's (Being too loud), and more bug fixes
