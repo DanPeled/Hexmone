@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     MenuController menu;
     public InventoryUI inventoryUI;
     public TextMeshProUGUI screenshotText;
-
+    public GameObject notificationBar;
     private Coroutine screenshotCoroutine;
 
     private void Awake()
@@ -113,6 +113,10 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (!notificationBar.activeInHierarchy && state == GameState.Dialog)
+        {
+            state = GameState.FreeRoam;
+        }
         if (Input.GetKeyDown(KeyCode.F2))
         {
             if (screenshotCoroutine != null)

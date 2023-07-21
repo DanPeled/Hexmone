@@ -16,9 +16,10 @@ public class AudioManager : MonoBehaviour
     public AudioSource sfxPlayer;
 
     public float fadeDuration = 0.75f;
-    public float originalMusicVolume;
+    private float desiredMusicVolume;
+    private AudioClip currentMusic;
+
     public static AudioManager i;
-    public AudioClip currentMusic;
 
     void Awake()
     {
@@ -27,7 +28,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        originalMusicVolume = musicPlayer.volume;
+        desiredMusicVolume = musicPlayer.volume;
         sfxLookup = sfxList.ToDictionary(x => x.audioId);
     }
 
@@ -35,31 +36,47 @@ public class AudioManager : MonoBehaviour
     {
         if (clip == null || clip == currentMusic)
             return;
+
         currentMusic = clip;
         StartCoroutine(PlayMusicAsync(clip, loop, fade));
     }
 
     IEnumerator PlayMusicAsync(AudioClip clip, bool loop, bool fade)
     {
+        // Cancel any existing fade
+        musicPlayer.DOKill();
+
+        // Fade out if required
         if (fade)
         {
-            yield return musicPlayer.DOFade(0, fadeDuration).WaitForCompletion();
+            musicPlayer.DOFade(0, fadeDuration);
+            yield return new WaitForSeconds(fadeDuration);
         }
 
         musicPlayer.clip = clip;
         musicPlayer.loop = loop;
         musicPlayer.Play();
 
+        // Fade in if required
         if (fade)
         {
-            yield return musicPlayer.DOFade(originalMusicVolume, fadeDuration).WaitForCompletion();
+            musicPlayer.volume = 0; // Start at 0 volume
+            musicPlayer.DOFade(desiredMusicVolume, fadeDuration);
+            yield return new WaitForSeconds(fadeDuration);
         }
     }
 
     IEnumerator StopMusicAsync()
     {
-        yield return musicPlayer.DOFade(0, fadeDuration).WaitForCompletion();
+        // Cancel any existing fade
+        musicPlayer.DOKill();
+
+        musicPlayer.DOFade(0, fadeDuration);
+        yield return new WaitForSeconds(fadeDuration);
+
         musicPlayer.Stop();
+        musicPlayer.volume = desiredMusicVolume; // Set the music volume to the desired value
+        musicPlayer.DOFade(desiredMusicVolume, fadeDuration);
     }
 
     public void PlaySFX(AudioClip clip, bool pauseMusic = false)
@@ -91,7 +108,7 @@ public class AudioManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         musicPlayer.volume = 0;
         musicPlayer.UnPause();
-        musicPlayer.DOFade(originalMusicVolume, fadeDuration);
+        musicPlayer.DOFade(desiredMusicVolume, fadeDuration);
     }
 
     public void StopMusic()
